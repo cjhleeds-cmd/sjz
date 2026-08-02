@@ -524,7 +524,7 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                         <h4>{dynasty.label}的历史坐标</h4>
                         <p>{dynasty.prompt}</p>
                         <div className="overview-details"><span>主要都城</span><strong>{dynasty.capitals}</strong><span>同期世界</span><strong>{dynasty.world}</strong></div>
-                        <footer><span>{dynasty.keywords.join(" · ")}</span><strong>展开朝代</strong></footer>
+                        <footer><span>{dynasty.keywords.join(" · ")}</span></footer>
                       </div>
                       {visibleEvents.map((event) => (
                         <div className={`river-card event-card ${event.track}`} key={`event-${event.id}`}>
@@ -584,7 +584,7 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                   <span>这条航线追问</span>
                   <h3>{journey.question}</h3>
                   <p>{journey.description}</p>
-                  <div className="journey-progress"><i style={{ width: `${(completedCount / journeyEvents.length) * 100}%` }} /><span>{completedCount} / {journeyEvents.length} 已点亮</span></div>
+                  <div className="journey-progress"><i style={{ width: `${journeyEvents.length ? (completedCount / journeyEvents.length) * 100 : 0}%` }} /><span>{completedCount} / {journeyEvents.length} 已点亮</span></div>
                 </div>
                 <div className="journey-stops">
                   {journeyEvents.map((event, index) => (
@@ -594,9 +594,11 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                     </button>
                   ))}
                 </div>
-                <button type="button" className="journey-start" onClick={() => openEvent(journeyEvents.find((event) => !completedIds.includes(event.id)) ?? journeyEvents[0])}>
-                  {completedCount ? "继续这条航线" : "从第一个现场出发"}<span>→</span>
-                </button>
+                {journeyEvents.length > 0 && (
+                  <button type="button" className="journey-start" onClick={() => openEvent(journeyEvents.find((event) => !completedIds.includes(event.id)) ?? journeyEvents[0])}>
+                    {completedCount ? "继续这条航线" : "从第一个现场出发"}<span>→</span>
+                  </button>
+                )}
               </article>
             );
           })}
