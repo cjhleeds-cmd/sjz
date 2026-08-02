@@ -517,26 +517,17 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                   </header>
 
                   {isExpanded && <div className="era-rail-wrap" id={`dynasty-panel-${dynasty.id}`}>
-                    <div className="era-rail" aria-label={`${dynasty.label}事件，左右滑动浏览`} tabIndex={0}>
-                      <div className="river-card dynasty-overview-card">
-                        <div className="card-topline"><span>朝代概览</span><i>{dynasty.phase}</i></div>
-                        <time>{dynasty.dates}</time>
-                        <h4>{dynasty.label}的历史坐标</h4>
-                        <p>{dynasty.prompt}</p>
-                        <div className="overview-details"><span>主要都城</span><strong>{dynasty.capitals}</strong><span>同期世界</span><strong>{dynasty.world}</strong></div>
-                        <footer><span>{dynasty.keywords.join(" · ")}</span></footer>
-                      </div>
+                    <div className="era-rail era-rail-vertical" aria-label={`${dynasty.label}事件`} >
                       {visibleEvents.map((event) => (
                         <div className={`river-card event-card ${event.track}`} key={`event-${event.id}`}>
                           <div className="card-topline"><span>{event.track === "china" ? "中国" : "世界"}</span><i>{event.category} · {categoryMarks[event.category]}</i></div>
-                          <time>{formatYear(event.year)}{event.endYear ? `—${formatYear(event.endYear)}` : ""}</time>
+                          <time className="event-card-time">{formatYear(event.year)}{event.endYear ? `—${formatYear(event.endYear)}` : ""}</time>
                           <h4>{event.title}</h4>
-                          <p>{event.summary}</p>
+                          <p>{event.summary && event.summary !== event.title ? event.summary : event.place}</p>
                           <footer><span>{event.place}</span></footer>
                         </div>
                       ))}
                       {!visibleEvents.length && <div className="empty-rail">这个时代暂时没有符合筛选的内容。</div>}
-                      <div className="rail-end" aria-hidden="true"><span>继续向下</span><i>↓</i></div>
                     </div>
                   </div>}
                 </div>
