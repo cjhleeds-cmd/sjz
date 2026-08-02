@@ -79,7 +79,6 @@ const figures: HistoryFigure[] = [
 ];
 
 const contentFilters = ["全部", "中国", "世界", "人物"] as const;
-const todayEventIds = ["zheng-he", "qin-unification", "paper", "tang-changan", "opium-war", "xinhai", "reform-opening"];
 export type AppView = "home" | "timeline" | "journeys" | "records";
 
 function materialTypeFor(title: string) {
@@ -280,7 +279,7 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
   const [contentFilter, setContentFilter] = useState<(typeof contentFilters)[number]>("全部");
   const [expandedDynastyIds, setExpandedDynastyIds] = useState<string[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [todayEventIndex, setTodayEventIndex] = useState(0);
+  const [todayEventId, setTodayEventId] = useState<string>(events[0].id);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [oralRecords, setOralRecords] = useState<OralMissionRecord[]>([]);
@@ -290,9 +289,10 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
   const favoriteTouchedRef = useRef(false);
   const selectedEvent = selectedEventId ? eventById.get(selectedEventId) ?? null : null;
   const activeMission = useMemo(() => selectedEvent ? eventMission(selectedEvent) : selectedFigure ? figureMission(selectedFigure) : null, [selectedEvent, selectedFigure]);
-  const todayEvent = eventById.get(todayEventIds[todayEventIndex]) ?? events[0];
+  const todayEvent = eventById.get(todayEventId) ?? events[0];
 
   useEffect(() => {
+    setTodayEventId(events[Math.floor(Math.random() * events.length)].id);
     const timeout = window.setTimeout(() => {
       try {
         if (!completedTouchedRef.current) setCompletedIds(JSON.parse(localStorage.getItem("history-river-completed") ?? "[]"));
@@ -335,7 +335,8 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
   }
 
   function rotateTodayEvent() {
-    setTodayEventIndex((current) => (current + 1) % todayEventIds.length);
+    const pool = events.filter((e) => e.id !== todayEventId);
+    setTodayEventId(pool[Math.floor(Math.random() * pool.length)].id);
   }
 
   function toggleDynasty(id: string) {
