@@ -1898,10 +1898,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .insertion-ghost strong { margin-top: 5px; color: #fff; font-size: 18px; }
 .insertion-ghost small { margin-top: 7px; color: #f0d6a7; font-size: 11px; }
 .insertion-result { padding: 28px; border-top: 1px solid var(--line); background: rgba(251,247,239,.97); animation: rise .32s ease-out; }
-.insertion-result > header { display: flex; align-items: center; gap: 18px; }
-.insertion-result-badge { min-width: 125px; padding: 13px 14px; border-radius: 12px; color: #fff; background: var(--jade); text-align: center; font-size: 12px; font-weight: 700; }
-.insertion-result > header span { color: var(--text-secondary); font-size: 11px; }
-.insertion-result > header h3 { margin: 4px 0 0; font-size: 24px; }
+.insertion-result > header { display: flex; align-items: stretch; gap: 16px; }
+.insertion-result-badge { min-width: 100px; padding: 14px 12px; border-radius: 12px; color: #fff; background: var(--jade); text-align: center; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.insertion-result-time { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.insertion-result-placed, .insertion-result-actual { padding: 10px 14px; border-radius: 10px; background: rgba(255,255,255,.6); border: 1px solid var(--line); }
+.insertion-result-placed span, .insertion-result-actual span { display: block; color: var(--text-secondary); font-size: 10px; letter-spacing: .04em; }
+.insertion-result-placed strong, .insertion-result-actual strong { display: block; margin-top: 4px; font-size: 20px; font-weight: 700; }
+.insertion-result-actual { border-color: rgba(139,69,19,.2); background: rgba(139,69,19,.05); }
+.insertion-result-actual strong { color: var(--red); }
 .insertion-relations { margin-top: 23px; }
 .insertion-relations-label { display: block; margin-bottom: 10px; color: var(--text-secondary); font-size: 11px; }
 .insertion-relations-grid { display: grid; grid-template-columns: 1fr 24px 1fr 24px 1fr 1.12fr; gap: 9px; align-items: stretch; }
@@ -2053,9 +2057,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .insertion-loupe strong { font-size: 20px; }
   .insertion-ghost { width: min(215px, 66vw); transform: translate(-50%, calc(-100% - 35px)); }
   .insertion-result { padding: 20px 15px; }
-  .insertion-result > header { align-items: flex-start; gap: 11px; }
-  .insertion-result-badge { min-width: 94px; padding: 11px 8px; font-size: 10px; }
-  .insertion-result > header h3 { font-size: 19px; }
+  .insertion-result > header { flex-direction: column; gap: 10px; }
+  .insertion-result-badge { min-width: auto; padding: 10px 14px; font-size: 11px; align-self: flex-start; }
+  .insertion-result-time { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .insertion-result-placed, .insertion-result-actual { padding: 8px 12px; }
+  .insertion-result-placed strong, .insertion-result-actual strong { font-size: 17px; }
   .insertion-relations-grid { grid-template-columns: 1fr; gap: 7px; }
   .insertion-relations-grid > i { display: none; }
   .insertion-relations-grid button,

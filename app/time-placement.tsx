@@ -472,7 +472,10 @@ export function TimePlacement({
               <div className="insertion-result" aria-live="polite">
                 <header>
                   <div className="insertion-result-badge">{result}</div>
-                  <div><span>你的落点 {formatYear(placedYear)}</span><h3>真实时间：{actual}</h3></div>
+                  <div className="insertion-result-time">
+                    <div className="insertion-result-placed"><span>你的落点</span><strong>{formatYear(placedYear)}</strong></div>
+                    <div className="insertion-result-actual"><span>真实时间</span><strong>{actual}</strong></div>
+                  </div>
                 </header>
 
                 <div className="insertion-memory">
