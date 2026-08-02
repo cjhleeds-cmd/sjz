@@ -1,4 +1,53 @@
-# vinext-starter
+# 历史长河 · 进入时空
+
+沿中国朝代理解历史，把事件落入时间，并通过材料口述讲清前因、过程与影响。
+
+## 部署信息
+
+### 腾讯云开发（CloudBase / TCB）
+
+- **环境 ID**: `history-river-d3g9tykgy8cb196d5`
+- **区域**: 上海（ap-shanghai）
+- **套餐**: 体验版
+- **访问地址**: https://history-river-d3g9tykgy8cb196d5-1446853704.tcloudbaseapp.com
+- **部署方式**: 静态托管（CDN 加速）
+
+### GitHub Pages
+
+- **访问地址**: https://cjhleeds-cmd.github.io/sjz/
+- **仓库**: https://github.com/cjhleeds-cmd/sjz
+
+## 部署到 CloudBase
+
+```bash
+# 1. 安装 CLI
+npm install -g @cloudbase/cli
+
+# 2. 登录
+tcb login
+
+# 3. 设置环境
+tcb env use history-river-d3g9tykgy8cb196d5
+
+# 4. 构建（不带 basePath）
+cd /workspace/history-app/history-app
+NEXT_PUBLIC_BASE_PATH="" npx next build
+
+# 5. 部署
+tcb hosting deploy ./out --env-id history-river-d3g9tykgy8cb196d5 --yes
+```
+
+### 部署到 GitHub Pages
+
+GitHub Pages 需要带 basePath 构建：
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/sjz npx next build
+```
+
+---
+
+# vinext-starter (original)
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
