@@ -78,7 +78,7 @@ const figures: HistoryFigure[] = [
   { id: "tim-berners-lee", name: "蒂姆·伯纳斯-李", years: "1955年至今", anchorYear: 1991, periodId: "today", track: "world", identity: "计算机科学家、万维网发明者", summary: "提出并实现万维网，使互联网信息可以通过网页相互连接。", milestones: [{ year: "1989", text: "在欧洲核子研究中心提出万维网构想" }, { year: "1991", text: "首个网站向公众开放" }, { year: "1994", text: "创建万维网联盟" }], relatedEventId: "internet-age", question: "开放标准为什么能让一种技术迅速成为全球基础设施？" },
 ];
 
-const contentFilters = ["全部", "中国", "世界", "人物"] as const;
+const contentFilters = ["全部", "中国", "世界"] as const;
 export type AppView = "home" | "timeline" | "journeys" | "records";
 
 function materialTypeFor(title: string) {
@@ -487,13 +487,7 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
         <div className="history-river">
           {dynasties.map((dynasty, dynastyIndex) => {
             const allDynastyEvents = events.filter((event) => findDynastyForYear(event.year).id === dynasty.id).sort((a, b) => a.year - b.year);
-            const allDynastyFigures = figures.filter((figure) => findDynastyForYear(figure.anchorYear).id === dynasty.id);
             const visibleEvents = allDynastyEvents.filter((event) => contentFilter === "全部" || (contentFilter === "中国" && event.track === "china") || (contentFilter === "世界" && event.track === "world"));
-            const visibleFigures = allDynastyFigures.filter((figure) => contentFilter === "全部" || contentFilter === "人物" || (contentFilter === "中国" && figure.track === "china") || (contentFilter === "世界" && figure.track === "world"));
-            const railItems: Array<{ kind: "event"; year: number; event: HistoryEvent } | { kind: "figure"; year: number; figure: HistoryFigure }> = [
-              ...visibleEvents.map((event) => ({ kind: "event" as const, year: event.year, event })),
-              ...visibleFigures.map((figure) => ({ kind: "figure" as const, year: figure.anchorYear, figure })),
-            ].sort((a, b) => a.year - b.year);
             const chinaCount = allDynastyEvents.filter((event) => event.track === "china").length;
             const worldCount = allDynastyEvents.filter((event) => event.track === "world").length;
             const isExpanded = expandedDynastyIds.includes(dynasty.id);
@@ -515,7 +509,7 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                         <span className="contemporary-world"><b>同期世界</b>{dynasty.world}</span>
                       </span>
                       <span className="dynasty-toggle-side">
-                        <span className="era-counts"><span><b>{chinaCount}</b> 中国</span><span><b>{worldCount}</b> 世界</span><span><b>{allDynastyFigures.length}</b> 关键人物</span></span>
+                        <span className="era-counts"><span><b>{chinaCount}</b> 中国</span><span><b>{worldCount}</b> 世界</span></span>
                         <span className="toggle-label">{isExpanded ? "收起朝代" : "展开朝代"}</span>
                         <span className="toggle-mark" aria-hidden="true">{isExpanded ? "−" : "+"}</span>
                       </span>
@@ -523,7 +517,7 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                   </header>
 
                   {isExpanded && <div className="era-rail-wrap" id={`dynasty-panel-${dynasty.id}`}>
-                    <div className="era-rail" aria-label={`${dynasty.label}事件与人物，左右滑动浏览`} tabIndex={0}>
+                    <div className="era-rail" aria-label={`${dynasty.label}事件，左右滑动浏览`} tabIndex={0}>
                       <div className="river-card dynasty-overview-card">
                         <div className="card-topline"><span>朝代概览</span><i>{dynasty.phase}</i></div>
                         <time>{dynasty.dates}</time>
@@ -532,27 +526,16 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                         <div className="overview-details"><span>主要都城</span><strong>{dynasty.capitals}</strong><span>同期世界</span><strong>{dynasty.world}</strong></div>
                         <footer><span>{dynasty.keywords.join(" · ")}</span><strong>展开朝代</strong></footer>
                       </div>
-                      {railItems.map((item) => item.kind === "event" ? (
-                        <button type="button" className={`river-card event-card ${item.event.track}`} key={`event-${item.event.id}`} onClick={() => openEvent(item.event)}>
-                          <div className="card-topline"><span>{item.event.track === "china" ? "中国" : "世界"}</span><i>{item.event.category} · {categoryMarks[item.event.category]}</i></div>
-                          <time>{formatYear(item.event.year)}{item.event.endYear ? `—${formatYear(item.event.endYear)}` : ""}</time>
-                          <h4>{item.event.title}</h4>
-                          <p>{item.event.summary}</p>
-                          {figures.some((figure) => figure.relatedEventId === item.event.id) && <div className="related-people">人物 · {figures.filter((figure) => figure.relatedEventId === item.event.id).map((figure) => figure.name).join("、")}</div>}
-                          <footer><span>{item.event.place}</span><strong>{completedIds.includes(item.event.id) ? "已点亮 ✓" : "进入现场 →"}</strong></footer>
-                        </button>
-                      ) : (
-                        <button type="button" className={`river-card figure-card ${item.figure.track}`} key={`figure-${item.figure.id}`} onClick={() => openFigure(item.figure)}>
-                          <div className="card-topline"><span>关键人物</span><i>{item.figure.track === "china" ? "中国" : "世界"}</i></div>
-                          <div className="figure-portrait" aria-hidden="true">{item.figure.name.slice(0, 1)}</div>
-                          <time>{item.figure.years}</time>
-                          <h4>{item.figure.name}</h4>
-                          <small>{item.figure.identity}</small>
-                          <p>{item.figure.summary}</p>
-                          <footer><span>角色背景 · 材料 · 口述</span><strong>{completedIds.includes(`figure:${item.figure.id}`) ? "已解锁 ✓" : "进入现场 →"}</strong></footer>
-                        </button>
+                      {visibleEvents.map((event) => (
+                        <div className={`river-card event-card ${event.track}`} key={`event-${event.id}`}>
+                          <div className="card-topline"><span>{event.track === "china" ? "中国" : "世界"}</span><i>{event.category} · {categoryMarks[event.category]}</i></div>
+                          <time>{formatYear(event.year)}{event.endYear ? `—${formatYear(event.endYear)}` : ""}</time>
+                          <h4>{event.title}</h4>
+                          <p>{event.summary}</p>
+                          <footer><span>{event.place}</span></footer>
+                        </div>
                       ))}
-                      {!railItems.length && <div className="empty-rail">这个时代暂时没有符合筛选的内容。</div>}
+                      {!visibleEvents.length && <div className="empty-rail">这个时代暂时没有符合筛选的内容。</div>}
                       <div className="rail-end" aria-hidden="true"><span>继续向下</span><i>↓</i></div>
                     </div>
                   </div>}
