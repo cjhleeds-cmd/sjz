@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Category,
@@ -18,11 +17,7 @@ import {
   type MissionMaterial,
   type OralMissionRecord,
 } from "./history-mission";
-import {
-  readTimeInsertionRecords,
-  TimePlacement,
-  type InsertionRecord,
-} from "./time-placement";
+import { TimeQuiz } from "./time-quiz";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -85,7 +80,7 @@ const figures: HistoryFigure[] = [
 
 const contentFilters = ["全部", "中国", "世界", "人物"] as const;
 const todayEventIds = ["zheng-he", "qin-unification", "paper", "tang-changan", "opium-war", "xinhai", "reform-opening"];
-export type AppView = "home" | "timeline" | "placement" | "journeys" | "records";
+export type AppView = "home" | "timeline" | "journeys" | "records";
 
 function materialTypeFor(title: string) {
   if (/(统计|数据|图表|名册|档案)/.test(title)) return "档案数据";
@@ -279,19 +274,16 @@ function findDynastyForYear(year: number) {
   return dynasties.find((dynasty) => year >= dynasty.start && year <= dynasty.end) ?? dynasties[dynasties.length - 1];
 }
 
-export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: AppView; initialPlacementItemKey?: string }) {
-  const router = useRouter();
+export function HistoryApp({ view = "home" }: { view?: AppView }) {
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedFigure, setSelectedFigure] = useState<HistoryFigure | null>(null);
   const [contentFilter, setContentFilter] = useState<(typeof contentFilters)[number]>("全部");
   const [expandedDynastyIds, setExpandedDynastyIds] = useState<string[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [todayEventIndex, setTodayEventIndex] = useState(0);
-  const [placementEntry, setPlacementEntry] = useState({ itemKey: initialPlacementItemKey ?? "event:zheng-he", revision: 0 });
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [oralRecords, setOralRecords] = useState<OralMissionRecord[]>([]);
-  const [timeRecords, setTimeRecords] = useState<InsertionRecord[]>([]);
   const [activeJourneyId, setActiveJourneyId] = useState<string>(journeys[0].id);
   const storageReadyRef = useRef(false);
   const completedTouchedRef = useRef(false);
@@ -306,12 +298,10 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
         if (!completedTouchedRef.current) setCompletedIds(JSON.parse(localStorage.getItem("history-river-completed") ?? "[]"));
         if (!favoriteTouchedRef.current) setFavoriteIds(JSON.parse(localStorage.getItem("history-river-favorites") ?? "[]"));
         setOralRecords(readOralMissionRecords());
-        setTimeRecords(readTimeInsertionRecords());
       } catch {
         setCompletedIds([]);
         setFavoriteIds([]);
         setOralRecords([]);
-        setTimeRecords([]);
       }
       storageReadyRef.current = true;
     }, 0);
@@ -342,15 +332,6 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
   function openFigure(figure: HistoryFigure) {
     setSelectedEventId(null);
     setSelectedFigure(figure);
-  }
-
-  function startPlacement(eventId: string) {
-    if (view !== "placement") {
-      router.push(`/placement?item=${encodeURIComponent(`event:${eventId}`)}`);
-      return;
-    }
-    setPlacementEntry((current) => ({ itemKey: `event:${eventId}`, revision: current.revision + 1 }));
-    window.setTimeout(() => document.getElementById("placement")?.scrollIntoView({ behavior: "smooth", block: "start" }), 20);
   }
 
   function rotateTodayEvent() {
@@ -400,10 +381,6 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
     setOralRecords((current) => [record, ...current.filter((item) => item.missionKey !== record.missionKey)].slice(0, 80));
   }
 
-  function handleTimeRecordSaved(record: InsertionRecord) {
-    setTimeRecords((current) => [record, ...current].slice(0, 80));
-  }
-
   function openOralRecord(record: OralMissionRecord) {
     if (record.subjectType === "event") {
       const event = eventById.get(record.subjectId);
@@ -431,7 +408,6 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
         </Link>
         <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="主要导航">
           <Link className={view === "timeline" ? "active" : ""} href="/timeline" onClick={() => setMenuOpen(false)}>历史长河</Link>
-          <Link className={view === "placement" ? "active" : ""} href="/placement" onClick={() => setMenuOpen(false)}>进入时空</Link>
           <Link className={view === "journeys" ? "active" : ""} href="/journeys" onClick={() => setMenuOpen(false)}>专题航线</Link>
           <Link className={view === "records" ? "active" : ""} href="/records" onClick={() => setMenuOpen(false)}>时空旅人</Link>
         </nav>
@@ -448,15 +424,19 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
             <h1>沿中国朝代，<br /><em>向下走进历史。</em></h1>
             <p>一条时间轴串起中国历史。收起时看王朝更替，展开后左右滑动，同步查看中国、世界与关键人物。</p>
           </div>
-          <aside className="today-card" aria-label="今日一问与进入时空入口">
+          <aside className="today-card today-quiz-card" aria-label="今日一问">
             <div className="today-card-top">
-              <span className="today-label">今日一问 × 进入时空</span>
+              <span className="today-label">今日一问</span>
               <button type="button" className="today-swap" onClick={rotateTodayEvent} aria-label="换一张今日事件">↻ 换一张</button>
             </div>
-            <div className="today-card-meta"><span>{todayEvent.track === "china" ? "中国" : "世界"} · {todayEvent.temporalType === "series" ? "系列事件" : todayEvent.endYear ? "持续时间段" : "时间点"}</span></div>
-            <h2>{todayEvent.title}</h2>
-            <p>{todayEvent.summary} 把它插进已有时间链，看看前后与同期正在发生什么。</p>
-            <button type="button" className="today-action" onClick={() => startPlacement(todayEvent.id)}>先把它嵌入时间 <span>→</span></button>
+            <TimeQuiz
+              event={todayEvent}
+              allEvents={events}
+              formatYear={formatYear}
+              findDynastyForYear={findDynastyForYear}
+              onOpenEvent={openEvent}
+              onNext={rotateTodayEvent}
+            />
           </aside>
         </div>
         <div className="hero-ornament" aria-hidden="true">
@@ -470,14 +450,13 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
       <section className="home-portals" aria-labelledby="home-portals-title">
         <div className="home-portals-heading">
           <span>EXPLORE BY MODE</span>
-          <h2 id="home-portals-title">四种方式走进历史长河。</h2>
-          <p>今日入口直接动手；时间轴纵览全貌；事件嵌入建立位置感；专题航线串联线索；个人记录方便回看。</p>
+          <h2 id="home-portals-title">三种方式走进历史长河。</h2>
+          <p>今日一问直接动手；时间轴纵览全貌；专题航线串联线索；个人记录方便回看。</p>
         </div>
         <div className="portal-grid">
           <Link href="/timeline"><span>01</span><strong>历史长河</strong><p>沿一条纵向时间轴看朝代，展开后横向查看事件与人物。</p><i>进入时间轴 →</i></Link>
-          <Link href="/placement"><span>02</span><strong>进入时空</strong><p>按住事件卡落入时间链；松手后看时间差、前后事件与同期世界。</p><i>开始嵌入 →</i></Link>
-          <Link href="/journeys"><span>03</span><strong>专题航线</strong><p>把散落事件串成问题路径，比较不同历史选择。</p><i>选择航线 →</i></Link>
-          <Link href="/records"><span>04</span><strong>时空旅人</strong><p>翻看我的点亮、收藏、口述与时间记录。</p><i>查看记录 →</i></Link>
+          <Link href="/journeys"><span>02</span><strong>专题航线</strong><p>把散落事件串成问题路径，比较不同历史选择。</p><i>选择航线 →</i></Link>
+          <Link href="/records"><span>03</span><strong>时空旅人</strong><p>翻看我的点亮、收藏与口述记录。</p><i>查看记录 →</i></Link>
         </div>
       </section>
       </>}
@@ -584,18 +563,6 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
         </div>
       </section>}
 
-      {view === "placement" && <TimePlacement
-        key={`placement-${placementEntry.revision}`}
-        events={events}
-        figures={figures}
-        dynasties={dynasties}
-        formatYear={formatYear}
-        findDynastyForYear={findDynastyForYear}
-        initialItemKey={placementEntry.itemKey}
-        onOpenEvent={openEvent}
-        onRecordSaved={handleTimeRecordSaved}
-      />}
-
       {view === "journeys" && <section className="journeys-section" id="journeys">
         <div className="section-heading light-heading">
           <div>
@@ -652,7 +619,7 @@ export function HistoryApp({ view = "home", initialPlacementItemKey }: { view?: 
         </div>
       </section>}
 
-      {view === "records" && <ProgressSection completedIds={completedIds} favoriteIds={favoriteIds} oralRecords={oralRecords} timeRecords={timeRecords} openEvent={openEvent} openRecord={openOralRecord} />}
+      {view === "records" && <ProgressSection completedIds={completedIds} favoriteIds={favoriteIds} oralRecords={oralRecords} openEvent={openEvent} openRecord={openOralRecord} />}
 
       {activeMission && (
         <HistoryMissionDialog
@@ -679,14 +646,12 @@ function ProgressSection({
   completedIds,
   favoriteIds,
   oralRecords,
-  timeRecords,
   openEvent,
   openRecord,
 }: {
   completedIds: string[];
   favoriteIds: string[];
   oralRecords: OralMissionRecord[];
-  timeRecords: InsertionRecord[];
   openEvent: (event: HistoryEvent) => void;
   openRecord: (record: OralMissionRecord) => void;
 }) {
@@ -710,7 +675,7 @@ function ProgressSection({
           <span className="eyebrow">04 · MY HISTORY SCROLLS</span>
           <h2>每说清一段历史，<br />就点亮一处长河。</h2>
         </div>
-        <div className="progress-summary"><strong>{completedIds.length}</strong><span>个节点已解锁</span><i /><strong>{oralRecords.length}</strong><span>份口述档案</span><i /><strong>{timeRecords.length}</strong><span>次时间嵌入</span></div>
+        <div className="progress-summary"><strong>{completedIds.length}</strong><span>个节点已解锁</span><i /><strong>{oralRecords.length}</strong><span>份口述档案</span></div>
       </div>
 
       <div className="scroll-collection">
@@ -772,23 +737,6 @@ function ProgressSection({
           </div>
         ) : (
           <div className="empty-oral-records"><span>述</span><p>进入任一事件或人物现场，带着给定身份选一份材料并完成口述；记录会保存在这里。</p></div>
-        )}
-      </div>
-
-      <div className="time-record-panel">
-        <div className="subheading"><span>时间记录</span><strong>只留下你的落点与时间差。</strong></div>
-        {timeRecords.length ? (
-          <div className="time-record-list">
-            {timeRecords.slice(0, 12).map((record) => (
-              <article className="time-record-card" key={record.id}>
-                <time>{formatYear(record.placedYear)}</time>
-                <div><span>{record.kind === "figure" ? "人物" : "事件"}</span><strong>{record.title}</strong><small>真实时间 {record.actual}</small></div>
-                <b>{record.relation}</b>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="empty-time-records"><span>时</span><p>完成一次"进入时空"，落点和时间差会保存在这里。</p><Link href="/placement">开始嵌入 <i>→</i></Link></div>
         )}
       </div>
 
