@@ -86,7 +86,6 @@ const DAILY_COUNT = 5;
 
 export function HistoryApp({ view = "home" }: { view?: AppView }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [contentFilter, setContentFilter] = useState<"全部" | "中国" | "世界">("全部");
   const [expandedDynastyIds, setExpandedDynastyIds] = useState<string[]>([]);
   const { masteredIds, wrongIds, markMastered, markWrong, resetAll } = useQuizState();
 
@@ -116,7 +115,7 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
 
       {view === "home" && <HomeView masteredIds={masteredIds} wrongIds={wrongIds} markMastered={markMastered} markWrong={markWrong} />}
       {view === "quiz" && <QuizView masteredIds={masteredIds} wrongIds={wrongIds} markMastered={markMastered} markWrong={markWrong} resetAll={resetAll} />}
-      {view === "timeline" && <TimelineView masteredIds={masteredIds} wrongIds={wrongIds} contentFilter={contentFilter} setContentFilter={setContentFilter} expandedDynastyIds={expandedDynastyIds} toggleDynasty={toggleDynasty} />}
+      {view === "timeline" && <TimelineView masteredIds={masteredIds} wrongIds={wrongIds} expandedDynastyIds={expandedDynastyIds} toggleDynasty={toggleDynasty} />}
       {view === "detective" && <DetectiveView />}
     </main>
   );
@@ -345,11 +344,9 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
   );
 }
 
-function TimelineView({ masteredIds, wrongIds, contentFilter, setContentFilter, expandedDynastyIds, toggleDynasty }: {
+function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty }: {
   masteredIds: string[];
   wrongIds: string[];
-  contentFilter: "全部" | "中国" | "世界";
-  setContentFilter: (v: "全部" | "中国" | "世界") => void;
   expandedDynastyIds: string[];
   toggleDynasty: (id: string) => void;
 }) {
@@ -364,6 +361,15 @@ function TimelineView({ masteredIds, wrongIds, contentFilter, setContentFilter, 
   const totalEvents = events.length;
   const totalMastered = events.filter((e) => masteredIds.includes(e.id)).length;
   const globalPercent = totalEvents ? Math.round((totalMastered / totalEvents) * 100) : 0;
+  const allExpanded = dynasties.length > 0 && dynasties.every((d) => expandedDynastyIdsLocal.includes(d.id));
+
+  function toggleExpandAll() {
+    if (allExpanded) {
+      collapseAll();
+    } else {
+      expandAll();
+    }
+  }
 
   return (
     <section className="timeline-section vertical-timeline-section" id="timeline">
@@ -383,30 +389,20 @@ function TimelineView({ masteredIds, wrongIds, contentFilter, setContentFilter, 
         <div className="global-progress-bar">
           <i style={{ width: `${globalPercent}%` }} />
         </div>
-        <div className="global-progress-hint">
-          {totalMastered === 0 ? "开始答题，点亮你在时间轴上的第一个事件吧！" : globalPercent < 50 ? "继续努力，已掌握的事件会在这里点亮完整信息。" : globalPercent < 100 ? "进度过半！再接再厉，掌握全部历史事件。" : "全部事件已掌握，你已是历史达人！"}
-        </div>
-      </div>
-
-      <div className="river-controls">
-        <div className="scroll-instruction"><span>↓</span><p><strong>向下滚动</strong><small>穿越朝代</small></p></div>
-        <div className="river-control-actions">
-          <div className="content-filters" role="group" aria-label="筛选时间轴内容">
-            {(["全部", "中国", "世界"] as const).map((item) => (
-              <button type="button" key={item} className={contentFilter === item ? "active" : ""} onClick={() => setContentFilter(item)}>{item}</button>
-            ))}
+        <div className="global-progress-bottom">
+          <div className="global-progress-hint">
+            {totalMastered === 0 ? "开始答题，点亮你在时间轴上的第一个事件吧！" : globalPercent < 50 ? "继续努力，已掌握的事件会在这里点亮完整信息。" : globalPercent < 100 ? "进度过半！再接再厉，掌握全部历史事件。" : "全部事件已掌握，你已是历史达人！"}
           </div>
-          <div className="collapse-actions" role="group" aria-label="展开或折叠朝代">
-            <button type="button" onClick={expandAll}>全部展开</button>
-            <button type="button" onClick={collapseAll}>全部折叠</button>
-          </div>
+          <button type="button" className="expand-toggle-btn" onClick={toggleExpandAll}>
+            {allExpanded ? "全部折叠 −" : "全部展开 +"}
+          </button>
         </div>
       </div>
 
       <div className="history-river">
         {dynasties.map((dynasty, dynastyIndex) => {
           const allDynastyEvents = events.filter((e) => findDynastyForYear(e.year).id === dynasty.id).sort((a, b) => a.year - b.year);
-          const visibleEvents = allDynastyEvents.filter((e) => contentFilter === "全部" || (contentFilter === "中国" && e.track === "china") || (contentFilter === "世界" && e.track === "world"));
+          const visibleEvents = allDynastyEvents;
           const masteredCount = allDynastyEvents.filter((e) => masteredIds.includes(e.id)).length;
           const totalCount = allDynastyEvents.length;
           const isExpanded = expandedDynastyIdsLocal.includes(dynasty.id);
