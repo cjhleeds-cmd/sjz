@@ -21,7 +21,6 @@
   --art-home: url("/historical-art/home-history-river.webp");
   --art-timeline: url("/historical-art/timeline-dynasties.webp");
   --art-placement: url("/historical-art/time-placement.webp");
-  --art-journeys: url("/historical-art/journeys-silk-road.webp");
   --art-records: url("/historical-art/records-scroll.webp");
   --art-event: url("/historical-art/event-archive.webp");
   /* 三层文字体系：近黑主标题 → 灰副文案 → 品牌色交互引导 */
@@ -49,7 +48,7 @@ body {
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
-h1, h2, h3, h4, .brand strong, .dynasty-title-row strong, .mission-hero-mark, .scroll-mark {
+h1, h2, h3, h4, .brand strong, .dynasty-title-row strong, .scroll-mark {
   font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
   font-weight: 700;
   color: var(--text-primary);
@@ -86,7 +85,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .main-nav a.active::after { content: ""; position: absolute; height: 3px; left: 0; right: 0; bottom: -1px; background: var(--red); }
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .quiet-button { border: 1px solid var(--line); background: rgba(255,255,255,.25); padding: 9px 14px; border-radius: 999px; cursor: pointer; font-size: 13px; text-decoration: none; }
-.progress-pill { color: var(--red); }
+
 .menu-button { display: none; width: 39px; height: 39px; border: 1px solid var(--line); border-radius: 4px; background: rgba(255,255,255,.42); font-size: 20px; cursor: pointer; }
 
 .hero {
@@ -99,7 +98,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; opacity: .15; background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(90,70,35,.06) 5px); }
 .hero-kicker { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: .18em; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
 .hero-kicker span { width: 36px; height: 1px; background: var(--text-secondary); }
-.hero-copy { margin-top: 20px; max-width: 1250px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 80px; align-items: end; }
+.hero-copy { margin-top: 20px; max-width: 1250px; }
 .hero h1 { margin: 0; font-weight: 700; color: var(--text-primary); font-size: clamp(48px, 5.2vw, 78px); line-height: 1.08; letter-spacing: -.06em; }
 .hero h1 em { color: var(--red); font-style: normal; }
 .hero-copy > div > p { max-width: 620px; margin: 25px 0 0; font-size: 16px; line-height: 1.95; color: var(--text-secondary); font-weight: 400; }
@@ -123,13 +122,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .today-action span { display: inline-block; margin-left: 8px; }
 
 /* ===== Time Quiz ===== */
-.today-quiz-card { display: flex; flex-direction: column; gap: 0; }
-.time-quiz { display: flex; flex-direction: column; gap: 16px; margin-top: 14px; }
+.quiz-section { max-width: 640px; margin: 0 auto; padding: 48px 24px 60px; }
+.today-quiz-card { position: relative; padding: 28px 28px 25px; background: rgba(255,253,248,.7); border: 1px solid rgba(159,63,46,.2); box-shadow: 0 18px 55px rgba(72,54,31,.08); display: flex; flex-direction: column; gap: 16px; }
+.today-quiz-card::before, .today-quiz-card::after { content: ""; position: absolute; width: 15px; height: 15px; border-color: var(--red); opacity: .5; }
+.today-quiz-card::before { left: 8px; top: 8px; border-left: 1px solid; border-top: 1px solid; }
+.today-quiz-card::after { right: 8px; bottom: 8px; border-right: 1px solid; border-bottom: 1px solid; }
+.today-card-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.today-label { font-family: Arial, sans-serif; color: var(--text-secondary); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; }
+.today-swap { flex: 0 0 auto; padding: 7px 14px; border: 1px solid rgba(159,63,46,.28); border-radius: 999px; color: var(--text-accent); background: rgba(255,255,255,.58); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.today-swap:hover { color: #fff; border-color: var(--red); background: var(--red); transform: translateY(-1px); }
 .quiz-mode-switch { display: flex; gap: 0; border: 1px solid var(--line); border-radius: var(--control-radius); overflow: hidden; }
 .quiz-mode-switch button { flex: 1; padding: 10px 16px; border: 0; background: transparent; color: var(--text-secondary); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; }
 .quiz-mode-switch button:first-child { border-right: 1px solid var(--line); }
 .quiz-mode-switch button.active { color: #fff; background: var(--red); }
 .quiz-mode-switch button:not(.active):hover { color: var(--text-accent); background: rgba(159,63,46,.06); }
+.time-quiz { display: flex; flex-direction: column; gap: 16px; }
 .quiz-event-card { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--control-radius); background: rgba(255,253,248,.5); }
 .quiz-event-meta { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 12px; }
 .quiz-event-meta i { font-style: normal; opacity: .5; }
@@ -185,6 +192,79 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .quiz-next { flex: 1; padding: 11px 16px; border: 1px solid var(--red); border-radius: 999px; background: var(--red); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; }
 .quiz-next:hover { background: var(--red-deep); border-color: var(--red-deep); transform: translateY(-1px); }
 
+/* ===== Quiz hint system (4 time buttons) ===== */
+.quiz-actions-row { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+.quiz-hint-button { padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--text-secondary); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.quiz-hint-button:hover { border-color: var(--gold); color: var(--gold); background: rgba(193,148,69,.06); }
+.quiz-hints-label { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+.quiz-hint-choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.quiz-hint-choice { padding: 14px 12px; border: 1px solid var(--line); border-radius: var(--control-radius); background: rgba(255,255,255,.5); color: var(--text-primary); font-size: 16px; font-weight: 600; cursor: pointer; transition: all .2s; text-align: center; font-family: Arial, sans-serif; }
+.quiz-hint-choice:hover { border-color: var(--red); color: var(--text-accent); background: rgba(255,253,248,.8); transform: translateY(-1px); }
+.quiz-back-input { align-self: flex-start; padding: 6px 12px; border: 0; background: transparent; color: var(--text-secondary); font-size: 12px; cursor: pointer; }
+.quiz-back-input:hover { color: var(--text-accent); }
+
+/* ===== Quiz mastered/wrong badges ===== */
+.quiz-mastered-badge { display: inline-block; margin-top: 6px; padding: 3px 10px; border-radius: 999px; background: rgba(84,120,108,.12); color: var(--jade-deep); font-size: 11px; font-weight: 600; }
+.quiz-wrong-badge { display: inline-block; margin-top: 6px; padding: 3px 10px; border-radius: 999px; background: rgba(159,63,46,.1); color: var(--red); font-size: 11px; font-weight: 600; }
+
+/* ===== Quiz result actions ===== */
+.quiz-result-actions { display: flex; gap: 10px; }
+
+/* ===== Quiz context (LitEventCard in quiz result) ===== */
+.quiz-context { display: flex; flex-direction: column; gap: 16px; }
+.quiz-context-section { display: flex; flex-direction: column; gap: 8px; }
+.quiz-context-label { font-size: 12px; color: var(--text-secondary); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.quiz-context-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.quiz-context-item { display: flex; flex-direction: column; gap: 6px; }
+.quiz-context-tag { font-size: 11px; color: var(--text-secondary); font-weight: 600; }
+.quiz-context-tag.focus-tag { color: var(--text-accent); }
+.quiz-context-tag.simultaneous-tag { color: var(--jade-deep); }
+
+/* LitEventCard — shared lit card style for quiz context */
+.time-quiz .river-card { flex: 0 0 auto; min-height: 0; padding: 14px 18px; border: 1px solid rgba(72,63,50,.15); border-top: 3px solid var(--red); border-radius: var(--control-radius); background: rgba(255,253,248,.72); box-shadow: 0 8px 20px rgba(65,48,28,.04); cursor: default; display: flex; flex-direction: column; gap: 4px; transition: none; }
+.time-quiz .river-card.world { border-top-color: var(--jade); }
+.time-quiz .river-card:hover { transform: none; box-shadow: 0 8px 20px rgba(65,48,28,.04); }
+.time-quiz .river-card .event-card-row1 { display: flex; align-items: baseline; gap: 10px; }
+.time-quiz .river-card .event-card-time { color: var(--text-accent); font-family: Arial, sans-serif; font-size: 16px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
+.time-quiz .river-card.world .event-card-time { color: var(--jade-deep); }
+.time-quiz .river-card .event-card-tag { color: var(--text-secondary); font-size: 11px; white-space: nowrap; }
+.time-quiz .river-card h4 { margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600; color: var(--text-primary); }
+.time-quiz .river-card .event-card-summary { margin: 0; color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+.time-quiz .river-card.compact { padding: 10px 14px; }
+.time-quiz .river-card.compact h4 { font-size: 14px; }
+.time-quiz .river-card.compact .event-card-summary { font-size: 11px; line-height: 1.4; }
+.time-quiz .river-card.compact .event-card-time { font-size: 14px; }
+
+/* ===== Wrong records ===== */
+.wrong-records { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+.wrong-records-header { display: flex; justify-content: space-between; align-items: center; }
+.wrong-records-header h3 { margin: 0; font-size: 16px; font-weight: 700; color: var(--text-primary); }
+.wrong-records-header span { font-size: 12px; color: var(--text-secondary); }
+.wrong-records-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.wrong-record-card { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid rgba(159,63,46,.2); border-radius: var(--control-radius); background: rgba(255,253,248,.5); cursor: pointer; transition: all .2s; text-align: left; }
+.wrong-record-card:hover { border-color: var(--red); background: rgba(255,253,248,.8); transform: translateY(-1px); }
+.wrong-record-tag { font-size: 10px; color: var(--red); font-weight: 600; }
+.wrong-record-card strong { font-size: 14px; color: var(--text-primary); line-height: 1.3; }
+.wrong-record-card small { font-size: 11px; color: var(--text-secondary); }
+.reset-button { align-self: flex-start; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--text-secondary); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.reset-button:hover { border-color: var(--red); color: var(--red); }
+
+/* ===== Home daily section ===== */
+.home-daily-section { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+.home-daily-wrap { padding: 0 0 30px; }
+
+/* ===== Timeline clickable event cards ===== */
+.river-card.clickable { cursor: pointer; }
+.river-card.clickable:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(65,48,28,.08); border-color: rgba(159,63,46,.3); }
+.river-card.is-dim { opacity: .7; }
+.river-card.is-dim h4 { color: var(--text-secondary); }
+.river-card.is-dim .event-card-summary { color: var(--ink-soft); font-size: 11px; }
+.event-card-quiz-hint { position: absolute; bottom: 6px; right: 14px; font-size: 10px; color: var(--text-secondary); opacity: .5; font-weight: 500; }
+.river-card.clickable:hover .event-card-quiz-hint { opacity: 1; color: var(--text-accent); }
+
+/* ===== Detective question type badge ===== */
+.detective-qtype-badge { padding: 3px 10px; border-radius: 4px; background: var(--red); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+
 .hero-ornament { position: absolute; right: 0; left: 0; bottom: 0; height: 130px; z-index: -1; overflow: hidden; opacity: .7; }
 .mountain { position: absolute; bottom: -84px; width: 420px; height: 220px; border: 1px solid rgba(72,95,85,.22); transform: rotate(25deg) skew(-18deg); border-radius: 47% 0 0 0; }
 .mountain.one { right: 6%; }
@@ -192,12 +272,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .sun { position: absolute; width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(159,63,46,.24); right: 23%; top: 10px; }
 .boat { position: absolute; right: 31%; bottom: 25px; color: rgba(72,63,50,.25); letter-spacing: -2px; transform: skew(18deg); }
 
-.home-portals { max-width: 1440px; margin: 0 auto; padding: 72px 48px 94px; }
+.home-portals { max-width: 1240px; margin: 40px auto 0; padding: 0 48px 80px; }
 .home-portals-heading { display: grid; grid-template-columns: minmax(260px,.85fr) minmax(280px,1fr); gap: 10px 70px; align-items: end; }
 .home-portals-heading > span { grid-column: 1 / -1; color: var(--text-secondary); font-family: Arial, sans-serif; font-size: 12px; letter-spacing: .17em; text-transform: uppercase; font-weight: 600; }
 .home-portals-heading h2 { margin: 14px 0 0; font-size: clamp(28px,3.2vw,46px); line-height: 1.25; font-weight: 700; color: var(--text-primary); letter-spacing: -.035em; }
 .home-portals-heading p { margin: 0; color: var(--text-secondary); font-size: 15px; line-height: 1.8; font-weight: 400; }
-.portal-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 38px; }
+.portal-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
 .portal-grid a { min-height: 230px; position: relative; display: flex; flex-direction: column; padding: 22px 21px 19px; overflow: hidden; border: 1px solid rgba(72,63,50,.18); border-top: 3px solid var(--red); color: var(--ink); background: rgba(255,253,248,.62); text-decoration: none; box-shadow: 0 13px 30px rgba(65,48,28,.045); transition: transform .2s, border-color .2s, box-shadow .2s, background .2s; }
 .portal-grid a:nth-child(2) { border-top-color: var(--gold); }
 .portal-grid a:nth-child(3) { border-top-color: var(--jade); }
@@ -323,7 +403,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .history-river { position: relative; }
 .history-river::before { content: ""; position: absolute; top: 0; bottom: 65px; left: 72px; width: 2px; background: linear-gradient(var(--red) 0%, var(--gold) 42%, var(--jade) 74%, rgba(84,120,108,.35) 100%); box-shadow: 0 0 0 5px rgba(181,138,69,.035); }
 .era-stop { position: relative; display: grid; grid-template-columns: 145px minmax(0,1fr); align-items: start; min-height: 0; padding: 27px 0; transition: padding .2s ease; }
-.era-stop.is-expanded { min-height: 0; padding: 34px 0 76px; }
+.era-stop.is-expanded { min-height: 0; padding: 20px 0 28px; }
 .era-stop.is-collapsed { min-height: 0; padding: 10px 0; }
 .era-stop + .era-stop { border-top: 1px solid rgba(72,63,50,.1); }
 .axis-column { position: relative; min-height: 0; align-self: stretch; }
@@ -337,9 +417,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .era-stop.is-collapsed .axis-column > i { top: 32px; }
 .era-content { min-width: 0; padding-left: 5px; }
 .era-header { margin: 0; padding-right: 5px; }
-.era-stop.is-expanded .era-header { margin-bottom: 24px; }
+.era-stop.is-expanded .era-header { margin-bottom: 14px; }
 .era-range { display: inline-block; padding: 5px 8px; color: var(--red); background: rgba(159,63,46,.08); font-family: Arial, sans-serif; font-size: 9px; letter-spacing: .04em; }
-.dynasty-toggle { width: 100%; min-height: 134px; display: grid; grid-template-columns: minmax(0,1fr) 230px; align-items: center; gap: 30px; padding: 17px 18px 17px 21px; border: 1px solid var(--line); color: var(--ink); background: rgba(255,253,248,.35); text-align: left; cursor: pointer; transition: border-color .2s, background .2s, box-shadow .2s; }
+.dynasty-toggle { width: 100%; min-height: 100px; display: grid; grid-template-columns: minmax(0,1fr) 230px; align-items: center; gap: 30px; padding: 14px 18px 14px 21px; border: 1px solid var(--line); color: var(--ink); background: rgba(255,253,248,.35); text-align: left; cursor: pointer; transition: border-color .2s, background .2s, box-shadow .2s; }
 .dynasty-toggle:hover { border-color: rgba(159,63,46,.18); background: rgba(255,253,248,.54); }
 .era-stop.is-expanded .dynasty-toggle { border-color: rgba(159,63,46,.16); background: rgba(255,253,248,.56); box-shadow: 0 12px 35px rgba(60,45,28,.045); }
 .era-stop.is-collapsed .dynasty-toggle { min-height: 74px; grid-template-columns: minmax(0,1fr) 108px; gap: 12px; padding: 9px 13px 9px 17px; }
@@ -360,10 +440,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .era-stop.is-collapsed .dynasty-copy { display: grid; grid-template-columns: 140px minmax(0,1fr); align-items: center; gap: 16px; }
 .era-stop.is-collapsed .dynasty-title-row { margin: 0; }
 .era-stop.is-collapsed .dynasty-title-row strong { font-size: clamp(17px, 1.6vw, 24px); }
-.era-stop.is-collapsed .dynasty-summary,
-.era-stop.is-collapsed .dynasty-meta,
-.era-stop.is-collapsed .contemporary-world,
-.era-stop.is-collapsed .era-counts { display: none !important; }
+.era-stop.is-collapsed .dynasty-summary, .era-stop.is-collapsed .dynasty-meta, .era-stop.is-collapsed .contemporary-world, .era-stop.is-collapsed .era-counts { display: none !important; }
 .era-stop.is-collapsed .dynasty-toggle-side { flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; }
 .era-stop.is-collapsed .toggle-label { white-space: nowrap; }
 .era-stop.is-collapsed .toggle-mark { width: 34px; height: 34px; font-size: 19px; }
@@ -389,8 +466,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Vertical event rail - compact cards in chronological order */
 .era-rail-vertical { display: flex; flex-direction: column; gap: 6px; min-height: 0; overflow: visible; padding: 10px 5px 14px; }
-.era-rail-vertical .river-card { flex: 0 0 auto; min-height: 0; flex-direction: column; gap: 4px; padding: 8px 16px; cursor: default; }
+.era-rail-vertical .river-card { flex: 0 0 auto; min-height: 0; flex-direction: column; gap: 4px; padding: 8px 16px; }
 .era-rail-vertical .river-card:hover { transform: none; box-shadow: 0 12px 28px rgba(65,48,28,.05); border-color: rgba(72,63,50,.15); }
+.era-rail-vertical .river-card.clickable { cursor: pointer; }
+.era-rail-vertical .river-card.clickable:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(65,48,28,.08); border-color: rgba(159,63,46,.3); }
 .era-rail-vertical .river-card.world:hover { border-top-color: var(--jade); }
 .era-rail-vertical .river-card.china:hover { border-top-color: var(--red); }
 .era-rail-vertical .event-card-row1 { display: flex; align-items: baseline; gap: 10px; }
@@ -399,26 +478,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .era-rail-vertical .event-card-tag { color: var(--text-secondary); font-size: 11px; white-space: nowrap; }
 .era-rail-vertical .river-card h4 { margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600; color: var(--text-primary); }
 .era-rail-vertical .river-card > p { margin: 0; color: var(--text-secondary); font-size: 12px; line-height: 1.4; }
-.overview-details { margin-top: 18px; display: grid; grid-template-columns: 62px 1fr; gap: 7px 9px; align-items: start; }
-.overview-details span { color: var(--text-secondary); font-size: 11px; }
-.overview-details strong { color: var(--ink-soft); font-size: 10px; line-height: 1.55; font-weight: 400; }
-.related-people { margin-top: 14px; padding: 7px 9px; color: var(--text-secondary); background: rgba(181,138,69,.09); font-size: 11px; }
-.figure-card { flex-basis: 265px; background: linear-gradient(150deg, rgba(255,253,248,.92), rgba(232,222,202,.68)); }
-.figure-card.world { background: linear-gradient(150deg, rgba(248,251,247,.92), rgba(213,225,220,.7)); }
-.figure-portrait { width: 72px; height: 72px; margin: -5px 0 15px; display: grid; place-items: center; border: 1px solid rgba(159,63,46,.24); border-radius: 50% 50% 45% 45%; color: var(--red); background: rgba(159,63,46,.06); font-size: 31px; box-shadow: inset 0 0 0 7px rgba(255,255,255,.45); }
-.figure-card.world .figure-portrait { color: var(--jade-deep); border-color: rgba(84,120,108,.25); background: rgba(84,120,108,.08); }
-.figure-card h4 { margin-bottom: 3px; font-size: 25px; }
-.figure-card > small { margin-bottom: 10px; color: var(--red); font-size: 10px; }
-.figure-card.world > small { color: var(--jade-deep); }
-.rail-end { flex: 0 0 110px; min-height: 355px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 13px; scroll-snap-align: end; color: var(--ink-soft); }
-.rail-end span { writing-mode: vertical-rl; font-size: 9px; letter-spacing: .18em; }
-.rail-end i { font-style: normal; color: var(--red); }
-.empty-rail { flex: 1 0 100%; min-height: 355px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--ink-soft); font-size: 12px; }
-.rail-navigation { display: flex; justify-content: space-between; align-items: center; padding: 2px 5px 0; }
-.rail-navigation > span { color: var(--ink-soft); font-size: 9px; letter-spacing: .06em; }
-.rail-navigation > div { display: flex; gap: 6px; }
-.rail-navigation button { width: 35px; height: 35px; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.36); cursor: pointer; }
-.rail-navigation button:hover { color: #fff; border-color: var(--red); background: var(--red); }
+.empty-rail { flex: 1 0 100%; min-height: 60px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--ink-soft); font-size: 12px; padding: 16px; }
 .river-to-today { position: relative; display: grid; grid-template-columns: 145px 1fr; align-items: center; min-height: 80px; }
 .river-to-today > span { z-index: 2; width: 52px; height: 52px; margin-left: 47px; display: grid; place-items: center; border: 7px solid var(--paper); border-radius: 50%; color: #fff; background: var(--jade); box-shadow: 0 0 0 1px rgba(84,120,108,.4); }
 .river-to-today > div { padding-left: 5px; }
@@ -430,23 +490,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .placeholder-section span { font-family: Arial, sans-serif; color: rgba(245,239,227,.5); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; }
 .placeholder-section h2 { margin: 18px auto 0; font-size: clamp(36px, 5vw, 66px); line-height: 1.25; font-weight: 700; color: var(--text-primary); }
 
-.placement-section {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 92px 48px 112px;
-  border-top: 1px solid var(--line);
-}
-.placement-heading h2 { font-size: var(--fs-display); line-height: 1.22; font-weight: 700; }
-.placement-heading > p { width: 390px; }
-.placement-shell { margin-top: 45px; border: 1px solid rgba(83,68,47,.2); background: rgba(255,253,248,.58); box-shadow: 0 28px 75px rgba(72,54,31,.08); }
-.placement-tabs { min-height: 62px; display: flex; align-items: stretch; border-bottom: 1px solid var(--line); background: rgba(232,222,202,.36); }
-.placement-tabs button { min-width: 155px; padding: 0 24px; border: 0; border-right: 1px solid var(--line); background: transparent; cursor: pointer; color: var(--ink-soft); font-size: 13px; }
-.placement-tabs button:hover, .placement-tabs button.active { color: var(--red); background: rgba(255,253,248,.72); }
-.placement-tabs button.active { box-shadow: inset 0 -3px var(--red); }
-.placement-tabs button span { margin-left: 6px; min-width: 21px; height: 21px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: 999px; color: var(--red); background: rgba(159,63,46,.09); font-family: Arial, sans-serif; font-size: 9px; }
 /* ══ Time Placement: Redesigned game-based module ══ */
-
-.placement-game { padding: 28px 32px 38px; }
 
 /* mode switch */
 .game-mode-switch { display: flex; gap: 10px; margin-bottom: 24px; }
@@ -565,7 +609,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .order-next span { font-size: 18px; }
 
 /* ── records panel ── */
-.placement-records { min-height: 480px; padding: 28px 32px 42px; }
+
 .records-intro { display: flex; justify-content: space-between; align-items: end; gap: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 .records-intro span { color: var(--text-secondary); font-size: var(--fs-caption); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
 .records-intro h3 { margin: 8px 0 0; font-size: var(--fs-title); font-weight: 700; color: var(--text-primary); }
@@ -595,46 +639,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .records-empty button { min-height: 44px; padding: 0 24px; border: 1px solid var(--red); border-radius: 999px; color: var(--red); background: transparent; cursor: pointer; font-size: var(--fs-label); font-weight: 600; }
 .records-empty button:hover { color: #fff; background: var(--red); }
 
-.journeys-section { background: var(--ink); color: #f5efe3; padding: 90px max(48px, calc((100vw - 1344px)/2)) 110px; }
 .light-heading .eyebrow { color: rgba(245,239,227,.5); }
 .light-heading h2 { font-size: clamp(35px, 4vw, 58px); font-weight: 700; color: #f5efe3; line-height: 1.25; }
 .light-heading > p { color: rgba(245,239,227,.57); }
-.journey-layout { margin-top: 54px; display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 34px; }
-.journey-index { border-top: 1px solid rgba(255,255,255,.14); }
-.journey-index button { --journey-color: #a64932; width: 100%; min-height: 82px; display: grid; grid-template-columns: 30px 1fr 25px; gap: 12px; align-items: center; padding: 0 12px; color: rgba(245,239,227,.62); background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.14); border-top: 0; text-align: left; cursor: pointer; }
-.journey-index button > span { font-family: Arial, sans-serif; font-size: 9px; }
-.journey-index button strong, .journey-index button small { display: block; }
-.journey-index button strong { font-size: 16px; font-weight: 500; }
-.journey-index button small { margin-top: 5px; font-size: 10px; color: rgba(245,239,227,.32); }
-.journey-index button i { font-style: normal; opacity: 0; transform: translateX(-7px); transition: .2s; color: var(--journey-color); }
-.journey-index button:hover, .journey-index button.active { color: #fff; border-color: color-mix(in srgb, var(--journey-color) 68%, transparent); background: rgba(255,255,255,.065); }
-.journey-index button.active strong { color: var(--journey-color); }
-.journey-index button:hover i, .journey-index button.active i { opacity: 1; transform: none; }
-.journey-map { --journey-color: #a64932; min-height: 535px; position: relative; padding: 42px; color: var(--ink); background: #eee6d6; overflow: hidden; }
-.journey-map::after { content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--journey-color) 20%, transparent); right: -230px; top: -230px; box-shadow: 0 0 0 45px color-mix(in srgb, var(--journey-color) 4%, transparent), 0 0 0 90px color-mix(in srgb, var(--journey-color) 3%, transparent); }
-.journey-question > span { color: var(--journey-color); font-size: 10px; }
-.journey-question h3 { max-width: 600px; margin: 8px 0 10px; font-size: 29px; }
-.journey-question p { max-width: 650px; margin: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.75; }
-.journey-progress { margin-top: 20px; width: min(380px, 100%); height: 20px; position: relative; border-bottom: 2px solid rgba(50,45,37,.12); }
-.journey-progress i { position: absolute; bottom: -2px; left: 0; height: 2px; background: var(--journey-color); }
-.journey-progress span { position: absolute; right: 0; top: -4px; font-family: Arial, sans-serif; font-size: 8px; color: var(--ink-soft); }
-.journey-stops { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 48px; }
-.journey-stops::before { content: ""; position: absolute; top: 17px; left: 5%; right: 5%; height: 1px; background: rgba(55,49,41,.22); }
-.journey-stops button { z-index: 1; min-height: 104px; border: 1px solid rgba(60,50,40,.13); border-radius: 3px; background: rgba(255,255,255,.22); text-align: center; cursor: pointer; padding: 9px 5px; }
-.journey-stops button:hover { border-color: color-mix(in srgb, var(--journey-color) 52%, transparent); background: rgba(255,255,255,.5); transform: translateY(-2px); }
-.journey-stops button > span { width: 34px; height: 34px; display: grid; place-items: center; margin: 0 auto 14px; border-radius: 50%; background: #eee6d6; border: 1px solid color-mix(in srgb, var(--journey-color) 55%, transparent); color: var(--journey-color); font-family: Arial, sans-serif; font-size: 10px; transition: .2s; }
-.journey-stops button:hover > span, .journey-stops button.complete > span { background: var(--journey-color); color: #fff; transform: translateY(-3px); }
-.journey-stops small, .journey-stops strong { display: block; }
-.journey-stops small { color: var(--ink-soft); font-size: 8px; }
-.journey-stops strong { margin-top: 5px; font-size: 11px; line-height: 1.45; }
-.journey-start { margin-top: 42px; min-width: 210px; border: 0; color: white; background: var(--journey-color); padding: 14px 18px; cursor: pointer; }
-.journey-start span { float: right; }
 
-.progress-section { max-width: 1440px; margin: 0 auto; padding: 90px 48px 0; }
-.progress-summary { display: grid; grid-template-columns: auto auto 1px auto auto; gap: 9px; align-items: baseline; }
-.progress-summary strong { font-family: Georgia, serif; font-size: 34px; font-weight: 500; color: var(--red); }
-.progress-summary span { font-size: 11px; color: var(--ink-soft); }
-.progress-summary i { height: 30px; width: 1px; margin: 0 10px; align-self: center; background: var(--line); }
 .scroll-collection { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
 .history-scroll { position: relative; min-height: 330px; padding: 33px 30px 28px; overflow: hidden; background: #e9ded0; border: 1px solid rgba(92,65,38,.14); }
 .history-scroll::before { content: ""; position: absolute; inset: 0; background: linear-gradient(140deg, rgba(255,255,255,.3), transparent 40%), repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(80,61,39,.02) 5px); }
@@ -692,27 +700,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .event-dialog { width: min(720px, 94vw); height: 100%; overflow-y: auto; background: var(--paper); box-shadow: -24px 0 80px rgba(20,17,12,.22); outline: none; animation: slide-in .32s ease-out; }
 .dialog-close { position: absolute; top: 20px; right: 22px; z-index: 2; border: 1px solid rgba(255,255,255,.4); color: #fff; background: rgba(0,0,0,.1); width: 36px; height: 36px; border-radius: 50%; font-size: 25px; cursor: pointer; }
 .dialog-favorite { position: absolute; top: 20px; right: 68px; z-index: 2; border: 1px solid rgba(255,255,255,.4); color: #fff; background: rgba(0,0,0,.1); width: 36px; height: 36px; border-radius: 50%; font-size: 20px; cursor: pointer; }
-.figure-dialog { background: #f1eadc; }
-.figure-dialog-hero { min-height: 275px; position: relative; display: flex; align-items: center; gap: 28px; overflow: hidden; padding: 48px 52px; color: #fff8eb; background: var(--red-deep); }
-.figure-dialog-hero.world { background: var(--jade-deep); }
-.figure-dialog-hero::after { content: ""; position: absolute; width: 330px; height: 330px; right: -180px; bottom: -220px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; box-shadow: 0 0 0 42px rgba(255,255,255,.03), 0 0 0 84px rgba(255,255,255,.02); }
-.figure-dialog-mark { flex: 0 0 112px; height: 132px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.38); border-radius: 56% 56% 44% 44%; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 10px rgba(255,255,255,.04); font-size: 52px; }
-.figure-dialog-hero > div:last-child { z-index: 1; }
-.figure-dialog-hero span { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: .08em; color: rgba(255,255,255,.68); }
-.figure-dialog-hero h2 { margin: 7px 0 5px; font-size: 44px; font-weight: 600; }
-.figure-dialog-hero p { margin: 0; color: rgba(255,255,255,.73); font-size: 12px; }
-.figure-dialog-body { padding: 42px 52px 65px; }
-.figure-dialog-body h3 { margin: 9px 0 17px; font-size: 24px; }
-.figure-summary { max-width: 550px; color: var(--ink-soft); font-size: 14px; line-height: 1.85; }
+
 .life-timeline { position: relative; margin: 32px 0; padding-left: 5px; }
 .life-timeline::before { content: ""; position: absolute; top: 10px; bottom: 10px; left: 76px; width: 1px; background: linear-gradient(var(--red), var(--gold)); }
 .life-timeline > div { position: relative; display: grid; grid-template-columns: 65px 22px 1fr; gap: 10px; align-items: center; min-height: 64px; }
 .life-timeline time { text-align: right; color: var(--red); font-family: Arial, sans-serif; font-size: 10px; }
 .life-timeline i { z-index: 1; width: 10px; height: 10px; margin-left: 6px; border: 3px solid var(--paper); border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1px rgba(181,138,69,.4); }
 .life-timeline p { margin: 0; padding: 12px 14px; background: rgba(255,253,248,.54); border: 1px solid var(--line); font-size: 12px; line-height: 1.6; }
-.figure-question { padding: 18px 20px; border-left: 3px solid var(--gold); background: rgba(181,138,69,.08); }
-.figure-question span { display: block; color: #8c682b; font-size: 9px; }
-.figure-question strong { display: block; margin-top: 7px; font-size: 16px; line-height: 1.6; }
+
 .dialog-hero { min-height: 285px; padding: 45px 52px 40px; color: #fffaf1; position: relative; overflow: hidden; background: var(--red-deep); }
 .dialog-hero.world { background: var(--jade-deep); }
 .dialog-hero::after { content: ""; width: 350px; height: 350px; position: absolute; right: -145px; bottom: -245px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); box-shadow: 0 0 0 40px rgba(255,255,255,.035), 0 0 0 80px rgba(255,255,255,.025); }
@@ -727,7 +722,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .dialog-tabs button.active { color: var(--red); box-shadow: inset 0 -3px var(--red); }
 .dialog-content { padding: 42px 52px 70px; }
 .dialog-content h3 { margin: 9px 0 20px; font-size: 24px; }
-.scene-copy { border-left: 3px solid var(--gold); background: rgba(181,138,69,.08); padding: 19px 21px; font-size: 17px; line-height: 1.8; }
+
 .role-choices { margin-top: 27px; }
 .role-choices > span { color: var(--ink-soft); font-size: 12px; }
 .role-choices > div { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 10px; }
@@ -839,94 +834,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .assessment-actions button + button { color: var(--red); background: rgba(255,255,255,.55); }
 .assessment-actions button:hover { border-color: var(--red-deep); background: var(--red-deep); color: #fff; transform: translateY(-1px); }
 
-.mission-dialog { width: min(790px, 96vw); height: 100dvh; max-height: 100dvh; overscroll-behavior: contain; background: #f3ecdf; }
-.mission-dialog-hero { min-height: 300px; padding-right: 110px; }
-.mission-dialog-hero > * { position: relative; z-index: 1; }
-.mission-hero-mark { position: absolute; z-index: 0; right: 34px; top: 95px; width: 76px; height: 92px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.28); border-radius: 50% 50% 44% 44%; color: rgba(255,255,255,.72); background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 8px rgba(255,255,255,.025); font-size: 35px; }
-.dialog-meta .mission-unlocked-meta { color: #fff7d8; border-color: rgba(255,235,171,.58); background: rgba(181,138,69,.22); }
-.mission-journey { position: sticky; z-index: 4; top: 0; display: grid; grid-template-columns: repeat(3,1fr); min-height: 64px; border-bottom: 1px solid var(--line); background: rgba(245,240,229,.96); backdrop-filter: blur(14px); }
-.mission-journey > span { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; color: #908a80; font-size: 10px; }
-.mission-journey > span:not(:last-child)::after { content: ""; position: absolute; right: 0; top: 16px; bottom: 16px; width: 1px; background: var(--line); }
-.mission-journey b { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-family: Arial, sans-serif; font-size: 8px; }
-.mission-journey em { font-style: normal; }
-.mission-journey > span.active { color: var(--red); box-shadow: inset 0 -3px var(--red); background: rgba(159,63,46,.045); }
-.mission-journey > span.complete { color: var(--jade-deep); }
-.mission-journey > span.complete b { color: #fff; border-color: var(--jade); background: var(--jade); }
-.mission-content { padding-top: 38px; }
-.mission-stage h3 { max-width: 600px; }
-.mission-back-button { min-height: 42px; display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; padding: 9px 13px; border: 1px solid rgba(159,63,46,.36); border-radius: 3px; color: var(--red); background: rgba(255,253,248,.68); font-size: 10px; }
-.mission-back-button span { font-family: Arial, sans-serif; font-size: 16px; line-height: 1; }
-.mission-back-button:hover { color: #fff; border-color: var(--red); background: var(--red); transform: translateX(-2px); }
-.mission-role-brief { display: grid; grid-template-columns: 170px minmax(0,1fr); gap: 1px; margin: 23px 0 17px; border: 1px solid rgba(84,120,108,.24); background: rgba(84,120,108,.22); }
-.mission-role-brief > div { padding: 18px; background: rgba(255,253,248,.78); }
-.mission-role-badge { display: flex; flex-direction: column; justify-content: center; color: #fff; background: var(--jade-deep) !important; }
-.mission-role-badge span, .mission-role-brief small { display: block; font-size: 8px; letter-spacing: .08em; }
-.mission-role-badge span { color: rgba(255,255,255,.62); }
-.mission-role-badge strong { display: block; margin-top: 7px; font-size: 16px; line-height: 1.5; }
-.mission-role-brief small { color: var(--jade-deep); }
-.mission-role-brief p { margin: 7px 0 0; color: var(--ink-soft); font-size: 11px; line-height: 1.85; }
-.mission-scene-copy { margin-top: 24px; display: grid; grid-template-columns: 82px 1fr; border: 1px solid rgba(181,138,69,.25); border-left: 4px solid var(--gold); background: rgba(181,138,69,.075); }
-.mission-scene-copy span { padding: 20px 12px; color: #806026; border-right: 1px solid rgba(181,138,69,.2); font-size: 9px; letter-spacing: .08em; }
-.mission-scene-copy p { margin: 0; padding: 18px 20px; font-size: 14px; line-height: 1.9; }
-.mission-question { margin: 17px 0 24px; padding: 15px 18px; color: var(--text-primary); background: rgba(255,255,255,.7); }
-.mission-question small, .mission-question strong { display: block; }
-.mission-question small { color: var(--text-secondary); font-size: 8px; }
-.mission-question strong { margin-top: 6px; font-size: 16px; line-height: 1.65; }
-.mission-role-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
-.mission-role-grid button { min-height: 158px; position: relative; padding: 18px 16px; border: 1px solid var(--line); color: var(--ink); background: rgba(255,253,248,.58); text-align: left; }
-.mission-role-grid button:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(82,52,34,.08); }
-.mission-role-grid button.selected { color: var(--red-deep); border: 2px solid var(--red); background: rgba(159,63,46,.07); box-shadow: inset 0 -4px var(--red); }
-.mission-role-grid i { width: 28px; height: 28px; display: grid; place-items: center; color: var(--red); border: 1px solid rgba(159,63,46,.3); border-radius: 50%; font-family: Arial, sans-serif; font-size: 8px; font-style: normal; }
-.mission-role-grid span, .mission-role-grid strong, .mission-role-grid small { display: block; }
-.mission-role-grid span { margin-top: 19px; color: var(--ink-soft); font-size: 8px; }
-.mission-role-grid strong { margin-top: 4px; font-size: 14px; line-height: 1.55; }
-.mission-role-grid small { margin-top: 10px; color: var(--ink-soft); font-size: 8px; line-height: 1.5; }
-.mission-stage-actions { margin-top: 28px; }
-.mission-stage-actions .primary-action { margin-top: 0; }
-.mission-stage-actions.split { display: grid; grid-template-columns: 145px minmax(0,1fr); gap: 10px; }
 .secondary-action { min-height: 49px; padding: 12px 16px; border: 1px solid var(--red); color: var(--red); background: rgba(255,253,248,.6); }
 .secondary-action:hover { color: #fff; background: var(--red); transform: translateY(-1px); }
-.mission-stage-context { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; align-items: center; margin: 22px 0 19px; padding: 14px 16px; border-left: 3px solid var(--jade); background: rgba(84,120,108,.085); }
-.mission-stage-context span { color: var(--jade-deep); font-size: 9px; }
-.mission-stage-context strong { font-size: 13px; }
-.mission-stage-context small { grid-column: 1 / -1; color: var(--ink-soft); font-size: 9px; }
-.mission-material-status { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
-.mission-material-status span { color: var(--ink-soft); font-size: 9px; }
-.mission-material-status strong { color: var(--red); font-size: 10px; }
-.mission-material-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-.mission-material-grid button { min-height: 280px; display: flex; flex-direction: column; padding: 17px; border: 1px solid var(--line); color: var(--ink); background: rgba(255,253,248,.57); text-align: left; }
-.mission-material-grid button:hover { border-color: var(--gold); background: #fffaf0; transform: translateY(-2px); box-shadow: 0 10px 22px rgba(88,64,32,.08); }
-.mission-material-grid button.selected { border: 2px solid var(--jade); background: rgba(84,120,108,.08); box-shadow: inset 0 -4px var(--jade); }
-.mission-material-grid button > span { display: flex; justify-content: space-between; gap: 10px; color: var(--ink-soft); }
-.mission-material-grid button > span b { color: var(--gold); font-size: 8px; }
-.mission-material-grid button time { font-family: Arial, sans-serif; font-size: 8px; }
-.mission-material-grid button > strong { margin-top: 13px; font-size: 13px; line-height: 1.6; }
-.mission-material-intro { margin-top: 12px; }
-.mission-material-intro small, .mission-material-clue small { display: block; color: var(--ink-soft); font-size: 8px; }
-.mission-material-intro p, .mission-material-clue p { margin: 5px 0 0; color: var(--ink-soft); font-size: 10px; line-height: 1.72; }
-.mission-material-clue { flex: 1; margin: 11px 0 13px; padding: 10px 11px; border-left: 3px solid var(--gold); background: rgba(181,138,69,.07); }
-.mission-material-clue small { color: var(--text-secondary); }
-.mission-material-clue p { color: var(--ink); }
-.mission-material-grid button > em { padding-top: 10px; border-top: 1px solid var(--line); color: var(--red); font-size: 9px; font-style: normal; }
-.mission-material-grid button.selected > em { color: var(--jade-deep); font-weight: 700; }
-.mission-carrying { display: grid; grid-template-columns: 160px minmax(0,1fr); gap: 1px; margin: 21px 0 6px; background: var(--line); border: 1px solid var(--line); }
-.mission-carrying > div { min-width: 0; padding: 14px 16px; background: rgba(255,253,248,.74); }
-.mission-carrying span { display: block; color: var(--ink-soft); font-size: 8px; }
-.mission-carrying strong { display: block; margin-top: 5px; font-size: 12px; }
-.mission-carrying p { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0; }
-.mission-carrying p b { padding: 5px 7px; color: var(--text-secondary); border: 1px solid rgba(84,120,108,.25); background: rgba(84,120,108,.06); font-size: 10px; font-weight: 500; }
-.mission-recorder { margin-top: 9px; }
+
 .assessment-evidence { margin-top: 15px; padding: 13px; border: 1px solid rgba(84,120,108,.18); background: rgba(255,255,255,.4); }
 .assessment-evidence > small { color: var(--ink-soft); font-size: 8px; }
 .assessment-evidence > p { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 0; }
 .assessment-evidence b { padding: 6px 8px; border: 1px solid currentColor; font-size: 8px; font-weight: 500; }
 .assessment-evidence b.used { color: var(--jade-deep); background: rgba(84,120,108,.08); }
 .assessment-evidence b.unused { color: #8a682e; background: rgba(181,138,69,.08); }
-.mission-assessment .assessment-actions button { min-height: 40px; }
-.mission-unlock-seal { width: 116px; height: 116px; float: right; margin: 2px 0 20px 24px; display: grid; place-items: center; border: 1px solid rgba(159,63,46,.35); border-radius: 50%; color: var(--red); background: rgba(159,63,46,.055); box-shadow: inset 0 0 0 8px var(--paper), inset 0 0 0 9px rgba(159,63,46,.17); transform: rotate(-5deg); }
-.mission-unlock-seal span, .mission-unlock-seal b { grid-area: 1 / 1; }
-.mission-unlock-seal span { font-size: 38px; opacity: .16; }
-.mission-unlock-seal b { margin-top: 48px; font-size: 10px; letter-spacing: .18em; }
+
 .unlock-stage > p { color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
 .unlock-dossier { clear: both; display: grid; gap: 1px; margin-top: 25px; border: 1px solid var(--line); background: var(--line); }
 .unlock-dossier > div { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 16px; padding: 15px 17px; background: rgba(255,253,248,.74); }
@@ -946,56 +863,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .unlock-storage-note { margin-top: 19px !important; padding: 11px 13px; border-left: 3px solid var(--gold); background: rgba(181,138,69,.07); font-size: 9px !important; }
 
 /* Event learning flow: one task per step, secondary context appears on demand. */
-.mission-dialog { width: min(760px, 96vw); }
-.mission-dialog .dialog-close,
-.mission-dialog .dialog-favorite { width: 42px; height: 42px; top: 16px; border-color: rgba(255,255,255,.7); background: rgba(29,24,19,.28); box-shadow: 0 4px 12px rgba(20,17,12,.16); }
-.mission-dialog .dialog-close { right: 16px; }
-.mission-dialog .dialog-favorite { right: 66px; }
-.mission-dialog .dialog-close:hover,
-.mission-dialog .dialog-favorite:hover { color: var(--red-deep); background: #fffaf1; transform: translateY(-1px); }
-.mission-dialog-hero { min-height: 215px; padding: 34px 100px 27px 38px; }
-.mission-dialog-hero .dialog-meta { margin-bottom: 18px; }
-.mission-dialog-hero .dialog-meta span { padding: 5px 8px; }
-.mission-dialog-hero > p { margin-bottom: 5px; }
-.mission-dialog-hero h2 { font-size: 34px; }
-.mission-dialog-hero blockquote { max-width: 560px; margin-top: 10px; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; line-height: 1.65; }
-.mission-hero-mark { right: 28px; top: 96px; width: 62px; height: 74px; font-size: 29px; }
-.mission-journey { min-height: 56px; }
-.mission-journey > span { font-size: var(--fs-label); }
-.mission-journey > span:not(:last-child)::after { top: 14px; bottom: 14px; }
-.mission-content { padding: 26px 38px 50px; }
-.mission-stage h3 { margin: 0 0 14px; font-size: var(--fs-title); }
-.mission-back-button { min-height: 44px; margin-bottom: 17px; padding: 0 18px; border-radius: 999px; font-size: var(--fs-label); font-weight: 600; cursor: pointer; }
-.mission-role-brief { grid-template-columns: 155px minmax(0,1fr); margin: 0 0 12px; border-radius: 7px; overflow: hidden; }
-.mission-role-brief > div { padding: 15px 16px; }
-.mission-role-badge strong { font-size: var(--fs-subtitle); }
-.mission-role-brief p { margin: 0; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; color: var(--text-secondary); font-size: var(--fs-body); line-height: 1.65; }
-.mission-question { margin: 12px 0 18px; padding: 14px 16px; border-radius: 6px; }
-.mission-question small { font-size: var(--fs-caption); }
-.mission-question strong { margin-top: 5px; font-size: var(--fs-subtitle); line-height: 1.55; }
-.mission-material-status { margin-bottom: 8px; }
-.mission-material-status span,
-.mission-material-status strong { font-size: var(--fs-label); }
-.mission-material-grid { gap: 9px; }
-.mission-material-grid button { min-height: 210px; padding: 15px; border-radius: 7px; cursor: pointer; }
-.mission-material-grid button > strong { margin-top: 10px; font-size: var(--fs-subtitle); line-height: 1.5; }
-.mission-material-summary { margin: 9px 0 11px; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; color: var(--text-secondary); font-size: var(--fs-body); line-height: 1.62; }
-.mission-material-context { margin: 0 0 10px; padding: 10px 11px; border-left: 3px solid rgba(84,120,108,.6); background: rgba(84,120,108,.065); }
-.mission-material-context small { display: block; color: var(--text-secondary); font-size: var(--fs-caption); font-weight: 700; }
-.mission-material-context p { margin: 5px 0 0; color: var(--text-primary); font-size: var(--fs-label); line-height: 1.58; }
-.mission-material-clue { flex: none; margin: 0 0 10px; padding: 9px 10px; border-left-width: 3px; }
-.mission-material-clue small { color: var(--text-secondary); font-size: var(--fs-caption); font-weight: 700; }
-.mission-material-clue p { margin: 0; font-size: var(--fs-label); line-height: 1.55; }
-.mission-material-grid button > em { margin-top: auto; min-height: 38px; display: flex; align-items: center; justify-content: center; padding: 8px 10px 0; font-size: var(--fs-label); font-weight: 600; }
-.mission-stage-actions { position: sticky; z-index: 3; bottom: 0; margin: 18px -38px -50px; padding: 13px 38px calc(13px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: rgba(243,236,223,.96); backdrop-filter: blur(12px); }
-.mission-stage-actions .primary-action,
-.mission-submit-answer { min-height: 52px; margin-top: 0; border-radius: 999px; font-size: var(--fs-label); font-weight: 600; box-shadow: 0 7px 16px rgba(118,49,37,.18); }
-.mission-carrying { grid-template-columns: 145px minmax(0,1fr); margin: 0 0 10px; border-radius: 6px; overflow: hidden; }
-.mission-carrying > div { padding: 11px 13px; }
-.mission-carrying span { font-size: var(--fs-caption); }
-.mission-carrying strong { font-size: var(--fs-label); }
-.mission-carrying p { margin: 5px 0 0; }
-.mission-carrying p b { font-size: 10px; }
+
 .challenge-prompt { margin-top: 0; padding: 16px 18px; border-radius: 6px; }
 .challenge-prompt span { margin-bottom: 5px; font-size: var(--fs-label); }
 .challenge-prompt strong { font-size: var(--fs-subtitle); line-height: 1.55; }
@@ -1006,24 +874,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .speaking-frame p { margin: 7px 0 0; padding: 11px 13px; border-left: 3px solid var(--gold); color: var(--text-secondary); background: rgba(181,138,69,.07); font-size: var(--fs-body); line-height: 1.7; }
 .transcript-box > span { margin-bottom: 7px; font-size: var(--fs-label); font-weight: 600; }
 .transcript-box textarea { min-height: 145px; border-radius: 6px; font-size: var(--fs-body); }
-.mission-recorder { min-height: 0; display: block; margin: 9px 0 0; }
-.mission-recorder .hold-to-talk { width: 100%; min-height: 82px; border-width: 2px; border-radius: 7px; cursor: pointer; }
-.mission-recorder .hold-to-talk > div { min-width: 0; flex: 1; }
-.mission-recorder .hold-to-talk strong { font-size: var(--fs-subtitle); }
-.mission-recorder .hold-to-talk small { font-size: var(--fs-caption); }
-.mission-recorder .hold-to-talk time { color: var(--red); font-family: Arial, sans-serif; font-size: var(--fs-subtitle); }
-.mission-recorder.is-listening .hold-to-talk time { color: #fff; }
+
 .privacy-note { margin: 7px 0 13px; color: var(--text-secondary); font-size: 10px; line-height: 1.6; }
 .speech-fallback { border-radius: 5px; font-size: var(--fs-label); }
-.mission-submit-answer { width: 100%; }
-.mission-assessment { padding: 17px; border-radius: 7px; }
-.mission-assessment > strong { font-size: var(--fs-subtitle); }
-.mission-assessment > p { font-size: var(--fs-body); }
+
 .assessment-evidence { margin-top: 12px; padding: 11px; }
 .assessment-actions button { min-height: 46px; padding: 0 20px; border-radius: 999px; font-size: var(--fs-label); font-weight: 600; cursor: pointer; }
-.mission-unlock-seal { width: 86px; height: 86px; margin-left: 18px; }
-.mission-unlock-seal span { font-size: 29px; }
-.mission-unlock-seal b { margin-top: 35px; }
+
 .unlock-impact { margin-top: 12px; padding: 16px 18px; border-left: 4px solid var(--jade); border-radius: 5px; background: rgba(84,120,108,.09); }
 .unlock-impact span { color: var(--text-secondary); font-size: var(--fs-label); font-weight: 600; }
 .unlock-impact p { margin: 7px 0 0; font-size: var(--fs-body); line-height: 1.7; }
@@ -1034,7 +891,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .unlock-relations { margin-top: 20px; }
 .unlock-relations > span { font-size: var(--fs-subtitle); font-weight: 600; }
 .unlock-relations button { min-height: 98px; border-radius: 999px; cursor: pointer; }
-.mission-stage-actions.split { grid-template-columns: 135px minmax(0,1fr); }
+
 .secondary-action { min-height: 52px; border-radius: 999px; font-size: var(--fs-label); font-weight: 600; cursor: pointer; }
 
 .oral-record-panel { padding: 42px 0 68px; border-top: 1px solid var(--line); }
@@ -1061,7 +918,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .empty-oral-records { min-height: 130px; display: flex; align-items: center; gap: 18px; margin-top: 22px; padding: 25px; border: 1px dashed var(--line); color: var(--ink-soft); }
 .empty-oral-records span { width: 54px; height: 54px; flex: 0 0 54px; display: grid; place-items: center; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold); font-size: 22px; }
 .empty-oral-records p { max-width: 600px; margin: 0; font-size: 11px; line-height: 1.8; }
-@keyframes listening { to { transform: translateX(10px); } }
+
 @keyframes voice-wave { from { height: 4px; } to { height: 19px; } }
 
 @keyframes fade-in { from { opacity: 0; } }
@@ -1077,9 +934,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .main-nav a.active::after { display: none; }
   .menu-button { display: block; }
   .hero { padding: 55px 28px; }
-  .hero-copy { grid-template-columns: 1fr; gap: 35px; }
-  .today-card { width: min(460px, 100%); }
-  .home-portals { padding: 62px 24px 78px; }
+  .home-portals { padding: 0 24px 60px; }
   .portal-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .timeline-section { padding: 65px 24px 80px; }
   .river-controls { top: 8px; }
@@ -1099,15 +954,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .timeline-toolbar { align-items: flex-start; flex-direction: column; }
   .now-pair { grid-template-columns: 1fr 40px 1fr; }
   .pair-intro { grid-column: 1 / -1; }
-  .journeys-section { padding: 80px 24px 90px; }
-  .placement-section { padding: 80px 24px 92px; }
-  .placement-heading > p { width: 340px; }
+
   .records-list article { grid-template-columns: 66px minmax(0,1fr) 95px; gap: 16px; }
-  .journey-layout { grid-template-columns: 260px minmax(0,1fr); }
-  .journey-map { padding: 30px; }
-  .journey-stops { grid-template-columns: repeat(3,1fr); row-gap: 28px; }
-  .journey-stops::before { display: none; }
-  .progress-section { padding: 80px 24px 0; }
+
   .scroll-collection { grid-template-columns: 1fr; }
   .history-scroll { min-height: 290px; }
 }
@@ -1154,7 +1003,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .collapse-actions button { flex: 1; }
   .history-river::before { left: 23px; bottom: 50px; }
   .era-stop { grid-template-columns: 56px minmax(0,1fr); min-height: 0; padding: 25px 0 58px; }
-  .era-stop.is-expanded { min-height: 0; padding: 25px 0 58px; }
+  .era-stop.is-expanded { min-height: 0; padding: 18px 0 28px; }
   .era-stop.is-collapsed { min-height: 0; padding: 7px 0; }
   .axis-column > span { top: 120px; width: 42px; height: 42px; margin-left: 2px; border-width: 5px; }
   .axis-column > i { top: 50px; left: 24px; width: 24px; }
@@ -1185,18 +1034,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .toggle-mark { width: 32px; height: 32px; font-size: 19px; }
   .era-counts { gap: 3px; }
   .era-counts span { padding: 5px 6px; font-size: 8px; }
-  .era-rail { gap: 10px; min-height: 390px; padding-right: 14px; scroll-snap-type: x mandatory; }
+  .era-rail { gap: 10px; min-height: 0; padding-right: 14px; scroll-snap-type: x mandatory; }
   .river-card { flex-basis: min(274px, calc(100vw - 94px)); min-height: 355px; padding: 20px 18px 17px; }
   .dynasty-overview-card { flex-basis: min(284px, calc(100vw - 94px)); }
-  .figure-card { flex-basis: min(244px, calc(100vw - 104px)); }
+
   .river-card h4 { font-size: 20px; }
   .era-rail-vertical .river-card { flex-wrap: wrap; gap: 6px 12px; padding: 8px 14px; }
   .era-rail-vertical .event-card-time { min-width: 80px; font-size: 15px; }
   .era-rail-vertical .river-card h4 { font-size: 15px; }
   .era-rail-vertical .river-card > p { white-space: normal; font-size: 12px; }
-  .rail-navigation > span { font-size: 8px; }
-  .rail-navigation button { width: 32px; height: 32px; }
-  .rail-end { flex-basis: 62px; }
+
   .river-to-today { grid-template-columns: 56px 1fr; }
   .river-to-today > span { width: 42px; height: 42px; margin-left: 2px; border-width: 5px; }
   .river-to-today > div { padding-left: 0; }
@@ -1213,27 +1060,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .pair-link { height: 45px; }
   .pair-link::before { top: 50%; }
   .placeholder-section { padding: 80px 20px 90px; }
-  .journeys-section { padding: 70px 18px 80px; }
-  .placement-section { padding: 65px 14px 76px; }
-  .placement-heading > p { width: auto; margin-top: 13px; }
-  .placement-shell { margin-top: 30px; }
-  .placement-tabs { min-height: 54px; }
-  .placement-tabs button { min-width: 0; flex: 1; padding: 0 10px; }
-  .placement-records { padding: 22px 14px 30px; }
+
   .records-intro { display: block; }
   .records-intro h3 { font-size: 21px; }
   .records-intro > p { width: auto; margin-top: 10px; }
   .records-list article { grid-template-columns: 45px minmax(0,1fr); gap: 12px; }
   .records-list article > button { grid-column: 2; justify-self: start; }
-  .journey-layout { display: block; margin-top: 35px; }
-  .journey-index { margin-bottom: 22px; }
-  .journey-index button { min-height: 66px; }
-  .journey-map { padding: 26px 20px; }
-  .journey-question h3 { font-size: 24px; }
-  .journey-stops { grid-template-columns: repeat(2,1fr); }
-  .progress-section { padding: 65px 16px 0; }
-  .progress-summary { margin-top: 22px; grid-template-columns: auto auto 1px auto auto; }
-  .progress-summary strong { font-size: 27px; }
+
   .achievements-grid { grid-template-columns: 1fr; gap: 35px; }
   .badges { grid-template-columns: 1fr; }
   .favorites-panel { border-left: 0; border-top: 1px solid var(--line); padding: 30px 0 0; }
@@ -1254,66 +1087,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .success-links { grid-template-columns: 1fr; }
   .assessment-actions { flex-direction: column; }
   .assessment-actions button { width: 100%; }
-  .figure-dialog-hero { min-height: 245px; padding: 44px 26px 30px; gap: 18px; }
-  .figure-dialog-mark { flex-basis: 82px; height: 100px; font-size: 38px; }
-  .figure-dialog-hero h2 { font-size: 34px; }
-  .figure-dialog-body { padding: 34px 25px 55px; }
+
   .life-timeline::before { left: 60px; }
   .life-timeline > div { grid-template-columns: 50px 20px 1fr; gap: 7px; }
   .life-timeline time { font-size: 8px; }
   .life-timeline i { margin-left: 5px; }
-  .mission-dialog { width: 100vw; height: 100dvh; border-radius: 0; }
-  .mission-dialog .dialog-close, .mission-dialog .dialog-favorite { top: 12px; width: 42px; height: 42px; background: rgba(0,0,0,.2); }
-  .mission-dialog .dialog-close { right: 12px; }
-  .mission-dialog .dialog-favorite { right: 60px; }
-  .mission-dialog-hero { min-height: 235px; padding: 29px 72px 25px 18px; }
-  .mission-dialog-hero .dialog-meta { gap: 5px; margin-bottom: 24px; }
-  .mission-dialog-hero .dialog-meta span { padding: 4px 6px; font-size: 7px; }
-  .mission-dialog-hero > p { font-size: 10px; }
-  .mission-dialog-hero h2 { font-size: 28px; line-height: 1.25; }
-  .mission-dialog-hero blockquote { margin-top: 10px; font-size: 11px; line-height: 1.65; }
-  .mission-hero-mark { right: 17px; top: 104px; width: 48px; height: 60px; font-size: 22px; }
-  .mission-journey { min-height: 54px; }
-  .mission-journey > span { gap: 5px; font-size: 9px; }
-  .mission-journey > span:not(:last-child)::after { top: 13px; bottom: 13px; }
-  .mission-journey b { width: 23px; height: 23px; }
-  .mission-content { padding: 22px 14px calc(42px + env(safe-area-inset-bottom)); }
-  .mission-back-button { width: 100%; min-height: 44px; justify-content: flex-start; margin-bottom: 18px; padding: 10px 13px; font-size: 11px; }
-  .mission-stage h3 { margin-bottom: 16px; font-size: 22px; line-height: 1.42; }
-  .mission-role-brief { grid-template-columns: 1fr; margin-top: 16px; }
-  .mission-role-brief > div { padding: 15px; }
-  .mission-role-badge { min-height: 88px; }
-  .mission-role-badge strong { font-size: 17px; }
-  .mission-role-brief p { font-size: 11px; line-height: 1.8; }
-  .mission-question { margin: 13px 0 20px; padding: 15px; }
-  .mission-question strong { font-size: 15px; }
-  .mission-material-grid { grid-template-columns: 1fr; }
-  .mission-material-grid button { min-height: 0; padding: 15px; }
-  .mission-material-grid button > strong { font-size: 15px; }
-  .mission-material-intro p, .mission-material-clue p { font-size: 11px; line-height: 1.75; }
-  .mission-material-clue { flex: none; }
-  .mission-stage-actions { margin-top: 20px; }
-  .mission-stage-actions .primary-action { min-height: 52px; font-size: 12px; }
-  .mission-stage-actions.split { grid-template-columns: 1fr; }
-  .mission-stage-actions.split .secondary-action { order: 2; }
-  .mission-carrying { grid-template-columns: 1fr; }
-  .mission-carrying > div { padding: 12px 14px; }
+
   .challenge-prompt { padding: 16px; }
   .challenge-prompt strong { font-size: 16px; }
   .transcript-box { margin-top: 15px; }
   .transcript-box textarea { min-height: 160px; padding: 14px; font-size: 16px; }
-  .mission-recorder { gap: 8px; margin-top: 9px; }
-  .mission-recorder .hold-to-talk { min-height: 84px; padding: 14px 16px; }
-  .mission-recorder .hold-to-talk > span { width: 48px; height: 48px; flex-basis: 48px; }
-  .mission-recorder .recorder-status { min-height: 66px; display: grid; grid-template-columns: 78px 1fr; align-items: center; gap: 4px 10px; }
-  .mission-recorder .recorder-status > span { grid-row: 1 / 3; font-size: 20px; }
-  .mission-recorder .recorder-status > small { margin: 0; }
-  .mission-recorder .voice-wave { margin-top: 0; }
+
   .privacy-note { font-size: 9px; }
   .unlock-dossier > div { grid-template-columns: 1fr; gap: 6px; }
   .unlock-relations > div { grid-template-columns: 1fr; }
-  .mission-unlock-seal { width: 90px; height: 90px; margin-left: 12px; }
-  .mission-unlock-seal b { margin-top: 38px; }
+
   .oral-record-list { grid-template-columns: 1fr; }
   .oral-record-card { padding: 16px; }
 }
@@ -1322,85 +1110,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 @media (max-width: 640px) {
   body { font-size: var(--fs-body); line-height: 1.65; }
   .site-shell h1 { font-size: var(--fs-display) !important; line-height: 1.14; }
-  .site-shell h2,
-  .site-shell h3 { font-size: var(--fs-title) !important; line-height: 1.4; }
+  .site-shell h2, .site-shell h3 { font-size: var(--fs-title) !important; line-height: 1.4; }
   .site-shell h4 { font-size: var(--fs-subtitle) !important; line-height: 1.45; }
-  .site-shell .section-heading h2,
-  .site-shell .home-portals-heading h2,
-  .site-shell .placeholder-section h2,
-  .site-shell .dialog-hero h2,
-  .site-shell .figure-dialog-hero h2 { font-size: var(--fs-display) !important; line-height: 1.25; }
-  .site-shell p,
-  .site-shell blockquote,
-  .site-shell li { font-size: var(--fs-body) !important; line-height: 1.75; }
-  .site-shell small,
-  .site-shell time { font-size: var(--fs-caption) !important; line-height: 1.55; }
+  .site-shell .section-heading h2, .site-shell .home-portals-heading h2, .site-shell .placeholder-section h2, .site-shell .dialog-hero h2 { font-size: var(--fs-display) !important; line-height: 1.25; }
+  .site-shell p, .site-shell blockquote, .site-shell li { font-size: var(--fs-body) !important; line-height: 1.75; }
+  .site-shell small, .site-shell time { font-size: var(--fs-caption) !important; line-height: 1.55; }
   .site-shell button:not(.menu-button):not(.dialog-close):not(.dialog-favorite) { font-size: var(--fs-label) !important; }
   .site-shell textarea { font-size: var(--fs-body) !important; line-height: 1.7; }
 
-  .brand small,
-  .hero-kicker,
-  .today-label,
-  .today-card-meta,
-  .today-flow span,
-  .home-portals-heading > span,
-  .portal-grid a > span,
-  .portal-grid a > i,
-  .eyebrow,
-  .panel-number,
-  .era-range,
-  .dynasty-title-row small,
-  .dynasty-meta,
-  .contemporary-world b,
-  .era-counts span,
-  .card-topline,
-  .rail-navigation > span,
-  .records-intro span,
-  .journey-index button > span,
-  .journey-progress span,
-  .history-scroll > span,
-  .dialog-meta span,
-  .mission-journey > span,
-  .mission-role-badge span,
-  .mission-stage-context span,
-  .mission-material-status span,
-  .mission-material-status strong,
-  .mission-material-grid button > span b,
-  .mission-material-intro small,
-  .mission-material-clue small,
-  .mission-carrying span,
-  .assessment-evidence > small,
-  .unlock-dossier span,
-  .unlock-relations > span,
-  .oral-record-heading,
-  .oral-record-role small,
-  .oral-record-materials small { font-size: var(--fs-caption) !important; }
+  .brand small, .hero-kicker, .today-label, .today-card-meta, .today-flow span, .home-portals-heading > span, .portal-grid a > span, .portal-grid a > i, .eyebrow, .panel-number, .era-range, .dynasty-title-row small, .dynasty-meta, .contemporary-world b, .era-counts span, .card-topline, .records-intro span, .history-scroll > span, .dialog-meta span, .assessment-evidence > small, .unlock-dossier span, .unlock-relations > span, .oral-record-heading, .oral-record-role small, .oral-record-materials small { font-size: var(--fs-caption) !important; }
 
-  .scroll-instruction strong,
-  .toggle-label,
-  .transcript-box > span { font-size: var(--fs-label) !important; }
-  .dynasty-summary,
-  .contemporary-world { font-size: var(--fs-body) !important; line-height: 1.7; }
+  .scroll-instruction strong, .toggle-label, .transcript-box > span { font-size: var(--fs-label) !important; }
+  .dynasty-summary, .contemporary-world { font-size: var(--fs-body) !important; line-height: 1.7; }
   .dynasty-title-row strong { font-size: 22px !important; white-space: nowrap; }
   .era-stop.is-collapsed .dynasty-title-row strong { font-size: 18px !important; white-space: nowrap; }
-  .mission-role-badge strong,
-  .mission-question strong,
-  .mission-material-grid button > strong,
-  .challenge-prompt strong,
-  .hold-to-talk strong { font-size: var(--fs-subtitle) !important; }
-  .placement-section { padding-left: 16px; padding-right: 16px; }
-  .placement-records { padding-left: 16px; padding-right: 16px; }
+  .challenge-prompt strong, .hold-to-talk strong { font-size: var(--fs-subtitle) !important; }
+
 }
 
 /* Mobile placement: the prompt, drop targets and time needle fill the usable width. */
 @media (max-width: 640px) {
-  .placement-section { padding: 42px 10px 62px; }
-  .placement-heading { padding: 0 6px; }
-  .placement-heading > p { margin-top: 6px; color: var(--text-secondary); }
-  .placement-shell { margin-top: 20px; border-radius: 8px; }
-  .placement-tabs { min-height: 56px; padding: 6px; }
-  .placement-tabs button { min-height: 44px; padding: 0 8px; }
-  .placement-records { padding: 16px 10px 24px; }
+
   .records-intro { padding-bottom: 16px; }
   .records-intro > p { margin-top: 7px; }
   .records-list article { gap: 10px; padding: 20px 0; }
@@ -1409,57 +1139,25 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Mobile event page: compact header, horizontal evidence cards, direct voice action. */
 @media (max-width: 640px) {
-  .mission-dialog-hero { min-height: 205px; padding: 24px 68px 21px 16px; }
-  .mission-dialog-hero .dialog-meta { margin-bottom: 12px; }
-  .mission-dialog-hero > p { margin-bottom: 4px; }
-  .mission-dialog-hero blockquote { margin-top: 7px; -webkit-line-clamp: 2; line-clamp: 2; line-height: 1.6 !important; }
-  .mission-hero-mark { display: none; }
-  .mission-journey { min-height: 52px; }
-  .mission-journey > span { gap: 5px; }
-  .mission-journey b { width: 24px; height: 24px; }
-  .mission-content { padding: 16px 12px calc(36px + env(safe-area-inset-bottom)); }
-  .mission-back-button { width: max-content; min-height: 44px; margin-bottom: 14px; padding: 0 13px; }
-  .mission-stage h3 { margin-bottom: 12px; }
-  .mission-role-brief { grid-template-columns: 1fr; margin-bottom: 10px; }
-  .mission-role-brief > div { padding: 13px 14px; }
-  .mission-role-badge { min-height: 68px; }
-  .mission-role-brief p { -webkit-line-clamp: 4; line-clamp: 4; line-height: 1.65 !important; }
-  .mission-question { margin: 10px 0 15px; padding: 13px 14px; }
-  .mission-question strong { line-height: 1.55 !important; }
-  .mission-material-grid { display: flex; gap: 8px; overflow-x: auto; margin: 0 -2px; padding: 0 2px 6px; scroll-snap-type: x mandatory; }
-  .mission-material-grid button { min-width: min(310px, 86vw); min-height: 300px; padding: 14px; scroll-snap-align: start; }
-  .mission-material-summary { -webkit-line-clamp: 4; line-clamp: 4; line-height: 1.62 !important; }
-  .mission-material-context p { font-size: var(--fs-body); line-height: 1.62 !important; }
-  .mission-material-clue p { line-height: 1.55 !important; }
-  .mission-stage-actions { margin: 16px -12px calc(-36px - env(safe-area-inset-bottom)); padding: 11px 12px calc(11px + env(safe-area-inset-bottom)); }
-  .mission-stage-actions .primary-action,
-  .mission-submit-answer { min-height: 54px; }
-  .mission-carrying { grid-template-columns: 1fr; margin-bottom: 8px; }
-  .mission-carrying > div { padding: 10px 12px; }
+
   .challenge-prompt { padding: 14px; }
   .challenge-prompt strong { line-height: 1.55 !important; }
   .speaking-frame { margin: 8px 0 12px; }
   .speaking-frame p { line-height: 1.65 !important; }
   .transcript-box { margin-top: 0; }
   .transcript-box textarea { min-height: 160px; padding: 13px; }
-  .mission-recorder { margin-top: 8px; }
-  .mission-recorder .hold-to-talk { min-height: 88px; padding: 13px 14px; gap: 12px; }
-  .mission-recorder .hold-to-talk > span { width: 48px; height: 48px; flex-basis: 48px; }
-  .mission-recorder .hold-to-talk time { font-size: var(--fs-label) !important; }
+
   .privacy-note { margin: 6px 0 12px; }
-  .mission-assessment { padding: 15px; }
+
   .assessment-actions { display: grid; grid-template-columns: 1fr; }
   .assessment-actions button { width: 100%; min-height: 50px; }
-  .mission-unlock-seal { width: 76px; height: 76px; margin-left: 10px; }
-  .mission-unlock-seal b { margin-top: 31px; }
+
   .unlock-impact { padding: 14px; }
   .unlock-impact p { line-height: 1.65 !important; }
   .unlock-dossier > div { grid-template-columns: 1fr; gap: 5px; }
   .unlock-relations > div { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scroll-snap-type: x mandatory; }
   .unlock-relations button { min-width: min(250px, 78vw); scroll-snap-align: start; }
-  .mission-stage-actions.split { grid-template-columns: 1fr; }
-  .mission-stage-actions.split .primary-action { order: 1; }
-  .mission-stage-actions.split .secondary-action { order: 2; }
+
 }
 
 /* 联考版本视觉语言：暖宣纸、朱褐主操作、宋体标题与现代正文。 */
@@ -1478,8 +1176,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   background: linear-gradient(145deg, #9a5324, var(--red-deep));
   box-shadow: 0 4px 11px rgba(104,50,15,.2), inset 0 0 0 2px rgba(255,248,235,.24);
 }
-.quiet-button,
-.menu-button {
+.quiet-button, .menu-button {
   border-color: rgba(139,69,19,.24);
   border-radius: var(--control-radius);
   background: rgba(250,246,238,.82);
@@ -1508,9 +1205,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   mask-image: radial-gradient(ellipse at 69% 50%, #000 42%, rgba(0,0,0,.94) 60%, transparent 88%);
 }
 .hero-ornament { display: none; }
-.vertical-timeline-section,
-.placement-section,
-.progress-section {
+.vertical-timeline-section {
   --section-art: none;
   position: relative;
   isolation: isolate;
@@ -1522,17 +1217,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   --section-art: var(--art-timeline);
   background-image: linear-gradient(180deg, rgba(250,246,238,.44), transparent 34rem);
 }
-.placement-section {
-  --section-art: var(--art-placement);
-  background-image: linear-gradient(180deg, rgba(250,246,238,.5), transparent 35rem);
-}
-.progress-section {
-  --section-art: var(--art-records);
-  background-image: linear-gradient(180deg, rgba(250,246,238,.46), transparent 34rem);
-}
-.vertical-timeline-section::after,
-.placement-section::after,
-.progress-section::after {
+
+.vertical-timeline-section::after {
   content: "";
   position: absolute;
   z-index: 0;
@@ -1546,43 +1232,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   -webkit-mask-image: radial-gradient(ellipse at 68% 49%, #000 44%, rgba(0,0,0,.9) 62%, transparent 88%);
   mask-image: radial-gradient(ellipse at 68% 49%, #000 44%, rgba(0,0,0,.9) 62%, transparent 88%);
 }
-.vertical-timeline-section > *,
-.placement-section > *,
-.progress-section > * { position: relative; z-index: 1; }
-.vertical-heading > p,
-.progress-summary {
+.vertical-timeline-section > * { position: relative; z-index: 1; }
+.vertical-heading > p {
   padding: 10px 12px;
   border-radius: 10px;
   background: rgba(245,240,232,.76);
   backdrop-filter: blur(3px);
 }
-.journeys-section {
-  position: relative;
-  isolation: isolate;
-  background-color: #3e2723;
-  background-image: radial-gradient(circle at 86% 12%, rgba(212,165,116,.14), transparent 24rem);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-.journeys-section::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  width: min(72vw, 980px);
-  aspect-ratio: 3 / 2;
-  right: -10px;
-  top: -10px;
-  pointer-events: none;
-  opacity: .28;
-  background: var(--art-journeys) center / contain no-repeat;
-  filter: saturate(.72) contrast(.95);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 10%, rgba(0,0,0,.72) 32%, #000 52%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 10%, rgba(0,0,0,.72) 32%, #000 52%, #000 100%);
-}
-.journeys-section > * { position: relative; z-index: 1; }
-.dialog-hero,
-.dialog-hero.world {
+
+.dialog-hero, .dialog-hero.world {
   background-color: var(--red-deep);
   background-image:
     linear-gradient(0deg, rgba(45,25,16,.9), rgba(45,25,16,.3)),
@@ -1594,22 +1252,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .dialog-hero.world { background-color: var(--jade-deep); }
 
-.today-card,
-.portal-grid a,
-.dynasty-toggle,
-.river-card,
-.placement-shell,
-.journey-map,
-.history-scroll,
-.badge,
-.favorite-list button,
-.oral-record-card,
-.event-dialog,
-.mission-role-brief,
-.mission-question,
-.mission-material-grid button,
-.mission-assessment,
-.unlock-relations button {
+.today-card, .portal-grid a, .dynasty-toggle, .river-card, .history-scroll, .badge, .favorite-list button, .oral-record-card, .event-dialog, .unlock-relations button {
   border-color: rgba(94,70,52,.22);
   border-radius: var(--card-radius);
   background-color: var(--card-paper);
@@ -1630,37 +1273,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .portal-grid a:nth-child(2)::before { background: linear-gradient(90deg, #d4a574, var(--gold)); }
 .portal-grid a:nth-child(3)::before { background: linear-gradient(90deg, var(--jade), var(--gold)); }
 .portal-grid a:nth-child(4)::before { background: linear-gradient(90deg, var(--red-deep), #b06a3c); }
-.dynasty-toggle,
-.river-card,
-.history-scroll,
-.oral-record-card { overflow: hidden; }
+.dynasty-toggle, .river-card, .history-scroll, .oral-record-card { overflow: hidden; }
 .era-stop.is-expanded .dynasty-toggle {
   background: rgba(250,246,238,.96);
   box-shadow: var(--paper-shadow-raised);
 }
-.river-card:hover,
-  .portal-grid a:hover {
+.river-card:hover, .portal-grid a:hover {
   box-shadow: var(--paper-shadow-raised);
 }
-.placement-shell { border: 1px solid rgba(94,70,52,.2); }
-.journey-map { background-color: #f3ecdf; }
-.journey-index { display: grid; gap: 8px; border-top: 0; }
-.journey-index button {
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 12px;
-  background: rgba(255,255,255,.035);
-}
-.journey-index button:hover,
-.journey-index button.active { background: rgba(255,255,255,.085); }
+
 .history-scroll::before { opacity: .72; }
 .event-dialog { border-radius: 22px 0 0 22px; background: #f5f0e8; }
-.mission-dialog-hero { box-shadow: inset 0 -1px rgba(255,255,255,.12); }
-.mission-material-grid button.selected {
-  border-color: var(--gold);
-  background: #fff9ed;
-  box-shadow: 0 7px 22px rgba(62,39,35,.13), inset 0 -4px var(--gold);
-}
-.mission-material-context,
+
 .unlock-impact { border-radius: 9px; }
 .transcript-box textarea {
   border-radius: 10px;
@@ -1668,11 +1292,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: inset 0 1px 4px rgba(62,39,35,.05);
 }
 
-.today-action,
-.primary-action,
-.mission-submit-answer,
-.journey-start,
-.assessment-actions button {
+.today-action, .primary-action, .assessment-actions button {
   border: 1px solid var(--red-deep);
   border-radius: var(--control-radius);
   color: #fff;
@@ -1680,19 +1300,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: 0 5px 14px rgba(104,50,15,.23);
   font-weight: 700;
 }
-.today-action:hover,
-.primary-action:not(:disabled):hover,
-.mission-submit-answer:not(:disabled):hover,
-.journey-start:hover,
-.assessment-actions button:hover {
+.today-action:hover, .primary-action:not(:disabled):hover, .assessment-actions button:hover {
   background: linear-gradient(135deg, var(--red-deep), var(--red));
   box-shadow: 0 8px 20px rgba(104,50,15,.3);
 }
-.today-swap,
-.mission-back-button,
-.secondary-action,
-.collapse-actions button,
-  .rail-navigation button {
+.today-swap, .secondary-action, .collapse-actions button {
   border: 1px solid rgba(139,69,19,.26);
   border-radius: var(--control-radius);
   color: var(--red);
@@ -1700,10 +1312,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: 0 2px 8px rgba(62,39,35,.055);
   font-weight: 600;
 }
-.content-filters button,
-  .placement-tabs button { border-radius: 999px; }
-.content-filters button.active,
-.placement-tabs button.active {
+.content-filters button { border-radius: 999px; }
+.content-filters button.active {
   color: #fff;
   background: linear-gradient(135deg, var(--red), #a75a28);
   box-shadow: 0 4px 12px rgba(104,50,15,.2);
@@ -1713,7 +1323,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   background: #fffaf1;
   box-shadow: 0 7px 20px rgba(104,50,15,.1);
 }
-.mission-stage-actions { background: rgba(245,240,232,.96); }
 
 @media (max-width: 640px) {
   .hero {
@@ -1726,31 +1335,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     top: -16px;
     opacity: .34;
   }
-  .vertical-timeline-section::after,
-  .placement-section::after,
-  .progress-section::after {
+  .vertical-timeline-section::after {
     width: 390px;
     right: -142px;
     top: 20px;
     opacity: .3;
   }
-  .journeys-section::before {
-    width: 430px;
-    right: -160px;
-    top: 0;
-    opacity: .13;
-  }
-  .today-card,
-  .portal-grid a,
-  .dynasty-toggle,
-  .river-card,
-  .placement-shell,
-  .journey-map,
-  .history-scroll,
-  .oral-record-card { border-radius: 15px; }
+
+  .today-card, .portal-grid a, .dynasty-toggle, .river-card, .history-scroll, .oral-record-card { border-radius: 15px; }
   .event-dialog { border-radius: 0; }
-  .mission-material-grid button { border-radius: 14px; }
-  .journey-index button { border-radius: 11px; }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1767,13 +1361,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .main-nav a { padding-top: 27px; padding-bottom: 25px; }
 .hero { padding-left: max(24px, calc((100vw - 1240px) / 2)); padding-right: max(24px, calc((100vw - 1240px) / 2)); }
 .hero-copy { max-width: 1240px; }
-.home-portals,
-.timeline-section,
-.placement-section,
-.progress-section { max-width: 1240px; }
-.home-portals,
-.timeline-section,
-.progress-section { padding-left: 0; padding-right: 0; }
+.home-portals, .timeline-section { max-width: 1240px; }
+.home-portals, .timeline-section { padding-left: 0; padding-right: 0; }
 .section-heading h2 { font-size: clamp(30px, 3vw, 43px); }
 .section-heading > p { width: min(390px, 42vw); font-size: 14px; }
 .portal-grid { gap: 14px; }
@@ -1782,36 +1371,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .portal-grid a > p { font-size: 14px; }
 .dynasty-toggle { border-radius: 16px; }
 .river-card { border-radius: 16px; }
-.river-card footer strong,
-.portal-grid a > i { color: var(--red); font-weight: 700; }
+.river-card footer strong, .portal-grid a > i { color: var(--red); font-weight: 700; }
 
 /* 专题航线不再使用另一套深色界面，保持同一张历史纸面。 */
-.journeys-section {
-  color: var(--text-primary);
-  background-color: var(--paper-deep);
-  background-image:
-    linear-gradient(180deg, rgba(245,240,232,.92), rgba(237,230,214,.86)),
-    var(--art-journeys);
-}
-.journeys-section::before { opacity: .1; }
+
 .light-heading h2 { color: var(--text-primary); }
 .light-heading > p { color: var(--text-secondary); }
-.journey-index { align-content: start; }
-.journey-index button {
-  color: var(--text-secondary);
-  border-color: var(--line);
-  background: rgba(255,250,241,.66);
-  box-shadow: 0 4px 14px rgba(62,39,35,.045);
-}
-.journey-index button small { color: var(--text-secondary); opacity: .72; }
-.journey-index button:hover,
-.journey-index button.active {
-  color: var(--text-primary);
-  border-color: color-mix(in srgb, var(--journey-color) 52%, var(--line));
-  background: #fffaf1;
-  box-shadow: var(--paper-shadow);
-}
-.journey-map { border: 1px solid var(--line); background: rgba(250,246,238,.94); box-shadow: var(--paper-shadow-raised); }
 
 /* 事件嵌入主模块 */
 .insertion-section { padding: 74px 0 96px; }
@@ -1918,8 +1483,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .insertion-notice span { color: var(--red); font-size: 18px; }
 .insertion-timeline-panel { min-width: 0; padding: 32px 32px 28px; }
 .insertion-timeline-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
-.insertion-timeline-heading > div span,
-.insertion-timeline-heading > div strong { display: block; }
+.insertion-timeline-heading > div span, .insertion-timeline-heading > div strong { display: block; }
 .insertion-timeline-heading > div span { color: var(--red); font-size: 11px; }
 .insertion-timeline-heading > div strong { margin-top: 6px; font-size: 20px; }
 .insertion-timeline-heading small { color: var(--text-secondary); font-size: 10px; }
@@ -1937,8 +1501,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .insertion-board.is-ready { border-color: var(--gold); box-shadow: inset 0 0 0 3px rgba(193,148,69,.12), 0 10px 25px rgba(62,39,35,.08); }
 .insertion-axis { position: absolute; left: 7%; right: 7%; top: 50%; height: 2px; background: linear-gradient(90deg, var(--red), var(--gold) 55%, var(--jade)); box-shadow: 0 0 0 5px rgba(193,148,69,.035); }
-.insertion-axis::before,
-.insertion-axis::after { content: ""; position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-soft); }
+.insertion-axis::before, .insertion-axis::after { content: ""; position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-soft); }
 .insertion-axis::before { left: -3px; }
 .insertion-axis::after { right: -3px; }
 .insertion-axis i { position: absolute; top: -6px; width: 1px; height: 14px; background: rgba(94,70,52,.28); }
@@ -1954,8 +1517,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .insertion-anchor::after { content: ""; position: absolute; left: 50%; width: 1px; height: 29px; background: rgba(94,70,52,.2); }
 .insertion-anchor.upper::after { top: 65px; }
 .insertion-anchor.lower::after { top: -16px; }
-.insertion-anchor time,
-.insertion-anchor strong { display: block; }
+.insertion-anchor time, .insertion-anchor strong { display: block; }
 .insertion-anchor time { color: var(--gold); font-family: Arial, sans-serif; font-size: 10px; }
 .insertion-anchor strong { margin-top: 5px; font-size: 11px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 112px; }
 .insertion-drop-hint { position: absolute; bottom: 10px; right: 14px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; pointer-events: none; color: rgba(107,92,80,.5); }
@@ -1973,13 +1535,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .insertion-chosen strong { position: absolute; bottom: 0; left: 0; transform: translateX(-50%); color: var(--red); font-family: Georgia, serif; font-size: 13px; white-space: nowrap; }
 .insertion-actual-marker { position: absolute; z-index: 6; top: calc(50% - 7px); width: 1px; height: 15px; background: var(--jade); }
 .insertion-actual-marker i { position: absolute; top: 0; left: -7px; width: 15px; height: 15px; border: 3px solid #f5eddf; border-radius: 50%; background: var(--jade); box-shadow: 0 0 0 5px rgba(79,117,106,.15); }
-.insertion-actual-marker span,
-.insertion-actual-range span { position: absolute; top: 23px; left: 50%; min-width: 120px; white-space: nowrap; transform: translateX(-50%); color: var(--jade-deep); text-align: center; font-size: 10px; font-weight: 700; }
+.insertion-actual-marker span, .insertion-actual-range span { position: absolute; top: 23px; left: 50%; min-width: 120px; white-space: nowrap; transform: translateX(-50%); color: var(--jade-deep); text-align: center; font-size: 10px; font-weight: 700; }
 .insertion-actual-range { height: 18px; min-width: 16px; position: absolute; z-index: 5; top: calc(50% - 9px); border: 2px solid var(--jade); border-radius: 99px; background: rgba(79,117,106,.18); }
 .insertion-ghost { width: 225px; min-height: 94px; position: fixed; z-index: 120; transform: translate(-50%, calc(-100% - 28px)) rotate(-1deg); padding: 14px 16px; border: 1px solid var(--red-deep); border-radius: 14px; color: #fff; background: linear-gradient(145deg, var(--red), var(--red-deep)); box-shadow: 0 20px 45px rgba(62,39,35,.28); pointer-events: none; }
-.insertion-ghost span,
-.insertion-ghost strong,
-.insertion-ghost small { display: block; }
+.insertion-ghost span, .insertion-ghost strong, .insertion-ghost small { display: block; }
 .insertion-ghost span { color: rgba(255,255,255,.66); font-size: 9px; }
 .insertion-ghost strong { margin-top: 5px; color: #fff; font-size: 18px; }
 .insertion-ghost small { margin-top: 7px; color: #f0d6a7; font-size: 11px; }
@@ -2001,22 +1560,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .insertion-relations-grid button:not(:disabled)::after { content: "进入 →"; display: block; margin-top: 8px; color: var(--red); font-size: 9px; font-weight: 700; opacity: 0; transition: opacity .2s; }
 .insertion-relations-grid button:not(:disabled):hover::after { opacity: 1; }
 .insertion-relations-grid button:disabled { opacity: .55; cursor: default; }
-.insertion-relations-grid button span,
-.insertion-relations-grid button strong { display: block; }
+.insertion-relations-grid button span, .insertion-relations-grid button strong { display: block; }
 .insertion-relations-grid button span { color: var(--gold); font-size: 11px; font-weight: 600; letter-spacing: .02em; }
 .insertion-relations-grid button strong { margin-top: 6px; font-size: 14px; line-height: 1.45; }
 .insertion-relations-grid button.focus { border-color: rgba(139,69,19,.35); background: rgba(139,69,19,.07); }
-.insertion-relations-grid button.focus span,
-.insertion-relations-grid button.focus strong { color: var(--red); }
+.insertion-relations-grid button.focus span, .insertion-relations-grid button.focus strong { color: var(--red); }
 .insertion-relations-grid button.simultaneous { border-color: rgba(79,117,106,.3); background: rgba(79,117,106,.08); }
-.insertion-relations-grid button.simultaneous span,
-.insertion-relations-grid button.simultaneous strong { color: var(--jade-deep); }
+.insertion-relations-grid button.simultaneous span, .insertion-relations-grid button.simultaneous strong { color: var(--jade-deep); }
 .insertion-memory { margin-top: 17px; padding: 17px 19px; border-left: 3px solid var(--gold); border-radius: 0 11px 11px 0; background: rgba(193,148,69,.08); }
 .insertion-memory span { color: var(--red); font-size: 11px; }
 .insertion-memory p { margin: 7px 0 0; font-family: "Songti SC", "STSong", serif; font-size: 17px; line-height: 1.75; }
 .insertion-actions { margin-top: 18px; display: flex; justify-content: flex-end; gap: 9px; }
-.insertion-actions .secondary-action,
-.insertion-actions .primary-action { min-height: 46px; margin: 0; padding: 0 18px; }
+.insertion-actions .secondary-action, .insertion-actions .primary-action { min-height: 46px; margin: 0; padding: 0 18px; }
 .insertion-records { min-height: 450px; padding: 30px 32px 44px; }
 .insertion-records-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
 .insertion-records-head span { color: var(--jade-deep); font-size: 10px; }
@@ -2025,11 +1580,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .insertion-record-list { margin-top: 15px; display: grid; gap: 8px; }
 .insertion-record-list article { min-height: 70px; display: grid; grid-template-columns: 90px minmax(0,1fr) auto; gap: 16px; align-items: center; padding: 11px 16px; border: 1px solid var(--line); border-radius: 13px; background: rgba(255,250,241,.78); }
 .insertion-record-list article > time { color: var(--red); font-family: Georgia, serif; font-size: 19px; }
-.insertion-record-list article div span,
-.insertion-record-list article div strong,
-.insertion-record-list article div small { display: block; }
-.insertion-record-list article div span,
-.insertion-record-list article div small { color: var(--text-secondary); font-size: 10px; }
+.insertion-record-list article div span, .insertion-record-list article div strong, .insertion-record-list article div small { display: block; }
+.insertion-record-list article div span, .insertion-record-list article div small { color: var(--text-secondary); font-size: 10px; }
 .insertion-record-list article div strong { margin: 3px 0; font-size: 15px; }
 .insertion-record-list article > b { padding: 6px 9px; border-radius: 99px; color: var(--jade-deep); background: rgba(79,117,106,.09); font-size: 10px; }
 .insertion-record-empty { min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-secondary); }
@@ -2041,11 +1593,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .time-record-list { margin-top: 16px; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
 .time-record-card { min-height: 88px; display: grid; grid-template-columns: 92px minmax(0,1fr) auto; gap: 14px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); border-radius: 13px; background: var(--paper); }
 .time-record-card > time { color: var(--red); font-family: Georgia,serif; font-size: 19px; }
-.time-record-card div span,
-.time-record-card div strong,
-.time-record-card div small { display: block; }
-.time-record-card div span,
-.time-record-card div small { color: var(--text-secondary); font-size: 10px; }
+.time-record-card div span, .time-record-card div strong, .time-record-card div small { display: block; }
+.time-record-card div span, .time-record-card div small { color: var(--text-secondary); font-size: 10px; }
 .time-record-card div strong { margin: 3px 0; font-size: 15px; }
 .time-record-card > b { padding: 6px 9px; border-radius: 99px; color: var(--jade-deep); background: rgba(79,117,106,.09); font-size: 10px; white-space: nowrap; }
 .empty-time-records { min-height: 150px; display: flex; align-items: center; justify-content: center; gap: 15px; color: var(--text-secondary); }
@@ -2054,39 +1603,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .empty-time-records a { min-height: 42px; display: inline-flex; align-items: center; gap: 8px; padding: 0 17px; border-radius: 10px; color: #fff; background: var(--red); font-size: 12px; font-weight: 700; }
 
 /* 具体事件讲述：背景图只承担情境，正文仍以材料与口述为主。 */
-.mission-dialog { width: min(780px, 96vw); background: var(--paper); }
-.mission-dialog-hero { min-height: 250px; padding: 35px 45% 30px 38px; background-image: linear-gradient(115deg, rgba(70,35,19,.98) 0 43%, rgba(70,35,19,.82) 58%, rgba(70,35,19,.24) 100%); }
-.mission-dialog-hero.world { background-image: linear-gradient(115deg, rgba(38,68,62,.98) 0 43%, rgba(38,68,62,.82) 58%, rgba(38,68,62,.24) 100%); }
-.mission-hero-image { position: absolute; z-index: 0; inset: 0 0 0 38%; background-position: center right; background-repeat: no-repeat; background-size: cover; opacity: .92; -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.46) 20%, #000 52%); mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.46) 20%, #000 52%); }
-.mission-dialog-hero::before { content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(45,25,16,.12), transparent 62%); }
-.mission-dialog-hero > *:not(.mission-hero-image) { position: relative; z-index: 2; }
-.mission-dialog-hero .dialog-meta { margin-bottom: 22px; }
-.mission-dialog-hero blockquote { max-width: 390px; -webkit-line-clamp: 3; line-clamp: 3; }
-.mission-hero-mark { display: none; }
-.mission-journey { min-height: 58px; }
-.mission-content { padding: 28px 38px 52px; }
-.mission-stage h3 { font-size: 26px; }
-.mission-back-button { min-height: 44px; border-radius: 10px; }
-.mission-role-brief { grid-template-columns: 160px minmax(0,1fr); border-radius: 12px; box-shadow: 0 8px 22px rgba(62,39,35,.06); }
-.mission-role-brief p { -webkit-line-clamp: 4; line-clamp: 4; }
-.mission-question { border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; }
-.mission-material-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
-.mission-material-grid button { min-height: 260px; border-radius: 13px; }
-.mission-material-grid button.selected { border-color: var(--jade); background: rgba(79,117,106,.08); box-shadow: 0 8px 24px rgba(62,39,35,.1), inset 0 -4px var(--jade); }
-.mission-material-grid button.selected > em { color: var(--jade-deep); }
-.mission-stage-actions { border-radius: 0 0 18px 18px; }
+
 .challenge-prompt { border-radius: 12px; }
 .transcript-box textarea { min-height: 150px; font-size: 16px; line-height: 1.75; }
-.mission-recorder .hold-to-talk { min-height: 88px; border-radius: 13px; }
-.mission-submit-answer { min-height: 52px; }
+
 .unlock-relations button { border-radius: 12px; }
 
 @media (max-width: 1000px) {
-  .home-portals,
-  .timeline-section,
-  .placement-section,
-  .progress-section { margin-left: 18px; margin-right: 18px; }
-  .journeys-section { padding-left: 28px; padding-right: 28px; }
+  .home-portals, .timeline-section { margin-left: 18px; margin-right: 18px; }
+
   .insertion-layout { grid-template-columns: 280px minmax(0,1fr); }
   .insertion-source { padding: 28px 20px; }
   .insertion-timeline-panel { padding: 28px 20px; }
@@ -2100,14 +1625,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .brand strong { font-size: 17px; }
   .main-nav { top: 68px; left: 10px; right: 10px; }
   .main-nav a { min-height: 50px; padding: 15px 18px; font-size: 16px; }
-  .home-portals,
-  .timeline-section,
-  .placement-section,
-  .progress-section { margin-left: 10px; margin-right: 10px; }
+  .home-portals, .timeline-section { margin-left: 10px; margin-right: 10px; }
   .home-portals { padding-top: 50px; padding-bottom: 66px; }
   .section-heading { display: block; }
-  .section-heading > p,
-  .insertion-heading > p { width: auto; margin-top: 15px; font-size: 14px; }
+  .section-heading > p, .insertion-heading > p { width: auto; margin-top: 15px; font-size: 14px; }
   .portal-grid a { min-height: 190px; }
   .insertion-section { padding-top: 42px; padding-bottom: 70px; }
   .insertion-heading h2 { font-size: 42px; }
@@ -2150,8 +1671,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .insertion-result-placed strong, .insertion-result-actual strong { font-size: 17px; }
   .insertion-relations-grid { grid-template-columns: 1fr; gap: 7px; }
   .insertion-relations-grid > i { display: none; }
-  .insertion-relations-grid button,
-  .insertion-relations-grid button.simultaneous { min-height: auto; grid-column: auto; display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 8px; }
+  .insertion-relations-grid button, .insertion-relations-grid button.simultaneous { min-height: auto; grid-column: auto; display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 8px; }
   .insertion-relations-grid button strong { margin-top: 0; }
   .insertion-relations-grid button:not(:disabled)::after { display: none; }
   .insertion-memory p { font-size: 16px; }
@@ -2167,34 +1687,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .time-record-card { grid-template-columns: 76px minmax(0,1fr); gap: 10px; }
   .time-record-card > b { grid-column: 2; justify-self: start; }
   .empty-time-records { min-height: 180px; flex-direction: column; text-align: center; }
-  .mission-dialog { width: 100vw; }
-  .mission-dialog-hero { min-height: 265px; padding: 92px 22px 24px; background-image: linear-gradient(0deg, rgba(70,35,19,.96) 0 52%, rgba(70,35,19,.3) 100%); }
-  .mission-dialog-hero.world { background-image: linear-gradient(0deg, rgba(38,68,62,.96) 0 52%, rgba(38,68,62,.3) 100%); }
-  .mission-hero-image { inset: 0; opacity: .74; -webkit-mask-image: linear-gradient(180deg, #000 0, rgba(0,0,0,.7) 42%, transparent 77%); mask-image: linear-gradient(180deg, #000 0, rgba(0,0,0,.7) 42%, transparent 77%); }
-  .mission-dialog-hero blockquote { max-width: none; }
-  .mission-content { padding: 22px 14px calc(44px + env(safe-area-inset-bottom)); }
-  .mission-stage h3 { font-size: 23px; }
-  .mission-role-brief { grid-template-columns: 1fr; }
-  .mission-role-badge { min-height: 83px; }
-  .mission-role-brief p { -webkit-line-clamp: initial; line-clamp: initial; font-size: 15px; }
-  .mission-question strong { font-size: 16px; }
-  .mission-material-grid { grid-template-columns: 1fr; }
-  .mission-material-grid button { min-height: 225px; padding: 16px; }
-  .mission-material-summary { font-size: 15px; }
-  .mission-material-context p { font-size: 14px; }
-  .mission-stage-actions { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
+
   .transcript-box textarea { min-height: 145px; font-size: 16px; }
-  .mission-recorder .hold-to-talk { min-height: 92px; }
+
 }
 
 /* ══ Material card enhancement: keywords + always-visible clue ══ */
-.mission-material-clue { flex: none; margin-top: 10px; padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--jade); background: rgba(84,120,108,.07); }
-.mission-material-clue small { color: var(--jade-deep); font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-.mission-material-clue p { margin: 5px 0 0; font-size: 12px; line-height: 1.6; color: var(--ink); }
-.mission-material-grid button.selected .mission-material-clue { border-left-color: var(--red); background: rgba(159,63,46,.06); }
-.mission-material-grid button.selected .mission-material-clue small { color: var(--red); }
-.mission-material-keywords { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
-.mission-material-keywords span { padding: 3px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--ink-soft); background: rgba(255,255,255,.4); font-size: 9px; }
 
 /* ══ Assessment page transition: slide-in effect ══ */
 .assessment-page { animation: assessmentSlideIn .4s cubic-bezier(.22,1,.36,1); }
@@ -2214,32 +1712,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .assessment-page .assessment-actions button span { margin-left: 6px; }
 
 /* ══ Celebration animation: confetti + burst ══ */
-.celebration-overlay { position: absolute; inset: 0; z-index: 10; pointer-events: none; overflow: hidden; }
+
 .confetti-container { position: absolute; inset: 0; }
 .confetti-piece { position: absolute; top: -12px; left: var(--x); width: 8px; height: 14px; border-radius: 2px; background: var(--color); animation: confettiFall 3s var(--delay) ease-in forwards; }
 @keyframes confettiFall {
   0% { opacity: 1; transform: translateY(0) rotate(0deg); }
   100% { opacity: 0; transform: translateY(520px) rotate(720deg); }
 }
-.celebration-burst { position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); animation: burstExpand 1.2s ease-out forwards; }
-@keyframes burstExpand {
-  0% { opacity: .9; transform: translate(-50%, -50%) scale(0); box-shadow: 0 0 0 0 rgba(193,148,69,.4); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(60); box-shadow: 0 0 0 40px rgba(193,148,69,0); }
-}
-.unlock-stage.is-celebrating .mission-unlock-seal { animation: sealStamp .6s cubic-bezier(.34,1.56,.64,1) .2s both, sealGlow 2s ease-in-out .8s infinite alternate; }
-@keyframes sealStamp {
-  0% { opacity: 0; transform: rotate(-15deg) scale(2.5); }
-  100% { opacity: 1; transform: rotate(-5deg) scale(1); }
-}
-@keyframes sealGlow {
-  from { box-shadow: inset 0 0 0 8px var(--paper), inset 0 0 0 9px rgba(159,63,46,.17), 0 0 20px rgba(193,148,69,.2); }
-  to { box-shadow: inset 0 0 0 8px var(--paper), inset 0 0 0 9px rgba(159,63,46,.17), 0 0 40px rgba(193,148,69,.5); }
-}
+
 .unlock-stage.is-celebrating h3 { animation: textRise .5s ease-out .4s both; }
 @keyframes textRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ══ Oral stage: page transition between compose and feedback ══ */
-.mission-dialog { position: relative; }
+
 .oral-view { animation: oralViewEnter .4s ease-out; }
 @keyframes oralViewEnter {
   from { opacity: 0; transform: translateX(24px); }
@@ -2250,18 +1735,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.celebration-trigger { animation: unlockBtnPulse 1.6s ease-in-out infinite; }
-@keyframes unlockBtnPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(193,148,69,.45); }
-  50% { box-shadow: 0 0 0 14px rgba(193,148,69,0); }
-}
-.celebration-overlay { border-radius: inherit; }
 
 /* ══ Mobile: background image full-width ══ */
 @media (max-width: 768px) {
-  .placement-section::after,
-  .vertical-timeline-section::after,
-  .progress-section::after {
+  .vertical-timeline-section::after {
     width: 100%;
     right: 0;
     top: 0;
@@ -2272,6 +1749,289 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ══ Compact material grid: 2 columns on wider screens ══ */
-@media (min-width: 769px) {
-  .mission-material-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+/* ════════════════════════════════════════════════════════════════
+   Event Card: lit (mastered) vs dim (wrong/unanswered)
+   ════════════════════════════════════════════════════════════════ */
+.era-rail-vertical .river-card.event-card.is-lit {
+  border-top-width: 3px;
+  background: rgba(255, 253, 248, .85);
+}
+.era-rail-vertical .river-card.event-card.is-dim {
+  opacity: .6;
+  border-top-color: var(--line);
+  background: rgba(250, 247, 240, .4);
+}
+.era-rail-vertical .river-card.event-card.is-dim:hover {
+  opacity: .85;
+}
+.era-rail-vertical .river-card.event-card.status-wrong {
+  border-left: 2px solid var(--red);
+}
+.event-card-image {
+  width: 100%;
+  max-height: 140px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Time Detective — 同期事件匹配
+   ════════════════════════════════════════════════════════════════ */
+.detective-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 60px;
+}
+
+.time-detective {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Focus card — the event whose contemporary the player must find */
+.detective-focus-card {
+  padding: 24px 28px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--red);
+  border-radius: var(--control-radius);
+  background: rgba(255, 253, 248, .72);
+}
+.detective-focus-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.detective-focus-meta i {
+  font-style: normal;
+  opacity: .4;
+}
+.detective-focus-time {
+  margin-top: 10px;
+  color: var(--text-accent);
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.detective-focus-title {
+  margin: 6px 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.detective-focus-summary {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Question prompt */
+.detective-prompt {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.detective-prompt b {
+  color: var(--text-accent);
+}
+
+/* Options grid */
+.detective-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.detective-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  background: rgba(255, 253, 248, .5);
+  cursor: pointer;
+  transition: border-color .2s, background .2s, transform .15s;
+}
+.detective-option:hover:not(:disabled) {
+  border-color: rgba(159, 63, 46, .35);
+  background: rgba(255, 253, 248, .8);
+  transform: translateY(-2px);
+}
+.detective-option:disabled {
+  cursor: default;
+}
+.detective-option-index {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.detective-option-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.detective-option-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+.detective-option-sub {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.detective-option-category {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.detective-option-time {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-accent);
+}
+
+/* Option states after answering */
+.detective-option.correct {
+  border-color: var(--jade);
+  background: rgba(84, 120, 108, .08);
+}
+.detective-option.correct .detective-option-index {
+  border-color: var(--jade);
+  background: var(--jade);
+  color: #fff;
+}
+.detective-option.incorrect {
+  border-color: var(--red);
+  background: rgba(159, 63, 46, .06);
+}
+.detective-option.incorrect .detective-option-index {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+
+/* Result area */
+.detective-result {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.detective-result-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.detective-result-badge.correct {
+  background: rgba(84, 120, 108, .12);
+  color: var(--jade-deep);
+}
+.detective-result-badge.incorrect {
+  background: rgba(159, 63, 46, .1);
+  color: var(--red);
+}
+.detective-result-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.detective-result-event {
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  background: rgba(255, 253, 248, .5);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.detective-result-event.focus {
+  border-top: 3px solid var(--red);
+}
+.detective-result-event.match {
+  border-top: 3px solid var(--jade);
+}
+.detective-result-tag {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.detective-result-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.detective-result-time {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-accent);
+}
+.detective-result-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.detective-result-summary {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.detective-result-diff {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.detective-result-note {
+  margin: 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--gold);
+  background: rgba(181, 138, 69, .08);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.detective-actions {
+  display: flex;
+  justify-content: center;
+}
+.detective-next {
+  padding: 12px 32px;
+  border: 0;
+  border-radius: var(--control-radius);
+  background: var(--text-accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.detective-next:hover {
+  opacity: .85;
+}
+
+/* Detective responsive */
+@media (max-width: 640px) {
+  .detective-options { grid-template-columns: 1fr; }
+  .detective-result-pair { grid-template-columns: 1fr; }
 }

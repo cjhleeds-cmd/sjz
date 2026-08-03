@@ -4,8 +4,8 @@ import "./globals.css";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export const metadata: Metadata = {
-  title: "历史长河 · 进入时空",
-  description: "沿中国朝代理解历史，把事件落入时间，并通过材料口述讲清前因、过程与影响。",
+  title: "历史长河 · 时间填空与时间轴",
+  description: "通过填空题记住历史事件的时间，答对的事件在时间轴上点亮完整信息。",
   icons: {
     icon: `${basePath}/favicon.svg`,
     shortcut: `${basePath}/favicon.svg`,
@@ -30,12 +30,6 @@ export default function RootLayout({
           :root {
             --font-geist-sans: "Geist", sans-serif;
             --font-geist-mono: "Geist Mono", monospace;
-            --art-home: url("${basePath}/historical-art/home-history-river.webp");
-            --art-timeline: url("${basePath}/historical-art/timeline-dynasties.webp");
-            --art-placement: url("${basePath}/historical-art/time-placement.webp");
-            --art-journeys: url("${basePath}/historical-art/journeys-silk-road.webp");
-            --art-records: url("${basePath}/historical-art/records-scroll.webp");
-            --art-event: url("${basePath}/historical-art/event-archive.webp");
           }
         `}</style>
       </head>
