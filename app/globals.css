@@ -297,8 +297,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .river-card.is-dim { opacity: .7; }
 .river-card.is-dim h4 { color: var(--text-secondary); }
 .river-card.is-dim .event-card-summary { color: var(--ink-soft); font-size: 11px; }
-.event-card-quiz-hint { position: absolute; bottom: 6px; right: 14px; font-size: 10px; color: var(--text-secondary); opacity: .5; font-weight: 500; }
-.river-card.clickable:hover .event-card-quiz-hint { opacity: 1; color: var(--text-accent); }
+/* Event card clickable footer bar - always visible */
+.event-card-quiz-hint {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-top: 8px; padding: 5px 12px;
+  border-radius: 8px; border: 1px solid rgba(159,63,46,.18);
+  background: rgba(159,63,46,.05);
+  font-size: 11px; color: var(--text-accent); font-weight: 600;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.event-card-quiz-hint .quiz-hint-icon { font-size: 12px; }
+.event-card-quiz-hint .quiz-hint-arrow { transition: transform .2s; }
+.river-card.clickable:hover .event-card-quiz-hint {
+  background: rgba(159,63,46,.1); border-color: rgba(159,63,46,.32); color: var(--red);
+}
+.river-card.clickable:hover .event-card-quiz-hint .quiz-hint-arrow { transform: translateX(3px); }
+.river-card.world.clickable .event-card-quiz-hint { border-color: rgba(84,120,108,.2); background: rgba(84,120,108,.05); color: var(--jade-deep); }
+.river-card.world.clickable:hover .event-card-quiz-hint { background: rgba(84,120,108,.1); border-color: rgba(84,120,108,.34); color: var(--jade-deep); }
 
 /* ===== Detective question type badge ===== */
 .detective-qtype-badge { padding: 3px 10px; border-radius: 4px; background: var(--red); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
@@ -325,6 +340,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .portal-grid a > strong { display: block; margin-top: 24px; font-size: 22px; font-weight: 700; color: var(--text-primary); }
 .portal-grid a > p { margin: 10px 0 18px; color: var(--text-secondary); font-size: 13px; line-height: 1.75; font-weight: 400; }
 .portal-grid a > i { margin-top: auto; padding-top: 13px; border-top: 1px solid var(--line); color: var(--text-accent); font-size: 13px; font-style: normal; font-weight: 600; }
+
+/* Portal card clickable arrow indicator */
+.portal-grid a .portal-arrow {
+  position: absolute; top: 16px; right: 16px;
+  width: 30px; height: 30px; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid rgba(159,63,46,.2);
+  background: rgba(159,63,46,.06); color: var(--text-accent);
+  font-size: 14px; font-weight: 700;
+  transition: transform .25s, background .2s, border-color .2s, color .2s;
+}
+.portal-grid a:nth-child(2) .portal-arrow { border-color: rgba(181,138,69,.25); background: rgba(181,138,69,.07); color: var(--gold); }
+.portal-grid a:nth-child(3) .portal-arrow { border-color: rgba(84,120,108,.22); background: rgba(84,120,108,.06); color: var(--jade-deep); }
+.portal-grid a:hover .portal-arrow { transform: translate(3px,-3px) scale(1.1); background: var(--red); border-color: var(--red); color: #fff; }
+.portal-grid a:nth-child(2):hover .portal-arrow { background: var(--gold); border-color: var(--gold); color: #fff; }
+.portal-grid a:nth-child(3):hover .portal-arrow { background: var(--jade); border-color: var(--jade); color: #fff; }
 
 .timeline-section { max-width: 1440px; margin: 0 auto; padding: 80px 48px 96px; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; }
@@ -423,6 +453,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .vertical-timeline-section { padding-bottom: 120px; }
 .vertical-heading { padding-bottom: 35px; border-bottom: 1px solid var(--line); }
 .vertical-heading h2 { max-width: 700px; font-size: clamp(34px, 4vw, 54px); line-height: 1.25; }
+
+/* ===== Global timeline progress card ===== */
+.global-progress-card {
+  margin: 20px 0 30px; padding: 18px 24px;
+  border: 1px solid rgba(159,63,46,.16); border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,253,248,.92), rgba(245,240,229,.72));
+  box-shadow: 0 8px 26px rgba(65,48,28,.06);
+}
+.global-progress-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.global-progress-label { font-size: 14px; font-weight: 700; color: var(--text-primary); letter-spacing: .02em; }
+.global-progress-count { font-size: 13px; font-weight: 600; color: var(--text-accent); }
+.global-progress-bar { height: 10px; border-radius: 99px; background: rgba(72,63,50,.1); overflow: hidden; }
+.global-progress-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--red), var(--gold) 50%, var(--jade)); transition: width .5s ease; }
+.global-progress-hint { margin-top: 10px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ===== Dynasty progress row ===== */
+.dynasty-progress-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.dynasty-progress-bar { flex: 1; max-width: 200px; height: 5px; border-radius: 99px; background: rgba(72,63,50,.1); overflow: hidden; }
+.dynasty-progress-bar i { display: block; height: 100%; border-radius: 99px; background: var(--jade); transition: width .4s ease; }
+.dynasty-progress-text { font-size: 10px; color: var(--text-secondary); font-weight: 500; white-space: nowrap; }
+
 .river-controls { position: sticky; top: 14px; z-index: 12; display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 24px 0 45px; padding: 12px 14px; border: 1px solid var(--line); background: rgba(245,240,229,.94); box-shadow: 0 10px 30px rgba(63,49,31,.06); backdrop-filter: blur(14px); }
 .scroll-instruction { display: none; }
 .scroll-instruction > span { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; color: var(--red); background: rgba(159,63,46,.08); font-family: Arial, sans-serif; }
@@ -516,6 +567,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .era-rail-vertical .event-card-tag { color: var(--text-secondary); font-size: 11px; white-space: nowrap; }
 .era-rail-vertical .river-card h4 { margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600; color: var(--text-primary); }
 .era-rail-vertical .river-card > p { margin: 0; color: var(--text-secondary); font-size: 12px; line-height: 1.4; }
+.era-rail-vertical .event-card-quiz-hint { margin-top: 4px; padding: 3px 10px; font-size: 10px; border-radius: 6px; }
+.era-rail-vertical .event-card-quiz-hint .quiz-hint-icon { font-size: 10px; }
 .empty-rail { flex: 1 0 100%; min-height: 60px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--ink-soft); font-size: 12px; padding: 16px; }
 .river-to-today { position: relative; display: grid; grid-template-columns: 145px 1fr; align-items: center; min-height: 80px; }
 .river-to-today > span { z-index: 2; width: 52px; height: 52px; margin-left: 47px; display: grid; place-items: center; border: 7px solid var(--paper); border-radius: 50%; color: #fff; background: var(--jade); box-shadow: 0 0 0 1px rgba(84,120,108,.4); }
@@ -1668,6 +1721,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .section-heading { display: block; }
   .section-heading > p, .insertion-heading > p { width: auto; margin-top: 15px; font-size: 14px; }
   .portal-grid a { min-height: 190px; }
+  .global-progress-card { padding: 14px 16px; margin: 14px 0 20px; }
+  .global-progress-top { flex-wrap: wrap; gap: 6px; }
+  .global-progress-label { font-size: 13px; }
+  .global-progress-count { font-size: 12px; }
+  .global-progress-hint { font-size: 11px; }
   .insertion-section { padding-top: 42px; padding-bottom: 70px; }
   .insertion-heading h2 { font-size: 42px; }
   .insertion-shell { margin-top: 25px; border-radius: 18px; }

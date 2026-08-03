@@ -224,19 +224,22 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
       <section className="home-portals" id="home-portals">
         <div className="portal-grid">
           <Link href="/quiz" className="portal-card">
-            <span>01</span>
+            <span className="portal-num">01</span>
+            <span className="portal-arrow" aria-hidden="true">↗</span>
             <strong>时间填空</strong>
             <p>随机出现事件，填写时间，答对点亮时间轴</p>
             <i>开始答题 →</i>
           </Link>
           <Link href="/timeline" className="portal-card">
-            <span>02</span>
+            <span className="portal-num">02</span>
+            <span className="portal-arrow" aria-hidden="true">↗</span>
             <strong>历史时间轴</strong>
             <p>沿朝代纵览全貌，已掌握的事件完整显示</p>
             <i>查看时间轴 →</i>
           </Link>
           <Link href="/detective" className="portal-card">
-            <span>03</span>
+            <span className="portal-num">03</span>
+            <span className="portal-arrow" aria-hidden="true">↗</span>
             <strong>时空侦探</strong>
             <p>给时间选事件，或给事件找同期、因果、前后关系</p>
             <i>开始侦探 →</i>
@@ -358,6 +361,10 @@ function TimelineView({ masteredIds, wrongIds, contentFilter, setContentFilter, 
     setExpandedDynastyIdsLocal(expandedDynastyIds);
   }, [expandedDynastyIds]);
 
+  const totalEvents = events.length;
+  const totalMastered = events.filter((e) => masteredIds.includes(e.id)).length;
+  const globalPercent = totalEvents ? Math.round((totalMastered / totalEvents) * 100) : 0;
+
   return (
     <section className="timeline-section vertical-timeline-section" id="timeline">
       <div className="section-heading vertical-heading">
@@ -366,6 +373,19 @@ function TimelineView({ masteredIds, wrongIds, contentFilter, setContentFilter, 
           <h2>一条时间轴，细看中国朝代与同期世界</h2>
         </div>
         <p>点击任意事件卡片即可进入填空题。答对的事件在这里点亮，完整显示时间、标签与简介。每个朝代显示解锁进度。</p>
+      </div>
+
+      <div className="global-progress-card">
+        <div className="global-progress-top">
+          <span className="global-progress-label">总体掌握进度</span>
+          <span className="global-progress-count">{totalMastered} / {totalEvents} 已掌握 · {globalPercent}%</span>
+        </div>
+        <div className="global-progress-bar">
+          <i style={{ width: `${globalPercent}%` }} />
+        </div>
+        <div className="global-progress-hint">
+          {totalMastered === 0 ? "开始答题，点亮你在时间轴上的第一个事件吧！" : globalPercent < 50 ? "继续努力，已掌握的事件会在这里点亮完整信息。" : globalPercent < 100 ? "进度过半！再接再厉，掌握全部历史事件。" : "全部事件已掌握，你已是历史达人！"}
+        </div>
       </div>
 
       <div className="river-controls">
@@ -445,7 +465,11 @@ function TimelineView({ masteredIds, wrongIds, contentFilter, setContentFilter, 
                                 {event.summary && <p className="event-card-summary">{event.summary}</p>}
                               </>
                             )}
-                            <span className="event-card-quiz-hint">点击答题 →</span>
+                            <span className="event-card-quiz-hint">
+                              <span className="quiz-hint-icon">✎</span>
+                              <span className="quiz-hint-text">{isLit ? "再答一次" : "点击答题"}</span>
+                              <span className="quiz-hint-arrow">→</span>
+                            </span>
                           </Link>
                         );
                       })}
