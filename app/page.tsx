@@ -256,6 +256,7 @@ type Dynasty = {
 };
 
 const dynasties: Dynasty[] = [
+  { id: "prehistoric", label: "史前时代", shortLabel: "史前", dates: "约前300万年—前3500年", start: -3000000, end: -3501, phase: "人类起源", capitals: "多地起源", summary: "人类在非洲出现并扩散至全球，从旧石器的采集狩猎到新石器的农业定居，生活方式发生根本转变。", prompt: "从打制石器到磨制石器，从采集狩猎到农业定居，人类为何能走出完全不同的道路？", keywords: ["旧石器", "新石器", "农业", "聚落"], world: "人类在非洲出现，西亚率先开始农业革命。" },
   { id: "origin", label: "文明起源", shortLabel: "源", dates: "约公元前3500—前2071年", start: -3500, end: -2071, phase: "王朝之前", capitals: "多中心聚落与早期城址", summary: "农业、城市、公共工程与社会分层逐渐出现，早期国家由此孕育。", prompt: "从聚落到国家，人群为什么愿意共同修建超越一家一户的大工程？", keywords: ["聚落", "水利", "礼制"], world: "两河流域城市兴起，古埃及完成早期统一。" },
   { id: "xia-shang-zhou", label: "夏商周", shortLabel: "夏商周", dates: "约前2070—前221年", start: -2070, end: -222, phase: "早期王朝", capitals: "二里头、殷、镐京、洛邑等", summary: "王朝、文字与礼乐制度逐渐成熟，春秋战国的变革孕育思想与制度突破。", prompt: "从青铜礼器到百家争鸣，权力秩序为什么会催生新的思想？", keywords: ["青铜", "礼乐", "分封", "百家"], world: "希腊城邦、波斯帝国与罗马共和国先后兴起。" },
   { id: "qin-han", label: "秦汉", shortLabel: "秦汉", dates: "前221—220年", start: -221, end: 219, phase: "统一帝国", capitals: "咸阳、长安、洛阳", summary: "大一统国家确立，郡县、文书与统一标准塑造此后两千年的基本政治框架。", prompt: "一个庞大帝国，如何让远方的人遵守同一套规则？", keywords: ["一统", "郡县", "丝路", "纸"], world: "地中海由罗马共和国走向帝国，欧亚交通网络扩大。" },
@@ -270,7 +271,9 @@ const dynasties: Dynasty[] = [
 ];
 
 function findDynastyForYear(year: number) {
-  return dynasties.find((dynasty) => year >= dynasty.start && year <= dynasty.end) ?? dynasties[dynasties.length - 1];
+  const found = dynasties.find((dynasty) => year >= dynasty.start && year <= dynasty.end);
+  if (found) return found;
+  return year < dynasties[0].start ? dynasties[0] : dynasties[dynasties.length - 1];
 }
 
 export function HistoryApp({ view = "home" }: { view?: AppView }) {
@@ -520,11 +523,12 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
                     <div className="era-rail era-rail-vertical" aria-label={`${dynasty.label}事件`} >
                       {visibleEvents.map((event) => (
                         <div className={`river-card event-card ${event.track}`} key={`event-${event.id}`}>
-                          <div className="card-topline"><span>{event.track === "china" ? "中国" : "世界"}</span><i>{event.category} · {categoryMarks[event.category]}</i></div>
-                          <time className="event-card-time">{formatYear(event.year)}{event.endYear ? `—${formatYear(event.endYear)}` : ""}</time>
+                          <div className="event-card-row1">
+                            <time className="event-card-time">{formatYear(event.year)}{event.endYear ? `—${formatYear(event.endYear)}` : ""}</time>
+                            <span className="event-card-tag">{event.track === "china" ? "中国" : "世界"} · {event.category}</span>
+                          </div>
                           <h4>{event.title}</h4>
-                          <p>{event.summary && event.summary !== event.title ? event.summary : event.place}</p>
-                          <footer><span>{event.place}</span></footer>
+                          {event.summary && event.summary !== event.title && <p>{event.summary}</p>}
                         </div>
                       ))}
                       {!visibleEvents.length && <div className="empty-rail">这个时代暂时没有符合筛选的内容。</div>}
