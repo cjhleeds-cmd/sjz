@@ -109,6 +109,7 @@ export type TimeQuizProps = {
   markMastered: (id: string) => void;
   markWrong: (id: string) => void;
   onNext: () => void;
+  onSwap?: () => void;
 };
 
 export function TimeQuiz({
@@ -119,6 +120,7 @@ export function TimeQuiz({
   markMastered,
   markWrong,
   onNext,
+  onSwap,
 }: TimeQuizProps) {
   const [fillValue, setFillValue] = useState("");
   const [phase, setPhase] = useState<"answering" | "result">("answering");
@@ -197,6 +199,9 @@ export function TimeQuiz({
           <span>{event.track === "china" ? "中国" : "世界"}</span>
           <i>·</i>
           <span>{event.category}</span>
+          {onSwap && phase === "answering" && (
+            <button type="button" className="quiz-swap-btn" onClick={onSwap}>↻ 换一张</button>
+          )}
         </div>
         <h3>{event.title}</h3>
         {alreadyMastered && <span className="quiz-mastered-badge">✓ 已掌握</span>}

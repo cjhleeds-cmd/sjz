@@ -122,12 +122,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .today-action span { display: inline-block; margin-left: 8px; }
 
 /* ===== Time Quiz ===== */
-.quiz-section { position: relative; isolation: isolate; max-width: 640px; margin: 0 auto; padding: 48px 24px 60px; }
+.quiz-section { position: relative; isolation: isolate; max-width: 760px; margin: 0 auto; padding: 60px 24px 60px; }
 .quiz-section::before {
   content: "";
   position: absolute;
   z-index: -1;
-  width: min(90vw, 620px);
+  width: min(90vw, 720px);
   aspect-ratio: 3 / 2;
   left: 50%;
   top: 0;
@@ -224,6 +224,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* ===== Quiz mastered/wrong badges ===== */
 .quiz-mastered-badge { display: inline-block; margin-top: 6px; padding: 3px 10px; border-radius: 999px; background: rgba(84,120,108,.12); color: var(--jade-deep); font-size: 11px; font-weight: 600; }
 .quiz-wrong-badge { display: inline-block; margin-top: 6px; padding: 3px 10px; border-radius: 999px; background: rgba(159,63,46,.1); color: var(--red); font-size: 11px; font-weight: 600; }
+.quiz-swap-btn { margin-left: auto; padding: 4px 12px; border: 1px solid rgba(159,63,46,.25); border-radius: 999px; background: rgba(255,255,255,.5); color: var(--text-accent); font-size: 11px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.quiz-swap-btn:hover { color: #fff; border-color: var(--red); background: var(--red); transform: translateY(-1px); }
+
+/* Quiz page heading */
+.quiz-heading { margin-bottom: 28px; }
+.quiz-heading h2 { max-width: 560px; }
 
 /* ===== Quiz result actions ===== */
 .quiz-result-actions { display: flex; gap: 10px; }
@@ -340,21 +346,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .portal-grid a > strong { display: block; margin-top: 24px; font-size: 22px; font-weight: 700; color: var(--text-primary); }
 .portal-grid a > p { margin: 10px 0 18px; color: var(--text-secondary); font-size: 13px; line-height: 1.75; font-weight: 400; }
 .portal-grid a > i { margin-top: auto; padding-top: 13px; border-top: 1px solid var(--line); color: var(--text-accent); font-size: 13px; font-style: normal; font-weight: 600; }
-
-/* Portal card clickable arrow indicator */
-.portal-grid a .portal-arrow {
-  position: absolute; top: 16px; right: 16px;
-  width: 30px; height: 30px; display: grid; place-items: center;
-  border-radius: 50%; border: 1px solid rgba(159,63,46,.2);
-  background: rgba(159,63,46,.06); color: var(--text-accent);
-  font-size: 14px; font-weight: 700;
-  transition: transform .25s, background .2s, border-color .2s, color .2s;
-}
-.portal-grid a:nth-child(2) .portal-arrow { border-color: rgba(181,138,69,.25); background: rgba(181,138,69,.07); color: var(--gold); }
-.portal-grid a:nth-child(3) .portal-arrow { border-color: rgba(84,120,108,.22); background: rgba(84,120,108,.06); color: var(--jade-deep); }
-.portal-grid a:hover .portal-arrow { transform: translate(3px,-3px) scale(1.1); background: var(--red); border-color: var(--red); color: #fff; }
-.portal-grid a:nth-child(2):hover .portal-arrow { background: var(--gold); border-color: var(--gold); color: #fff; }
-.portal-grid a:nth-child(3):hover .portal-arrow { background: var(--jade); border-color: var(--jade); color: #fff; }
 
 .timeline-section { max-width: 1440px; margin: 0 auto; padding: 80px 48px 96px; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; }
@@ -2168,6 +2159,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--text-accent);
   letter-spacing: .02em;
 }
+
+/* Portal card color-tinted backgrounds — placed at end to override V0.6 cascade */
+.portal-grid a.portal-card-red { background: rgba(159,63,46,.1) !important; border-top-color: var(--red) !important; }
+.portal-grid a.portal-card-gold { background: rgba(193,148,69,.13) !important; border-top-color: var(--gold) !important; }
+.portal-grid a.portal-card-jade { background: rgba(93,122,112,.13) !important; border-top-color: var(--jade) !important; }
+.portal-grid a.portal-card-red:hover { background: rgba(159,63,46,.28) !important; border-color: rgba(159,63,46,.5) !important; }
+.portal-grid a.portal-card-gold:hover { background: rgba(193,148,69,.32) !important; border-color: rgba(193,148,69,.5) !important; }
+.portal-grid a.portal-card-jade:hover { background: rgba(93,122,112,.3) !important; border-color: rgba(93,122,112,.5) !important; }
+.portal-grid a.portal-card-red > i { color: var(--red) !important; }
+.portal-grid a.portal-card-gold > i { color: var(--gold) !important; }
+.portal-grid a.portal-card-jade > i { color: var(--jade-deep) !important; }
 
 /* Detective responsive */
 @media (max-width: 640px) {

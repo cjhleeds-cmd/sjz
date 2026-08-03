@@ -223,23 +223,20 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
 
       <section className="home-portals" id="home-portals">
         <div className="portal-grid">
-          <Link href="/quiz" className="portal-card">
+          <Link href="/quiz" className="portal-card portal-card-red">
             <span className="portal-num">01</span>
-            <span className="portal-arrow" aria-hidden="true">↗</span>
             <strong>时间填空</strong>
             <p>随机出现事件，填写时间，答对点亮时间轴</p>
             <i>开始答题 →</i>
           </Link>
-          <Link href="/timeline" className="portal-card">
+          <Link href="/timeline" className="portal-card portal-card-gold">
             <span className="portal-num">02</span>
-            <span className="portal-arrow" aria-hidden="true">↗</span>
             <strong>历史时间轴</strong>
             <p>沿朝代纵览全貌，已掌握的事件完整显示</p>
             <i>查看时间轴 →</i>
           </Link>
-          <Link href="/detective" className="portal-card">
+          <Link href="/detective" className="portal-card portal-card-jade">
             <span className="portal-num">03</span>
-            <span className="portal-arrow" aria-hidden="true">↗</span>
             <strong>时空侦探</strong>
             <p>给时间选事件，或给事件找同期、因果、前后关系</p>
             <i>开始侦探 →</i>
@@ -284,16 +281,18 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
 
   return (
     <section className="quiz-section" id="quiz">
-      {fromTimeline ? (
-        <Link href="/timeline" className="quiz-back-link">← 返回时间轴</Link>
-      ) : (
-        <div className="today-quiz-card">
-          <div className="today-card-top">
-            <span className="today-label">今日一问</span>
-            <button type="button" className="today-swap" onClick={nextEvent}>↻ 换一张</button>
-          </div>
+      <div className="section-heading quiz-heading">
+        <div>
+          <span className="eyebrow">01 · QUIZ</span>
+          <h2>填写年份，记住每个历史时刻</h2>
         </div>
+        <p>随机出现一个历史事件，输入它发生的年份。答对的事件会在时间轴上点亮完整信息。答错的事件自动进入错题记录，方便复习。</p>
+      </div>
+
+      {fromTimeline && (
+        <Link href="/timeline" className="quiz-back-link">← 返回时间轴</Link>
       )}
+
       <div className="today-quiz-card">
         <TimeQuiz
           event={currentEvent}
@@ -303,6 +302,7 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
           markMastered={markMastered}
           markWrong={markWrong}
           onNext={nextEvent}
+          onSwap={fromTimeline ? undefined : nextEvent}
         />
       </div>
       <div className="wrong-records">
