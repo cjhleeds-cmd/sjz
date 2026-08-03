@@ -465,20 +465,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ===== Global timeline progress card ===== */
 .global-progress-card {
-  margin: 20px 0 30px; padding: 18px 24px;
-  border: 1px solid rgba(159,63,46,.16); border-radius: 14px;
+  margin: 14px 0 22px; padding: 12px 18px;
+  border: 1px solid rgba(159,63,46,.16); border-radius: 12px;
   background: linear-gradient(135deg, rgba(255,253,248,.92), rgba(245,240,229,.72));
-  box-shadow: 0 8px 26px rgba(65,48,28,.06);
+  box-shadow: 0 6px 20px rgba(65,48,28,.05);
 }
-.global-progress-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.global-progress-label { font-size: 14px; font-weight: 700; color: var(--text-primary); letter-spacing: .02em; }
-.global-progress-count { font-size: 13px; font-weight: 600; color: var(--text-accent); }
-.global-progress-bar { height: 10px; border-radius: 99px; background: rgba(72,63,50,.1); overflow: hidden; }
+.global-progress-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.global-progress-info { display: flex; align-items: baseline; gap: 10px; }
+.global-progress-label { font-size: 13px; font-weight: 700; color: var(--text-primary); letter-spacing: .02em; }
+.global-progress-count { font-size: 12px; font-weight: 600; color: var(--text-accent); }
+.global-progress-bar { height: 8px; border-radius: 99px; background: rgba(72,63,50,.1); overflow: hidden; }
 .global-progress-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--red), var(--gold) 50%, var(--jade)); transition: width .5s ease; }
-.global-progress-hint { margin-top: 10px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
-.global-progress-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 10px; }
-.global-progress-bottom .global-progress-hint { margin-top: 0; flex: 1; }
-.expand-toggle-btn { flex: 0 0 auto; padding: 8px 18px; border: 1px solid rgba(159,63,46,.28); border-radius: 999px; color: var(--red); background: rgba(255,250,241,.88); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap; }
+.global-progress-hint { margin-top: 6px; font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+.expand-toggle-btn { flex: 0 0 auto; padding: 5px 14px; border: 1px solid rgba(159,63,46,.28); border-radius: 999px; color: var(--red); background: rgba(255,250,241,.88); font-size: 11px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap; }
 .expand-toggle-btn:hover { color: #fff; border-color: var(--red); background: var(--red); transform: translateY(-1px); }
 
 /* ===== Dynasty progress row ===== */
@@ -567,21 +566,24 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .dynasty-overview-card:hover { transform: none; border-color: rgba(72,63,50,.15); border-top-color: var(--gold); box-shadow: 0 15px 34px rgba(65,48,28,.055); }
 
 /* Vertical event rail - compact cards in chronological order */
-.era-rail-vertical { display: flex; flex-direction: column; gap: 6px; min-height: 0; overflow: visible; padding: 10px 5px 14px; }
-.era-rail-vertical .river-card { flex: 0 0 auto; min-height: 0; flex-direction: column; gap: 4px; padding: 8px 16px; }
+.era-rail-vertical { display: flex; flex-direction: column; gap: 5px; min-height: 0; overflow: visible; padding: 8px 5px 12px; }
+.era-rail-vertical .river-card { flex: 0 0 auto; min-height: 0; flex-direction: row; align-items: stretch; gap: 10px; padding: 6px 14px; }
 .era-rail-vertical .river-card:hover { transform: none; box-shadow: 0 12px 28px rgba(65,48,28,.05); border-color: rgba(72,63,50,.15); }
 .era-rail-vertical .river-card.clickable { cursor: pointer; }
 .era-rail-vertical .river-card.clickable:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(65,48,28,.08); border-color: rgba(159,63,46,.3); }
 .era-rail-vertical .river-card.world:hover { border-top-color: var(--jade); }
 .era-rail-vertical .river-card.china:hover { border-top-color: var(--red); }
-.era-rail-vertical .event-card-row1 { display: flex; align-items: baseline; gap: 10px; }
-.era-rail-vertical .event-card-time { color: var(--text-accent); font-family: Arial, sans-serif; font-size: 16px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
+.era-rail-vertical .event-card-body { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.era-rail-vertical .event-card-row1 { display: flex; align-items: baseline; gap: 8px; }
+.era-rail-vertical .event-card-time { color: var(--text-accent); font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
 .era-rail-vertical .river-card.world .event-card-time { color: var(--jade-deep); }
-.era-rail-vertical .event-card-tag { color: var(--text-secondary); font-size: 11px; white-space: nowrap; }
-.era-rail-vertical .river-card h4 { margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600; color: var(--text-primary); }
-.era-rail-vertical .river-card > p { margin: 0; color: var(--text-secondary); font-size: 12px; line-height: 1.4; }
-.era-rail-vertical .event-card-quiz-hint { margin-top: 4px; padding: 3px 10px; font-size: 10px; border-radius: 6px; }
-.era-rail-vertical .event-card-quiz-hint .quiz-hint-icon { font-size: 10px; }
+.era-rail-vertical .event-card-tag { color: var(--text-secondary); font-size: 10px; white-space: nowrap; }
+.era-rail-vertical .river-card h4 { margin: 0; font-size: 13px; line-height: 1.3; font-weight: 600; color: var(--text-primary); }
+.era-rail-vertical .river-card > p, .era-rail-vertical .event-card-summary { margin: 0; color: var(--text-secondary); font-size: 11px; line-height: 1.35; }
+.era-rail-vertical .event-card-quiz-hint { flex: 0 0 auto; margin-top: 0; flex-direction: column; justify-content: center; align-items: center; padding: 6px 8px; font-size: 10px; border-radius: 8px; gap: 2px; min-width: 42px; }
+.era-rail-vertical .event-card-quiz-hint .quiz-hint-icon { font-size: 11px; }
+.era-rail-vertical .event-card-quiz-hint .quiz-hint-text { font-size: 9px; }
+.era-rail-vertical .event-card-quiz-hint .quiz-hint-arrow { font-size: 11px; }
 .empty-rail { flex: 1 0 100%; min-height: 60px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--ink-soft); font-size: 12px; padding: 16px; }
 .river-to-today { position: relative; display: grid; grid-template-columns: 145px 1fr; align-items: center; min-height: 80px; }
 .river-to-today > span { z-index: 2; width: 52px; height: 52px; margin-left: 47px; display: grid; place-items: center; border: 7px solid var(--paper); border-radius: 50%; color: #fff; background: var(--jade); box-shadow: 0 0 0 1px rgba(84,120,108,.4); }
@@ -1734,13 +1736,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .section-heading { display: block; }
   .section-heading > p, .insertion-heading > p { width: auto; margin-top: 15px; font-size: 14px; }
   .portal-grid a { min-height: 190px; }
-  .global-progress-card { padding: 14px 16px; margin: 14px 0 20px; }
-  .global-progress-top { flex-wrap: wrap; gap: 6px; }
-  .global-progress-label { font-size: 13px; }
-  .global-progress-count { font-size: 12px; }
-  .global-progress-hint { font-size: 11px; }
-  .global-progress-bottom { flex-direction: column; align-items: stretch; gap: 10px; }
-  .expand-toggle-btn { text-align: center; }
+  .global-progress-card { padding: 10px 14px; margin: 10px 0 16px; }
+  .global-progress-top { flex-wrap: wrap; gap: 8px; }
+  .global-progress-info { flex-wrap: wrap; gap: 6px; }
+  .global-progress-label { font-size: 12px; }
+  .global-progress-count { font-size: 11px; }
+  .global-progress-hint { font-size: 10px; }
+  .expand-toggle-btn { padding: 4px 12px; font-size: 10px; }
   .insertion-section { padding-top: 42px; padding-bottom: 70px; }
   .insertion-heading h2 { font-size: 42px; }
   .insertion-shell { margin-top: 25px; border-radius: 18px; }

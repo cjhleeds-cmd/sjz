@@ -10,6 +10,7 @@ export type HistoryEvent = {
   category: Category;
   summary: string;
   image?: string;
+  acceptableYears?: number[];
 };
 
 export const events: HistoryEvent[] = [
@@ -409,8 +410,8 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-ef8c0844",
-    title: "589年统一全国",
-    year: 581,
+    title: "隋灭陈，统一全国",
+    year: 589,
     track: "china",
     category: "政治",
     summary: "隋灭陈完成统一；结束近三百年分裂；南北重新合为一体",
@@ -540,8 +541,9 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-0d7707bb",
-    title: "1125年灭辽，1127年灭北宋（靖康之变）",
-    year: 1115,
+    title: "金灭辽，灭北宋（靖康之变）",
+    year: 1125,
+    acceptableYears: [1125, 1127],
     track: "china",
     category: "社会",
     summary: "金朝先后灭辽与北宋；靖康之变；宋室南渡；南北对峙形成",
@@ -580,8 +582,8 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-2cd935f6",
-    title: "1279年统一全国",
-    year: 1271,
+    title: "元灭南宋，统一全国",
+    year: 1279,
     track: "china",
     category: "政治",
     summary: "元灭南宋完成统一；结束长期分裂；多民族国家重新统一",
@@ -702,8 +704,8 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-b20b46b8",
-    title: "1636年改国号为清",
-    year: 1616,
+    title: "皇太极改国号为清",
+    year: 1636,
     track: "china",
     category: "社会",
     summary: "皇太极改国号为清；完善政权制度；为入关统一做准备",
@@ -807,7 +809,7 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-390661db",
-    title: "《独立宣言》（1776年）",
+    title: "《独立宣言》",
     year: 1775,
     endYear: 1783,
     track: "world",

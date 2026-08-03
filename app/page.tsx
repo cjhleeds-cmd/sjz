@@ -383,19 +383,19 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
 
       <div className="global-progress-card">
         <div className="global-progress-top">
-          <span className="global-progress-label">总体掌握进度</span>
-          <span className="global-progress-count">{totalMastered} / {totalEvents} 已掌握 · {globalPercent}%</span>
-        </div>
-        <div className="global-progress-bar">
-          <i style={{ width: `${globalPercent}%` }} />
-        </div>
-        <div className="global-progress-bottom">
-          <div className="global-progress-hint">
-            {totalMastered === 0 ? "开始答题，点亮你在时间轴上的第一个事件吧！" : globalPercent < 50 ? "继续努力，已掌握的事件会在这里点亮完整信息。" : globalPercent < 100 ? "进度过半！再接再厉，掌握全部历史事件。" : "全部事件已掌握，你已是历史达人！"}
+          <div className="global-progress-info">
+            <span className="global-progress-label">总体掌握进度</span>
+            <span className="global-progress-count">{totalMastered} / {totalEvents} · {globalPercent}%</span>
           </div>
           <button type="button" className="expand-toggle-btn" onClick={toggleExpandAll}>
             {allExpanded ? "全部折叠 −" : "全部展开 +"}
           </button>
+        </div>
+        <div className="global-progress-bar">
+          <i style={{ width: `${globalPercent}%` }} />
+        </div>
+        <div className="global-progress-hint">
+          {totalMastered === 0 ? "开始答题，点亮你在时间轴上的第一个事件吧！" : globalPercent < 50 ? "继续努力，已掌握的事件会在这里点亮完整信息。" : globalPercent < 100 ? "进度过半！再接再厉，掌握全部历史事件。" : "全部事件已掌握，你已是历史达人！"}
         </div>
       </div>
 
@@ -445,25 +445,27 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
                             href={`/quiz?event=${event.id}`}
                             className={`river-card event-card ${event.track} status-${status} ${isLit ? "is-lit" : "is-dim"} clickable`}
                           >
-                            {isLit ? (
-                              <>
-                                <div className="event-card-row1">
-                                  <time className="event-card-time">{formatYear(event.year)}{event.endYear ? `—${formatYear(event.endYear)}` : ""}</time>
-                                  <span className="event-card-tag">{event.track === "china" ? "中国" : "世界"} · {event.category}</span>
-                                </div>
-                                <h4>{event.title}</h4>
-                                {event.summary && <p className="event-card-summary">{event.summary}</p>}
-                                {event.image && <img className="event-card-image" src={event.image} alt={event.title} loading="lazy" />}
-                              </>
-                            ) : (
-                              <>
-                                <h4>{event.title}</h4>
-                                {event.summary && <p className="event-card-summary">{event.summary}</p>}
-                              </>
-                            )}
+                            <div className="event-card-body">
+                              {isLit ? (
+                                <>
+                                  <div className="event-card-row1">
+                                    <time className="event-card-time">{event.acceptableYears ? event.acceptableYears.map(formatYear).join(" / ") : `${formatYear(event.year)}${event.endYear ? `—${formatYear(event.endYear)}` : ""}`}</time>
+                                    <span className="event-card-tag">{event.track === "china" ? "中国" : "世界"} · {event.category}</span>
+                                  </div>
+                                  <h4>{event.title}</h4>
+                                  {event.summary && <p className="event-card-summary">{event.summary}</p>}
+                                  {event.image && <img className="event-card-image" src={event.image} alt={event.title} loading="lazy" />}
+                                </>
+                              ) : (
+                                <>
+                                  <h4>{event.title}</h4>
+                                  {event.summary && <p className="event-card-summary">{event.summary}</p>}
+                                </>
+                              )}
+                            </div>
                             <span className="event-card-quiz-hint">
                               <span className="quiz-hint-icon">✎</span>
-                              <span className="quiz-hint-text">{isLit ? "再答一次" : "点击答题"}</span>
+                              <span className="quiz-hint-text">{isLit ? "再答" : "答题"}</span>
                               <span className="quiz-hint-arrow">→</span>
                             </span>
                           </Link>

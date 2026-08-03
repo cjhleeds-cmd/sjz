@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",
-    "@tailwindcss/postcss": "4.2.1",
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
@@ -42,5 +42,5 @@
     "wrangler": "4.92.0"
   },
   "type": "module",
-  "displayName": "\u5386\u53f2\u957f\u6cb3 \u00b7 \u5d4c\u5165\u65f6\u95f4\u7248"
+  "displayName": "历史长河 · 嵌入时间版"
 }

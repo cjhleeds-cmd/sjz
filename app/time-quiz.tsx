@@ -45,14 +45,15 @@ function computeContext(event: HistoryEvent, allEvents: HistoryEvent[]): EventCo
 function generateHintChoices(event: HistoryEvent): number[] {
   const correct = event.year;
   const absYear = Math.abs(correct);
+  const acceptableYears = event.acceptableYears ?? [correct];
 
   // 史前时代（|年份| >= 10000）：选项以万年为单位
   if (absYear >= 10000) {
     const wanStep = Math.max(1, Math.round(absYear * 0.15 / 10000));
-    const choices = new Set<number>([correct]);
+    const choices = new Set<number>(acceptableYears);
     while (choices.size < 4) {
       const delta = (Math.floor(Math.random() * (wanStep * 2)) - wanStep + 1) * 10000;
-      if (delta === 0) continue;
+      if (delta === 0 || acceptableYears.includes(correct + delta)) continue;
       choices.add(correct + delta);
     }
     return [...choices].sort((a, b) => a - b);
@@ -61,10 +62,10 @@ function generateHintChoices(event: HistoryEvent): number[] {
   // 文明起源（公元前3500 ~ 前2071）：最小间距100年
   if (correct < 0 && absYear >= 2000) {
     const offset = Math.max(100, Math.round(absYear * 0.1));
-    const choices = new Set<number>([correct]);
+    const choices = new Set<number>(acceptableYears);
     while (choices.size < 4) {
       const delta = Math.floor(Math.random() * (offset * 2)) - offset;
-      if (delta === 0 || Math.abs(delta) < 100) continue;
+      if (delta === 0 || Math.abs(delta) < 100 || acceptableYears.includes(correct + delta)) continue;
       choices.add(correct + delta);
     }
     return [...choices].sort((a, b) => a - b);
@@ -74,10 +75,10 @@ function generateHintChoices(event: HistoryEvent): number[] {
   const ratio = correct < 0 ? 0.15 : 0.08;
   const minOffset = correct < 0 ? 200 : 50;
   const offset = Math.round(Math.max(minOffset, absYear * ratio));
-  const choices = new Set<number>([correct]);
+  const choices = new Set<number>(acceptableYears);
   while (choices.size < 4) {
     const delta = Math.floor(Math.random() * (offset * 2)) - offset;
-    if (delta === 0) continue;
+    if (delta === 0 || acceptableYears.includes(correct + delta)) continue;
     choices.add(correct + delta);
   }
   return [...choices].sort((a, b) => a - b);
@@ -86,9 +87,11 @@ function generateHintChoices(event: HistoryEvent): number[] {
 /* ── Shared lit event card (matches timeline mastered card) ── */
 
 function LitEventCard({ event, compact, focus }: { event: HistoryEvent; compact?: boolean; focus?: boolean }) {
-  const timeLabel = event.endYear
-    ? `${formatYear(event.year)}—${formatYear(event.endYear)}`
-    : formatYear(event.year);
+  const timeLabel = event.acceptableYears
+    ? event.acceptableYears.map(formatYear).join(" / ")
+    : event.endYear
+      ? `${formatYear(event.year)}—${formatYear(event.endYear)}`
+      : formatYear(event.year);
   return (
     <div className={`river-card event-card ${event.track} is-lit ${compact ? "compact" : ""} ${focus ? "focus-card" : ""}`}>
       <div className="event-card-row1">
@@ -129,9 +132,12 @@ export function TimeQuiz({
   const [answeredCorrect, setAnsweredCorrect] = useState(false);
 
   const context = useMemo(() => computeContext(event, allEvents), [event, allEvents]);
-  const actualLabel = event.endYear
-    ? `${formatYear(event.year)}—${formatYear(event.endYear)}`
-    : formatYear(event.year);
+  const acceptableYears = event.acceptableYears ?? [event.year];
+  const actualLabel = event.acceptableYears
+    ? event.acceptableYears.map(formatYear).join(" 或 ")
+    : event.endYear
+      ? `${formatYear(event.year)}—${formatYear(event.endYear)}`
+      : formatYear(event.year);
 
   useEffect(() => {
     setFillValue("");
@@ -143,15 +149,17 @@ export function TimeQuiz({
 
   const answer = parseInt(fillValue, 10);
   const hasAnswer = fillValue.trim() !== "" && !isNaN(answer);
-  const isCorrect = hasAnswer && answer === event.year;
+  const isCorrect = hasAnswer && acceptableYears.includes(answer);
   const relation = hasAnswer
-    ? event.endYear
-      ? answer >= event.year && answer <= event.endYear
-        ? "落在事件区间内"
-        : `距事件区间 ${answer < event.year ? event.year - answer : answer - event.endYear} 年`
-      : Math.abs(answer - event.year) === 0
-        ? "完全正确"
-        : `相差 ${Math.abs(answer - event.year)} 年`
+    ? acceptableYears.includes(answer)
+      ? "完全正确"
+      : event.endYear
+        ? answer >= event.year && answer <= event.endYear
+          ? "落在事件区间内"
+          : `距事件区间 ${answer < event.year ? event.year - answer : answer - event.endYear} 年`
+        : Math.abs(answer - event.year) === 0
+          ? "完全正确"
+          : `相差 ${Math.abs(answer - event.year)} 年`
     : null;
 
   function showHintChoices() {
@@ -160,7 +168,7 @@ export function TimeQuiz({
   }
 
   function submitWithValue(value: number) {
-    const correct = value === event.year;
+    const correct = acceptableYears.includes(value);
     setFillValue(String(value));
     setPhase("result");
     if (correct) {
