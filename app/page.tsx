@@ -74,13 +74,9 @@ function getEventStatus(eventId: string, masteredIds: string[], wrongIds: string
 }
 
 function getDailyEventIds(count: number): string[] {
-  const now = new Date();
-  const dayKey = Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000);
   const shuffled = [...events];
-  let seed = dayKey;
   for (let i = shuffled.length - 1; i > 0; i--) {
-    seed = (seed * 9301 + 49297) % 233280;
-    const j = Math.floor((seed / 233280) * (i + 1));
+    const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled.slice(0, count).map((e) => e.id);
@@ -163,7 +159,7 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
     nextIds[currentIdx + 1] = randomEvent.id;
     setDailyEventIds(nextIds);
     setCurrentIdx((prev) => prev + 1);
-    document.getElementById("top")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("home-quiz")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (
@@ -185,7 +181,7 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
       </section>
 
       {!completed && dailyEventIds.length > 0 && (
-        <section className="home-daily-section">
+        <section className="home-daily-section" id="home-quiz">
           <div className="home-daily-wrap">
             <div className="today-quiz-card">
               <div className="today-card-top">
