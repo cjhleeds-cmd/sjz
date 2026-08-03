@@ -248,6 +248,24 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .time-quiz .river-card { flex: 0 0 auto; min-height: 0; padding: 14px 18px; border: 1px solid rgba(72,63,50,.15); border-top: 3px solid var(--red); border-radius: var(--control-radius); background: rgba(255,253,248,.72); box-shadow: 0 8px 20px rgba(65,48,28,.04); cursor: default; display: flex; flex-direction: column; gap: 4px; transition: none; }
 .time-quiz .river-card.world { border-top-color: var(--jade); }
 .time-quiz .river-card:hover { transform: none; box-shadow: 0 8px 20px rgba(65,48,28,.04); }
+
+/* Focus card — current event, visually distinct from context cards */
+.time-quiz .river-card.focus-card {
+  border: 2px solid var(--red);
+  border-top: 4px solid var(--red);
+  background: linear-gradient(160deg, rgba(159,63,46,.06), rgba(255,253,248,.92));
+  box-shadow: 0 10px 28px rgba(159,63,46,.12);
+  transform: scale(1.03);
+}
+.time-quiz .river-card.focus-card.world {
+  border-color: var(--jade);
+  border-top-color: var(--jade);
+  background: linear-gradient(160deg, rgba(93,122,112,.06), rgba(255,253,248,.92));
+  box-shadow: 0 10px 28px rgba(93,122,112,.12);
+}
+.time-quiz .river-card.focus-card h4 { color: var(--text-primary); font-weight: 700; }
+.time-quiz .river-card.focus-card .event-card-time { color: var(--red); }
+.time-quiz .river-card.focus-card.world .event-card-time { color: var(--jade-deep); }
 .time-quiz .river-card .event-card-row1 { display: flex; align-items: baseline; gap: 10px; }
 .time-quiz .river-card .event-card-time { color: var(--text-accent); font-family: Arial, sans-serif; font-size: 16px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
 .time-quiz .river-card.world .event-card-time { color: var(--jade-deep); }

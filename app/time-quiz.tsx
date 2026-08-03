@@ -85,12 +85,12 @@ function generateHintChoices(event: HistoryEvent): number[] {
 
 /* ── Shared lit event card (matches timeline mastered card) ── */
 
-function LitEventCard({ event, compact }: { event: HistoryEvent; compact?: boolean }) {
+function LitEventCard({ event, compact, focus }: { event: HistoryEvent; compact?: boolean; focus?: boolean }) {
   const timeLabel = event.endYear
     ? `${formatYear(event.year)}—${formatYear(event.endYear)}`
     : formatYear(event.year);
   return (
-    <div className={`river-card event-card ${event.track} is-lit ${compact ? "compact" : ""}`}>
+    <div className={`river-card event-card ${event.track} is-lit ${compact ? "compact" : ""} ${focus ? "focus-card" : ""}`}>
       <div className="event-card-row1">
         <time className="event-card-time">{timeLabel}</time>
         <span className="event-card-tag">{event.track === "china" ? "中国" : "世界"} · {event.category}</span>
@@ -281,11 +281,6 @@ export function TimeQuiz({
 
           <div className="quiz-context">
             <div className="quiz-context-section">
-              <span className="quiz-context-label">事件简介</span>
-              <LitEventCard event={event} />
-            </div>
-
-            <div className="quiz-context-section">
               <span className="quiz-context-label">前后与同期事件</span>
               <div className="quiz-context-grid">
                 {context.before && (
@@ -296,7 +291,7 @@ export function TimeQuiz({
                 )}
                 <div className="quiz-context-item">
                   <span className="quiz-context-tag focus-tag">当前事件</span>
-                  <LitEventCard event={event} compact />
+                  <LitEventCard event={event} compact focus />
                 </div>
                 {context.after && (
                   <div className="quiz-context-item">
