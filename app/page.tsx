@@ -117,6 +117,10 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
       {view === "quiz" && <QuizView masteredIds={masteredIds} wrongIds={wrongIds} markMastered={markMastered} markWrong={markWrong} resetAll={resetAll} />}
       {view === "timeline" && <TimelineView masteredIds={masteredIds} wrongIds={wrongIds} expandedDynastyIds={expandedDynastyIds} toggleDynasty={toggleDynasty} />}
       {view === "detective" && <DetectiveView />}
+
+      <footer className="site-copyright">
+        <span>© 学科融合David</span>
+      </footer>
     </main>
   );
 }
