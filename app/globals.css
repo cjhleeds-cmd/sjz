@@ -123,6 +123,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ===== Time Quiz ===== */
 .quiz-section { max-width: 640px; margin: 0 auto; padding: 48px 24px 60px; }
+.quiz-back-link { display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,253,248,.5); color: var(--text-secondary); font-size: 13px; font-weight: 600; text-decoration: none; transition: all .2s; }
+.quiz-back-link:hover { border-color: var(--red); color: var(--red); background: rgba(255,253,248,.8); }
 .today-quiz-card { position: relative; padding: 28px 28px 25px; background: rgba(255,253,248,.7); border: 1px solid rgba(159,63,46,.2); box-shadow: 0 18px 55px rgba(72,54,31,.08); display: flex; flex-direction: column; gap: 16px; }
 .today-quiz-card::before, .today-quiz-card::after { content: ""; position: absolute; width: 15px; height: 15px; border-color: var(--red); opacity: .5; }
 .today-quiz-card::before { left: 8px; top: 8px; border-left: 1px solid; border-top: 1px solid; }
@@ -237,21 +239,41 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ===== Wrong records ===== */
 .wrong-records { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
-.wrong-records-header { display: flex; justify-content: space-between; align-items: center; }
+.wrong-records-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
 .wrong-records-header h3 { margin: 0; font-size: 16px; font-weight: 700; color: var(--text-primary); }
-.wrong-records-header span { font-size: 12px; color: var(--text-secondary); }
-.wrong-records-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.wrong-records-count { font-size: 12px; color: var(--red); font-weight: 600; padding: 3px 10px; border-radius: 999px; background: rgba(159,63,46,.08); }
+.wrong-records-count.empty { color: var(--text-secondary); background: rgba(110,110,115,.06); }
+.wrong-records-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
 .wrong-record-card { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid rgba(159,63,46,.2); border-radius: var(--control-radius); background: rgba(255,253,248,.5); cursor: pointer; transition: all .2s; text-align: left; }
 .wrong-record-card:hover { border-color: var(--red); background: rgba(255,253,248,.8); transform: translateY(-1px); }
 .wrong-record-tag { font-size: 10px; color: var(--red); font-weight: 600; }
 .wrong-record-card strong { font-size: 14px; color: var(--text-primary); line-height: 1.3; }
 .wrong-record-card small { font-size: 11px; color: var(--text-secondary); }
+.wrong-record-action { margin-top: 4px; font-size: 11px; color: var(--text-accent); font-weight: 600; }
+.wrong-records-empty { padding: 24px 16px; text-align: center; border: 1px dashed var(--line); border-radius: var(--control-radius); color: var(--text-secondary); font-size: 13px; }
 .reset-button { align-self: flex-start; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--text-secondary); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; }
 .reset-button:hover { border-color: var(--red); color: var(--red); }
 
 /* ===== Home daily section ===== */
 .home-daily-section { max-width: 640px; margin: 0 auto; padding: 0 24px; }
 .home-daily-wrap { padding: 0 0 30px; }
+.daily-progress-bar { display: flex; gap: 6px; margin-bottom: 4px; }
+.daily-progress-dot { flex: 1; height: 4px; border-radius: 2px; background: var(--line); transition: background .3s; }
+.daily-progress-dot.done { background: var(--jade); }
+.daily-progress-dot.current { background: var(--red); }
+
+/* ===== Celebration overlay ===== */
+.celebration-overlay { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: rgba(62,39,35,.45); backdrop-filter: blur(4px); animation: celebrateFadeIn .3s ease; }
+@keyframes celebrateFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.celebration-content { position: relative; text-align: center; padding: 48px 60px; background: rgba(255,253,248,.96); border-radius: 20px; box-shadow: 0 30px 80px rgba(62,39,35,.25); animation: celebratePop .5s cubic-bezier(.22,1,.36,1); }
+@keyframes celebratePop { from { opacity: 0; transform: scale(.8) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.celebration-check { width: 72px; height: 72px; margin: 0 auto 16px; display: grid; place-items: center; border-radius: 50%; background: var(--jade); color: #fff; font-size: 36px; font-weight: 700; animation: checkBounce .6s ease .2s both; }
+@keyframes checkBounce { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.celebration-content h2 { margin: 0 0 8px; font-size: 28px; font-weight: 700; color: var(--text-primary); }
+.celebration-content p { margin: 0; font-size: 15px; color: var(--text-secondary); }
+.celebration-confetti { position: absolute; inset: 0; overflow: hidden; border-radius: 20px; pointer-events: none; }
+.confetti-piece { position: absolute; top: -10px; width: 8px; height: 14px; border-radius: 2px; animation: confettiFall 2s ease-in forwards; }
+@keyframes confettiFall { from { transform: translateY(-10px) rotate(0deg); opacity: 1; } to { transform: translateY(400px) rotate(720deg); opacity: 0; } }
 
 /* ===== Timeline clickable event cards ===== */
 .river-card.clickable { cursor: pointer; }
@@ -2030,8 +2052,34 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   opacity: .85;
 }
 
+/* Time-event focus — large year display */
+.time-event-focus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 36px 28px;
+  text-align: center;
+}
+.time-event-year-display {
+  font-family: Arial, sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text-accent);
+  letter-spacing: .03em;
+  line-height: 1.1;
+}
+.detective-result-time-big {
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-accent);
+  letter-spacing: .02em;
+}
+
 /* Detective responsive */
 @media (max-width: 640px) {
   .detective-options { grid-template-columns: 1fr; }
   .detective-result-pair { grid-template-columns: 1fr; }
+  .time-event-year-display { font-size: 36px; }
 }

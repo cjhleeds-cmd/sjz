@@ -73,11 +73,20 @@ function getEventStatus(eventId: string, masteredIds: string[], wrongIds: string
   return "unanswered";
 }
 
-function getDailyEventId(): string {
+function getDailyEventIds(count: number): string[] {
   const now = new Date();
-  const dayOfYear = Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000);
-  return events[dayOfYear % events.length].id;
+  const dayKey = Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000);
+  const shuffled = [...events];
+  let seed = dayKey;
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    seed = (seed * 9301 + 49297) % 233280;
+    const j = Math.floor((seed / 233280) * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, count).map((e) => e.id);
 }
+
+const DAILY_COUNT = 5;
 
 export function HistoryApp({ view = "home" }: { view?: AppView }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -123,17 +132,31 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
   markMastered: (id: string) => void;
   markWrong: (id: string) => void;
 }) {
-  const [dailyEventId, setDailyEventId] = useState<string>(events[0].id);
+  const [dailyEventIds, setDailyEventIds] = useState<string[]>([]);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [completed, setCompleted] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
 
   useEffect(() => {
-    setDailyEventId(getDailyEventId());
+    setDailyEventIds(getDailyEventIds(DAILY_COUNT));
   }, []);
 
-  const dailyEvent = eventById.get(dailyEventId) ?? events[0];
+  const currentEvent = dailyEventIds.length > 0
+    ? (eventById.get(dailyEventIds[currentIdx]) ?? events[0])
+    : events[0];
 
   function nextDaily() {
-    const pool = events.filter((e) => e.id !== dailyEventId);
-    setDailyEventId(pool[Math.floor(Math.random() * pool.length)].id);
+    if (currentIdx + 1 >= dailyEventIds.length) {
+      setShowCelebration(true);
+      setTimeout(() => {
+        setCompleted(true);
+        setShowCelebration(false);
+        document.getElementById("home-portals")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 2500);
+      return;
+    }
+    setCurrentIdx((prev) => prev + 1);
+    document.getElementById("top")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (
@@ -154,27 +177,48 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
         </div>
       </section>
 
-      <section className="home-daily-section">
-        <div className="home-daily-wrap">
-          <div className="today-quiz-card">
-            <div className="today-card-top">
-              <span className="today-label">每日一题</span>
-              <button type="button" className="today-swap" onClick={nextDaily}>↻ 换一张</button>
+      {!completed && dailyEventIds.length > 0 && (
+        <section className="home-daily-section">
+          <div className="home-daily-wrap">
+            <div className="today-quiz-card">
+              <div className="today-card-top">
+                <span className="today-label">每日五题 · 第 {currentIdx + 1} / {dailyEventIds.length} 题</span>
+              </div>
+              <div className="daily-progress-bar">
+                {dailyEventIds.map((_, i) => (
+                  <span key={i} className={`daily-progress-dot ${i < currentIdx ? "done" : ""} ${i === currentIdx ? "current" : ""}`} />
+                ))}
+              </div>
+              <TimeQuiz
+                event={currentEvent}
+                allEvents={events}
+                masteredIds={masteredIds}
+                wrongIds={wrongIds}
+                markMastered={markMastered}
+                markWrong={markWrong}
+                onNext={nextDaily}
+              />
             </div>
-            <TimeQuiz
-              event={dailyEvent}
-              allEvents={events}
-              masteredIds={masteredIds}
-              wrongIds={wrongIds}
-              markMastered={markMastered}
-              markWrong={markWrong}
-              onNext={nextDaily}
-            />
+          </div>
+        </section>
+      )}
+
+      {showCelebration && (
+        <div className="celebration-overlay">
+          <div className="celebration-content">
+            <div className="celebration-check">✓</div>
+            <h2>恭喜完成！</h2>
+            <p>今日五题已全部答完</p>
+            <div className="celebration-confetti">
+              {Array.from({ length: 20 }).map((_, i) => (
+                <span key={i} className="confetti-piece" style={{ left: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 0.5}s`, background: ["var(--red)", "var(--gold)", "var(--jade)"][i % 3] }} />
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      )}
 
-      <section className="home-portals">
+      <section className="home-portals" id="home-portals">
         <div className="portal-grid">
           <Link href="/quiz" className="portal-card">
             <span>01</span>
@@ -191,7 +235,7 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
           <Link href="/detective" className="portal-card">
             <span>03</span>
             <strong>时空侦探</strong>
-            <p>给一个事件，找出同期、因果或前后的另一件</p>
+            <p>给时间选事件，或给事件找同期、因果、前后关系</p>
             <i>开始侦探 →</i>
           </Link>
         </div>
@@ -208,6 +252,7 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
   resetAll: () => void;
 }) {
   const [currentEventId, setCurrentEventId] = useState<string>(events[0].id);
+  const [fromTimeline, setFromTimeline] = useState(false);
 
   useEffect(() => {
     try {
@@ -215,9 +260,11 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
       const eventParam = params.get("event");
       if (eventParam && eventById.has(eventParam)) {
         setCurrentEventId(eventParam);
+        setFromTimeline(true);
         return;
       }
     } catch {}
+    setFromTimeline(false);
     setCurrentEventId(events[Math.floor(Math.random() * events.length)].id);
   }, []);
 
@@ -226,15 +273,22 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
   function nextEvent() {
     const pool = events.filter((e) => e.id !== currentEventId);
     setCurrentEventId(pool[Math.floor(Math.random() * pool.length)].id);
+    setFromTimeline(false);
   }
 
   return (
     <section className="quiz-section" id="quiz">
-      <div className="today-quiz-card">
-        <div className="today-card-top">
-          <span className="today-label">今日一问</span>
-          <button type="button" className="today-swap" onClick={nextEvent}>↻ 换一张</button>
+      {fromTimeline ? (
+        <Link href="/timeline" className="quiz-back-link">← 返回时间轴</Link>
+      ) : (
+        <div className="today-quiz-card">
+          <div className="today-card-top">
+            <span className="today-label">今日一问</span>
+            <button type="button" className="today-swap" onClick={nextEvent}>↻ 换一张</button>
+          </div>
         </div>
+      )}
+      <div className="today-quiz-card">
         <TimeQuiz
           event={currentEvent}
           allEvents={events}
@@ -245,28 +299,42 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
           onNext={nextEvent}
         />
       </div>
-      {wrongIds.length > 0 && (
-        <div className="wrong-records">
-          <div className="wrong-records-header">
-            <h3>错题记录</h3>
-            <span>{wrongIds.length} 个待复习</span>
-          </div>
-          <div className="wrong-records-list">
-            {wrongIds.map((id) => {
-              const event = eventById.get(id);
-              if (!event) return null;
-              return (
-                <button type="button" key={id} className="wrong-record-card" onClick={() => setCurrentEventId(id)}>
-                  <span className="wrong-record-tag">待复习</span>
-                  <strong>{event.title}</strong>
-                  <small>{event.track === "china" ? "中国" : "世界"} · {event.category}</small>
-                </button>
-              );
-            })}
-          </div>
-          <button type="button" className="reset-button" onClick={resetAll}>清除全部记录</button>
+      <div className="wrong-records">
+        <div className="wrong-records-header">
+          <h3>错题记录</h3>
+          {wrongIds.length > 0 ? (
+            <span className="wrong-records-count">{wrongIds.length} 个待复习</span>
+          ) : (
+            <span className="wrong-records-count empty">暂无错题</span>
+          )}
         </div>
-      )}
+        {wrongIds.length > 0 ? (
+          <>
+            <div className="wrong-records-list">
+              {wrongIds.map((id) => {
+                const event = eventById.get(id);
+                if (!event) return null;
+                return (
+                  <button type="button" key={id} className="wrong-record-card" onClick={() => {
+                    setCurrentEventId(id);
+                    document.getElementById("quiz")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}>
+                    <span className="wrong-record-tag">待复习</span>
+                    <strong>{event.title}</strong>
+                    <small>{event.track === "china" ? "中国" : "世界"} · {event.category}</small>
+                    <span className="wrong-record-action">点击重新作答 →</span>
+                  </button>
+                );
+              })}
+            </div>
+            <button type="button" className="reset-button" onClick={resetAll}>清除全部记录</button>
+          </>
+        ) : (
+          <div className="wrong-records-empty">
+            <span>答错的题目会自动记录在这里，方便复习</span>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

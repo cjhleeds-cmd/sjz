@@ -1423,9 +1423,8 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-7305e59e",
-    title: "遵义会议（1935年）",
-    year: 1934,
-    endYear: 1936,
+    title: "遵义会议",
+    year: 1935,
     track: "china",
     category: "社会",
     summary: "遵义会议召开；确立毛泽东在党中央的领导地位；党的历史上生死攸关的转折点",
@@ -2311,6 +2310,13 @@ export function findDynastyForYear(year: number): Dynasty {
 }
 
 export function formatYear(year: number): string {
-  if (year < 0) return `公元前${Math.abs(year)}年`;
+  if (year < 0) {
+    const abs = Math.abs(year);
+    if (abs >= 10000) {
+      const wan = abs / 10000;
+      return `公元前${Number.isInteger(wan) ? wan : wan.toFixed(1)}万年`;
+    }
+    return `公元前${abs}年`;
+  }
   return `${year}年`;
 }

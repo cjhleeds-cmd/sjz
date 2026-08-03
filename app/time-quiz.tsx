@@ -44,7 +44,36 @@ function computeContext(event: HistoryEvent, allEvents: HistoryEvent[]): EventCo
 
 function generateHintChoices(event: HistoryEvent): number[] {
   const correct = event.year;
-  const offset = 200;
+  const absYear = Math.abs(correct);
+
+  // 史前时代（|年份| >= 10000）：选项以万年为单位
+  if (absYear >= 10000) {
+    const wanStep = Math.max(1, Math.round(absYear * 0.15 / 10000));
+    const choices = new Set<number>([correct]);
+    while (choices.size < 4) {
+      const delta = (Math.floor(Math.random() * (wanStep * 2)) - wanStep + 1) * 10000;
+      if (delta === 0) continue;
+      choices.add(correct + delta);
+    }
+    return [...choices].sort((a, b) => a - b);
+  }
+
+  // 文明起源（公元前3500 ~ 前2071）：最小间距100年
+  if (correct < 0 && absYear >= 2000) {
+    const offset = Math.max(100, Math.round(absYear * 0.1));
+    const choices = new Set<number>([correct]);
+    while (choices.size < 4) {
+      const delta = Math.floor(Math.random() * (offset * 2)) - offset;
+      if (delta === 0 || Math.abs(delta) < 100) continue;
+      choices.add(correct + delta);
+    }
+    return [...choices].sort((a, b) => a - b);
+  }
+
+  // 其他时期：按比例浮动
+  const ratio = correct < 0 ? 0.15 : 0.08;
+  const minOffset = correct < 0 ? 200 : 50;
+  const offset = Math.round(Math.max(minOffset, absYear * ratio));
   const choices = new Set<number>([correct]);
   while (choices.size < 4) {
     const delta = Math.floor(Math.random() * (offset * 2)) - offset;

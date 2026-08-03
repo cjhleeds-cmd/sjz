@@ -14,7 +14,7 @@ export type TimeDetectiveProps = {
 };
 
 type Phase = "answering" | "result";
-type QType = "contemporary" | "causal" | "sequence";
+type QType = "contemporary" | "causal" | "sequence" | "timeEvent";
 
 type Question = {
   type: QType;
@@ -23,6 +23,7 @@ type Question = {
   correctId: string;
   causalDescription?: string;
   sequenceDirection?: "before" | "after";
+  givenYear?: number;
 };
 
 /* ---------- time helpers ---------- */
@@ -45,16 +46,30 @@ function isContemporary(a: HistoryEvent, b: HistoryEvent): boolean {
 function gapBetween(a: HistoryEvent, b: HistoryEvent): number {
   return Math.max(rangeStart(a) - rangeEnd(b), rangeStart(b) - rangeEnd(a), 0);
 }
-function isFarDistractor(a: HistoryEvent, b: HistoryEvent): boolean {
-  return !isContemporary(a, b) && gapBetween(a, b) >= 80;
-}
-function isCloseDistractor(a: HistoryEvent, b: HistoryEvent): boolean {
-  return gapBetween(a, b) >= 30 && gapBetween(a, b) <= 300;
-}
 function formatRange(e: HistoryEvent): string {
   return e.endYear
     ? `${formatYear(e.year)}—${formatYear(e.endYear)}`
     : formatYear(e.year);
+}
+
+/* ---------- distractor helpers (compressed time spans) ---------- */
+
+/**
+ * Contemporary-question distractors: close in era but NOT overlapping.
+ * Compressed to 50–400 years so options stay in a recognisable window.
+ */
+function isContemporaryDistractor(focus: HistoryEvent, option: HistoryEvent): boolean {
+  const gap = gapBetween(focus, option);
+  return gap >= 50 && gap <= 400;
+}
+
+/**
+ * Causal / sequence distractors: tight window around the focus.
+ * Compressed to 30–250 years.
+ */
+function isCloseDistractor(a: HistoryEvent, b: HistoryEvent): boolean {
+  const gap = gapBetween(a, b);
+  return gap >= 30 && gap <= 250;
 }
 
 /* ---------- random helpers ---------- */
@@ -79,8 +94,13 @@ function buildContemporaryQuestion(
   focusTrack: Track,
 ): Question | null {
   const otherTrack: Track = focusTrack === "china" ? "world" : "china";
-  const focusPool = focusTrack === "china" ? chinaEvents : worldEvents;
-  const otherPool = otherTrack === "china" ? chinaEvents : worldEvents;
+  // 20世纪事件密集且时间跨度短，同期匹配容易产生歧义，故排除
+  const focusPool = (focusTrack === "china" ? chinaEvents : worldEvents).filter(
+    (e) => e.year < 1900,
+  );
+  const otherPool = (otherTrack === "china" ? chinaEvents : worldEvents).filter(
+    (e) => e.year < 1900,
+  );
   if (!focusPool.length || !otherPool.length) return null;
 
   for (const focus of shuffle(focusPool)) {
@@ -88,8 +108,9 @@ function buildContemporaryQuestion(
     if (!contemporaries.length) continue;
 
     const correct = pickRandom(contemporaries);
+    // Compressed: distractors within 50–400 years (not overlapping)
     const distractorPool = otherPool.filter(
-      (e) => e.id !== correct.id && isFarDistractor(focus, e),
+      (e) => e.id !== correct.id && isContemporaryDistractor(focus, e),
     );
     if (distractorPool.length < 3) continue;
 
@@ -113,6 +134,7 @@ function buildCausalQuestion(
     if (!partners.length) continue;
 
     const { partner, description } = pickRandom(partners);
+    // Compressed: distractors within 30–250 years
     const distractorPool = allEvents.filter(
       (e) => e.id !== focus.id && e.id !== partner.id && isCloseDistractor(focus, e),
     );
@@ -146,8 +168,9 @@ function buildSequenceQuestion(
     if (correctIdx < 0 || correctIdx >= sorted.length) continue;
 
     const correct = sorted[correctIdx];
-    if (gapBetween(focus, correct) > 500) continue;
+    if (gapBetween(focus, correct) > 300) continue;
 
+    // Compressed: distractors within 30–250 years
     const distractorPool = focusPool.filter(
       (e) => e.id !== focus.id && e.id !== correct.id && isCloseDistractor(focus, e),
     );
@@ -162,21 +185,60 @@ function buildSequenceQuestion(
   return null;
 }
 
+/**
+ * Time-to-event question: given a year, pick the event that happened then.
+ * Distractors are from a compressed 50–500 year window so the era is similar.
+ */
+function buildTimeEventQuestion(allEvents: HistoryEvent[]): Question | null {
+  // Skip prehistoric events (years >= 10000) — too imprecise for this format
+  const candidates = allEvents.filter((e) => Math.abs(e.year) < 10000);
+  if (candidates.length < 4) return null;
+
+  for (const correct of shuffle(candidates)) {
+    const correctYear = correct.year;
+
+    // Distractors: different year, within 50–500 years of the correct event
+    const distractorPool = allEvents.filter(
+      (e) =>
+        e.id !== correct.id &&
+        e.year !== correctYear &&
+        Math.abs(e.year - correctYear) >= 50 &&
+        Math.abs(e.year - correctYear) <= 500,
+    );
+    if (distractorPool.length < 3) continue;
+
+    const distractors = shuffle(distractorPool).slice(0, 3);
+    const options = shuffle([correct, ...distractors]).sort(
+      (a, b) => a.year - b.year,
+    );
+    return {
+      type: "timeEvent",
+      focus: correct,
+      options,
+      correctId: correct.id,
+      givenYear: correctYear,
+    };
+  }
+  return null;
+}
+
 function buildQuestion(
   chinaEvents: HistoryEvent[],
   worldEvents: HistoryEvent[],
   allEvents: HistoryEvent[],
   focusTrack: Track,
 ): Question | null {
-  const types: QType[] = shuffle(["contemporary", "causal", "sequence"]);
+  const types: QType[] = shuffle(["contemporary", "causal", "sequence", "timeEvent"]);
   for (const type of types) {
     let q: Question | null = null;
     if (type === "contemporary") {
       q = buildContemporaryQuestion(chinaEvents, worldEvents, focusTrack);
     } else if (type === "causal") {
       q = buildCausalQuestion(allEvents);
-    } else {
+    } else if (type === "sequence") {
       q = buildSequenceQuestion(chinaEvents, worldEvents, focusTrack);
+    } else {
+      q = buildTimeEventQuestion(allEvents);
     }
     if (q) return q;
   }
@@ -185,19 +247,11 @@ function buildQuestion(
 
 const OPTION_LABELS = ["A", "B", "C", "D"];
 
-const QTYPE_LABELS: Record<QType, { badge: string; prompt: (track: Track) => string }> = {
-  contemporary: {
-    badge: "同期匹配",
-    prompt: (track) => `以下均为${track === "china" ? "世界" : "中国"}事件，其中哪一件与上方焦点事件处于<b>同一时期</b>？`,
-  },
-  causal: {
-    badge: "因果推理",
-    prompt: () => `以下事件中，哪一件与上方焦点事件存在<b>因果关系</b>？`,
-  },
-  sequence: {
-    badge: "前后关系",
-    prompt: () => `以下事件中，哪一件紧接在上方焦点事件<b>之后</b>发生？`,
-  },
+const QTYPE_LABELS: Record<QType, { badge: string }> = {
+  contemporary: { badge: "同期匹配" },
+  causal: { badge: "因果推理" },
+  sequence: { badge: "前后关系" },
+  timeEvent: { badge: "时间定位" },
 };
 
 /* ---------- component ---------- */
@@ -209,6 +263,7 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
   const [ready, setReady] = useState(false);
   const focusTrackRef = useRef<Track>("china");
   const eventsRef = useRef(events);
+  const topRef = useRef<HTMLDivElement>(null);
   eventsRef.current = events;
 
   function generateQuestion(): Question | null {
@@ -247,11 +302,12 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
     setSelectedId(null);
     setPhase("answering");
     focusTrackRef.current = focusTrackRef.current === "china" ? "world" : "china";
+    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   if (!question) {
     return (
-      <div className="time-detective">
+      <div className="time-detective" ref={topRef}>
         <p className="detective-prompt">
           {ready
             ? "暂无足够的事件来出题，请补充更多历史事件数据。"
@@ -261,7 +317,7 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
     );
   }
 
-  const { focus, options, correctId, type, causalDescription, sequenceDirection } = question;
+  const { focus, options, correctId, type, causalDescription, sequenceDirection, givenYear } = question;
   const correctEvent = options.find((o) => o.id === correctId) ?? focus;
   const isCorrect = selectedId === correctId;
   const focusDynasty = findDynastyForYear(focus.year);
@@ -270,32 +326,56 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
   const midpointDiff = Math.round(
     Math.abs(midpoint(focus) - midpoint(correctEvent)),
   );
-  const optionsTrackLabel = type === "contemporary"
-    ? (focus.track === "china" ? "世界" : "中国")
-    : "全部";
   const qtypeLabel = QTYPE_LABELS[type];
-  const promptHtml = type === "sequence"
-    ? `以下事件中，哪一件紧接在上方焦点事件<b>之后</b>发生？`
-    : qtypeLabel.prompt(focus.track);
+
+  // Build the prompt HTML based on question type
+  const promptHtml: string = (() => {
+    if (type === "timeEvent") {
+      return `以下哪一事件发生在<b>这一年</b>？`;
+    }
+    if (type === "sequence") {
+      return sequenceDirection === "before"
+        ? `以下事件中，哪一件紧接在上方焦点事件<b>之前</b>发生？`
+        : `以下事件中，哪一件紧接在上方焦点事件<b>之后</b>发生？`;
+    }
+    if (type === "contemporary") {
+      const otherLabel = focus.track === "china" ? "世界" : "中国";
+      return `以下均为${otherLabel}事件，其中哪一件与上方焦点事件处于<b>同一时期</b>？`;
+    }
+    // causal
+    return `以下事件中，哪一件与上方焦点事件存在<b>因果关系</b>？`;
+  })();
+
+  const isTimeEvent = type === "timeEvent";
 
   return (
-    <div className="time-detective">
-      <section className="detective-focus-card">
-        <div className="detective-focus-meta">
-          <span className="detective-qtype-badge">{qtypeLabel.badge}</span>
-          <i>·</i>
-          <span>{focus.track === "china" ? "中国" : "世界"}</span>
-          <i>·</i>
-          <span>{focus.category}</span>
-          <i>·</i>
-          <span>{focusDynasty.label}</span>
-        </div>
-        <div className="detective-focus-time">{formatRange(focus)}</div>
-        <h3 className="detective-focus-title">{focus.title}</h3>
-        {focus.summary && (
-          <p className="detective-focus-summary">{focus.summary}</p>
-        )}
-      </section>
+    <div className="time-detective" ref={topRef}>
+      {/* Focus card — event for most types, year display for timeEvent */}
+      {isTimeEvent ? (
+        <section className="detective-focus-card time-event-focus">
+          <div className="detective-focus-meta">
+            <span className="detective-qtype-badge">{qtypeLabel.badge}</span>
+          </div>
+          <div className="time-event-year-display">{formatYear(givenYear!)}</div>
+        </section>
+      ) : (
+        <section className="detective-focus-card">
+          <div className="detective-focus-meta">
+            <span className="detective-qtype-badge">{qtypeLabel.badge}</span>
+            <i>·</i>
+            <span>{focus.track === "china" ? "中国" : "世界"}</span>
+            <i>·</i>
+            <span>{focus.category}</span>
+            <i>·</i>
+            <span>{focusDynasty.label}</span>
+          </div>
+          <div className="detective-focus-time">{formatRange(focus)}</div>
+          <h3 className="detective-focus-title">{focus.title}</h3>
+          {focus.summary && (
+            <p className="detective-focus-summary">{focus.summary}</p>
+          )}
+        </section>
+      )}
 
       <p className="detective-prompt" dangerouslySetInnerHTML={{ __html: promptHtml }} />
 
@@ -323,7 +403,7 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
                 <span className="detective-option-title">{option.title}</span>
                 <span className="detective-option-sub">
                   <span className="detective-option-category">
-                    {option.category}
+                    {option.track === "china" ? "中国" : "世界"} · {option.category}
                   </span>
                   {phase === "result" && (
                     <span className="detective-option-time">
@@ -347,41 +427,73 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
             {isCorrect ? "回答正确" : "回答错误"}
           </div>
 
-          <div className="detective-result-pair">
-            <div className="detective-result-event focus">
-              <span className="detective-result-tag">焦点事件</span>
-              <strong className="detective-result-title">{focus.title}</strong>
-              <span className="detective-result-time">{formatRange(focus)}</span>
-              <span className="detective-result-meta">
-                {focus.track === "china" ? "中国" : "世界"} · {focus.category} ·{" "}
-                {focusDynasty.label}
-              </span>
-              {focus.summary && (
-                <p className="detective-result-summary">{focus.summary}</p>
-              )}
-            </div>
-
-            <div className="detective-result-event match">
-              <span className="detective-result-tag">
-                {type === "contemporary" ? "同期事件" : type === "causal" ? "因果关联" : "紧接其后"}
-              </span>
-              <strong className="detective-result-title">
-                {correctEvent.title}
-              </strong>
-              <span className="detective-result-time">
-                {formatRange(correctEvent)}
-              </span>
-              <span className="detective-result-meta">
-                {correctEvent.track === "china" ? "中国" : "世界"} ·{" "}
-                {correctEvent.category} · {correctDynasty.label}
-              </span>
-              {correctEvent.summary && (
+          {isTimeEvent ? (
+            <div className="detective-result-pair">
+              <div className="detective-result-event focus">
+                <span className="detective-result-tag">给定时间</span>
+                <strong className="detective-result-time-big">
+                  {formatYear(givenYear!)}
+                </strong>
+                <span className="detective-result-meta">
+                  {correctDynasty.label}
+                </span>
+              </div>
+              <div className="detective-result-event match">
+                <span className="detective-result-tag">正确事件</span>
+                <strong className="detective-result-title">
+                  {correctEvent.title}
+                </strong>
+                <span className="detective-result-time">
+                  {formatRange(correctEvent)}
+                </span>
+                <span className="detective-result-meta">
+                  {correctEvent.track === "china" ? "中国" : "世界"} ·{" "}
+                  {correctEvent.category} · {correctDynasty.label}
+                </span>
+                {correctEvent.summary && (
                   <p className="detective-result-summary">
                     {correctEvent.summary}
                   </p>
                 )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="detective-result-pair">
+              <div className="detective-result-event focus">
+                <span className="detective-result-tag">焦点事件</span>
+                <strong className="detective-result-title">{focus.title}</strong>
+                <span className="detective-result-time">{formatRange(focus)}</span>
+                <span className="detective-result-meta">
+                  {focus.track === "china" ? "中国" : "世界"} · {focus.category} ·{" "}
+                  {focusDynasty.label}
+                </span>
+                {focus.summary && (
+                  <p className="detective-result-summary">{focus.summary}</p>
+                )}
+              </div>
+
+              <div className="detective-result-event match">
+                <span className="detective-result-tag">
+                  {type === "contemporary" ? "同期事件" : type === "causal" ? "因果关联" : "紧接其后"}
+                </span>
+                <strong className="detective-result-title">
+                  {correctEvent.title}
+                </strong>
+                <span className="detective-result-time">
+                  {formatRange(correctEvent)}
+                </span>
+                <span className="detective-result-meta">
+                  {correctEvent.track === "china" ? "中国" : "世界"} ·{" "}
+                  {correctEvent.category} · {correctDynasty.label}
+                </span>
+                {correctEvent.summary && (
+                  <p className="detective-result-summary">
+                    {correctEvent.summary}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
 
           {type === "causal" && causalDescription && (
             <p className="detective-result-note">
@@ -402,6 +514,12 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
               {sequenceDirection === "after"
                 ? `${correctEvent.title} 紧接在 ${focus.title} 之后发生`
                 : `${correctEvent.title} 发生在 ${focus.title} 之前`}
+            </p>
+          )}
+
+          {type === "timeEvent" && (
+            <p className="detective-result-diff">
+              {correctEvent.title} 发生在 {formatYear(givenYear!)}，属{correctDynasty.label}
             </p>
           )}
 
