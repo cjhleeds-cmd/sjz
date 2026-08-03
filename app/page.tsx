@@ -155,6 +155,13 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
       }, 2500);
       return;
     }
+    // 每次随机抽一道与当前不同的题
+    const currentId = dailyEventIds[currentIdx];
+    const pool = events.filter((e) => e.id !== currentId);
+    const randomEvent = pool[Math.floor(Math.random() * pool.length)];
+    const nextIds = [...dailyEventIds];
+    nextIds[currentIdx + 1] = randomEvent.id;
+    setDailyEventIds(nextIds);
     setCurrentIdx((prev) => prev + 1);
     document.getElementById("top")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
