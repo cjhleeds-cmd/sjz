@@ -2197,19 +2197,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: .02em;
 }
 
-/* Portal card color-tinted backgrounds — placed at end to override V0.6 cascade */
-.portal-grid a.portal-card-red { background: linear-gradient(135deg, rgba(159,63,46,.22), rgba(159,63,46,.1)) !important; background-color: rgba(159,63,46,.18) !important; border-top: 4px solid var(--red) !important; }
-.portal-grid a.portal-card-gold { background: linear-gradient(135deg, rgba(193,148,69,.24), rgba(193,148,69,.1)) !important; background-color: rgba(193,148,69,.2) !important; border-top: 4px solid var(--gold) !important; }
-.portal-grid a.portal-card-jade { background: linear-gradient(135deg, rgba(93,122,112,.24), rgba(93,122,112,.1)) !important; background-color: rgba(93,122,112,.2) !important; border-top: 4px solid var(--jade) !important; }
-.portal-grid a.portal-card-red:hover { background: linear-gradient(135deg, rgba(159,63,46,.38), rgba(159,63,46,.18)) !important; border-color: rgba(159,63,46,.5) !important; box-shadow: 0 20px 42px rgba(159,63,46,.2) !important; }
-.portal-grid a.portal-card-gold:hover { background: linear-gradient(135deg, rgba(193,148,69,.4), rgba(193,148,69,.18)) !important; border-color: rgba(193,148,69,.5) !important; box-shadow: 0 20px 42px rgba(193,148,69,.2) !important; }
-.portal-grid a.portal-card-jade:hover { background: linear-gradient(135deg, rgba(93,122,112,.38), rgba(93,122,112,.18)) !important; border-color: rgba(93,122,112,.5) !important; box-shadow: 0 20px 42px rgba(93,122,112,.2) !important; }
+/* Portal card — unified background, colored accents only */
 .portal-grid a.portal-card-red > i { color: var(--red) !important; }
 .portal-grid a.portal-card-gold > i { color: var(--gold) !important; }
 .portal-grid a.portal-card-jade > i { color: var(--jade-deep) !important; }
-.portal-grid a.portal-card-red > strong { color: var(--red) !important; }
-.portal-grid a.portal-card-gold > strong { color: #8a6420 !important; }
-.portal-grid a.portal-card-jade > strong { color: var(--jade-deep) !important; }
 
 /* Detective responsive */
 @media (max-width: 640px) {
