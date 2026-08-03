@@ -580,11 +580,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .era-rail-vertical .event-card-tag { color: var(--text-secondary); font-size: 10px; white-space: nowrap; }
 .era-rail-vertical .river-card h4 { margin: 0; font-size: 13px; line-height: 1.3; font-weight: 600; color: var(--text-primary); }
 .era-rail-vertical .river-card > p, .era-rail-vertical .event-card-summary { margin: 0; color: var(--text-secondary); font-size: 11px; line-height: 1.35; }
-.era-rail-vertical .event-card-quiz-hint { flex: 0 0 auto; margin-top: 0; align-self: center; display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; padding: 0; font-size: 12px; border-radius: 50%; gap: 0; border: 1px solid rgba(159,63,46,.2); background: rgba(159,63,46,.06); color: var(--red); transition: all .2s; }
-.era-rail-vertical .event-card-quiz-hint .quiz-hint-arrow { font-size: 12px; transition: transform .2s; }
-.era-rail-vertical .river-card.clickable:hover .event-card-quiz-hint { background: var(--red); color: #fff; border-color: var(--red); }
-.era-rail-vertical .river-card.clickable:hover .event-card-quiz-hint .quiz-hint-arrow { transform: translateX(1px); }
-.era-rail-vertical .river-card.world.clickable .event-card-quiz-hint { border-color: rgba(84,120,108,.2); background: rgba(84,120,108,.06); color: var(--jade-deep); }
+.era-rail-vertical .event-card-quiz-hint { flex: 0 0 auto; margin-top: 0; align-self: center; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; font-size: 14px; border-radius: 50%; gap: 0; border: 1.5px solid rgba(159,63,46,.25); background: rgba(159,63,46,.08); color: var(--red); transition: all .2s; }
+.era-rail-vertical .event-card-quiz-hint .quiz-hint-arrow { font-size: 14px; font-weight: 700; transition: transform .2s; }
+.era-rail-vertical .river-card.clickable:hover .event-card-quiz-hint { background: var(--red); color: #fff; border-color: var(--red); transform: scale(1.1); }
+.era-rail-vertical .river-card.clickable:hover .event-card-quiz-hint .quiz-hint-arrow { transform: translateX(2px); }
+.era-rail-vertical .river-card.world.clickable .event-card-quiz-hint { border-color: rgba(84,120,108,.25); background: rgba(84,120,108,.08); color: var(--jade-deep); }
 .era-rail-vertical .river-card.world.clickable:hover .event-card-quiz-hint { background: var(--jade); color: #fff; border-color: var(--jade); }
 .empty-rail { flex: 1 0 100%; min-height: 60px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--ink-soft); font-size: 12px; padding: 16px; }
 .river-to-today { position: relative; display: grid; grid-template-columns: 145px 1fr; align-items: center; min-height: 80px; }
@@ -2198,12 +2198,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* Portal card color-tinted backgrounds — placed at end to override V0.6 cascade */
-.portal-grid a.portal-card-red { background: rgba(159,63,46,.14) !important; border-top: 4px solid var(--red) !important; }
-.portal-grid a.portal-card-gold { background: rgba(193,148,69,.16) !important; border-top: 4px solid var(--gold) !important; }
-.portal-grid a.portal-card-jade { background: rgba(93,122,112,.16) !important; border-top: 4px solid var(--jade) !important; }
-.portal-grid a.portal-card-red:hover { background: rgba(159,63,46,.28) !important; border-color: rgba(159,63,46,.5) !important; box-shadow: 0 20px 42px rgba(159,63,46,.18) !important; }
-.portal-grid a.portal-card-gold:hover { background: rgba(193,148,69,.3) !important; border-color: rgba(193,148,69,.5) !important; box-shadow: 0 20px 42px rgba(193,148,69,.18) !important; }
-.portal-grid a.portal-card-jade:hover { background: rgba(93,122,112,.28) !important; border-color: rgba(93,122,112,.5) !important; box-shadow: 0 20px 42px rgba(93,122,112,.18) !important; }
+.portal-grid a.portal-card-red { background: linear-gradient(135deg, rgba(159,63,46,.22), rgba(159,63,46,.1)) !important; background-color: rgba(159,63,46,.18) !important; border-top: 4px solid var(--red) !important; }
+.portal-grid a.portal-card-gold { background: linear-gradient(135deg, rgba(193,148,69,.24), rgba(193,148,69,.1)) !important; background-color: rgba(193,148,69,.2) !important; border-top: 4px solid var(--gold) !important; }
+.portal-grid a.portal-card-jade { background: linear-gradient(135deg, rgba(93,122,112,.24), rgba(93,122,112,.1)) !important; background-color: rgba(93,122,112,.2) !important; border-top: 4px solid var(--jade) !important; }
+.portal-grid a.portal-card-red:hover { background: linear-gradient(135deg, rgba(159,63,46,.38), rgba(159,63,46,.18)) !important; border-color: rgba(159,63,46,.5) !important; box-shadow: 0 20px 42px rgba(159,63,46,.2) !important; }
+.portal-grid a.portal-card-gold:hover { background: linear-gradient(135deg, rgba(193,148,69,.4), rgba(193,148,69,.18)) !important; border-color: rgba(193,148,69,.5) !important; box-shadow: 0 20px 42px rgba(193,148,69,.2) !important; }
+.portal-grid a.portal-card-jade:hover { background: linear-gradient(135deg, rgba(93,122,112,.38), rgba(93,122,112,.18)) !important; border-color: rgba(93,122,112,.5) !important; box-shadow: 0 20px 42px rgba(93,122,112,.2) !important; }
 .portal-grid a.portal-card-red > i { color: var(--red) !important; }
 .portal-grid a.portal-card-gold > i { color: var(--gold) !important; }
 .portal-grid a.portal-card-jade > i { color: var(--jade-deep) !important; }
