@@ -340,7 +340,7 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
     }
     if (type === "contemporary") {
       const otherLabel = focus.track === "china" ? "世界" : "中国";
-      return `以下均为${otherLabel}事件，其中哪一件与上方焦点事件处于<b>同一时期</b>？`;
+      return `以下均为${otherLabel}事件，其中哪一件与上方焦点事件<b>时间最为接近</b>？`;
     }
     // causal
     return `以下事件中，哪一件与上方焦点事件存在<b>因果关系</b>？`;
@@ -504,7 +504,7 @@ export function TimeDetective({ events }: TimeDetectiveProps) {
           {type === "contemporary" && (
             <p className="detective-result-diff">
               {overlap
-                ? `两事件时间区间重叠，属同一时期（时间中点相差约 ${midpointDiff} 年）`
+                ? `两事件时间区间重叠，时间最为接近（时间中点相差约 ${midpointDiff} 年）`
                 : `两事件时间中点相差约 ${midpointDiff} 年`}
             </p>
           )}
