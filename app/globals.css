@@ -122,7 +122,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .today-action span { display: inline-block; margin-left: 8px; }
 
 /* ===== Time Quiz ===== */
-.quiz-section { max-width: 640px; margin: 0 auto; padding: 48px 24px 60px; }
+.quiz-section { position: relative; isolation: isolate; max-width: 640px; margin: 0 auto; padding: 48px 24px 60px; }
+.quiz-section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: min(90vw, 620px);
+  aspect-ratio: 3 / 2;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: .18;
+  background: var(--art-placement) center / contain no-repeat;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, rgba(0,0,0,.7) 60%, transparent 85%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, rgba(0,0,0,.7) 60%, transparent 85%);
+}
+.quiz-section > * { position: relative; z-index: 1; }
 .quiz-back-link { display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,253,248,.5); color: var(--text-secondary); font-size: 13px; font-weight: 600; text-decoration: none; transition: all .2s; }
 .quiz-back-link:hover { border-color: var(--red); color: var(--red); background: rgba(255,253,248,.8); }
 .today-quiz-card { position: relative; padding: 28px 28px 25px; background: rgba(255,253,248,.7); border: 1px solid rgba(159,63,46,.2); box-shadow: 0 18px 55px rgba(72,54,31,.08); display: flex; flex-direction: column; gap: 16px; }
@@ -1802,10 +1818,28 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
    Time Detective — 同期事件匹配
    ════════════════════════════════════════════════════════════════ */
 .detective-section {
+  position: relative;
+  isolation: isolate;
   max-width: 860px;
   margin: 0 auto;
   padding: 48px 24px 60px;
 }
+.detective-section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: min(92vw, 840px);
+  aspect-ratio: 3 / 2;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: .16;
+  background: var(--art-records) center / contain no-repeat;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 42%, rgba(0,0,0,.7) 60%, transparent 86%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 42%, rgba(0,0,0,.7) 60%, transparent 86%);
+}
+.detective-section > * { position: relative; z-index: 1; }
 
 .time-detective {
   display: flex;
