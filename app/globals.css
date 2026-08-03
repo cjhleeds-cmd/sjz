@@ -471,13 +471,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: 0 6px 20px rgba(65,48,28,.05);
 }
 .global-progress-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-.global-progress-info { display: flex; align-items: baseline; gap: 10px; }
-.global-progress-label { font-size: 13px; font-weight: 700; color: var(--text-primary); letter-spacing: .02em; }
-.global-progress-count { font-size: 12px; font-weight: 600; color: var(--text-accent); }
+.global-progress-info { display: flex; align-items: baseline; gap: 12px; }
+.global-progress-label { font-size: 17px; font-weight: 800; color: var(--text-primary); letter-spacing: .01em; }
+.global-progress-count { font-size: 17px; font-weight: 800; color: var(--red); font-family: Arial, sans-serif; }
 .global-progress-bar { height: 8px; border-radius: 99px; background: rgba(72,63,50,.1); overflow: hidden; }
 .global-progress-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--red), var(--gold) 50%, var(--jade)); transition: width .5s ease; }
 .global-progress-hint { margin-top: 6px; font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
-.expand-toggle-btn { flex: 0 0 auto; padding: 5px 14px; border: 1px solid rgba(159,63,46,.28); border-radius: 999px; color: var(--red); background: rgba(255,250,241,.88); font-size: 11px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap; }
+.expand-toggle-btn { flex: 0 0 auto; padding: 3px 10px; border: 1px solid rgba(159,63,46,.28); border-radius: 999px; color: var(--red); background: rgba(255,250,241,.88); font-size: 10px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap; }
 .expand-toggle-btn:hover { color: #fff; border-color: var(--red); background: var(--red); transform: translateY(-1px); }
 
 /* ===== Dynasty progress row ===== */
@@ -566,8 +566,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .dynasty-overview-card:hover { transform: none; border-color: rgba(72,63,50,.15); border-top-color: var(--gold); box-shadow: 0 15px 34px rgba(65,48,28,.055); }
 
 /* Vertical event rail - compact cards in chronological order */
-.era-rail-vertical { display: flex; flex-direction: column; gap: 5px; min-height: 0; overflow: visible; padding: 8px 5px 12px; }
-.era-rail-vertical .river-card { flex: 0 0 auto; min-height: 0; flex-direction: row; align-items: stretch; gap: 10px; padding: 6px 14px; }
+.era-rail-vertical { display: flex; flex-direction: column; gap: 4px; min-height: 0; overflow: visible; padding: 6px 5px 10px; }
+.era-rail-vertical .river-card { flex: 0 0 auto; min-height: 0; flex-direction: row; align-items: center; gap: 8px; padding: 5px 12px; }
 .era-rail-vertical .river-card:hover { transform: none; box-shadow: 0 12px 28px rgba(65,48,28,.05); border-color: rgba(72,63,50,.15); }
 .era-rail-vertical .river-card.clickable { cursor: pointer; }
 .era-rail-vertical .river-card.clickable:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(65,48,28,.08); border-color: rgba(159,63,46,.3); }
@@ -580,10 +580,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .era-rail-vertical .event-card-tag { color: var(--text-secondary); font-size: 10px; white-space: nowrap; }
 .era-rail-vertical .river-card h4 { margin: 0; font-size: 13px; line-height: 1.3; font-weight: 600; color: var(--text-primary); }
 .era-rail-vertical .river-card > p, .era-rail-vertical .event-card-summary { margin: 0; color: var(--text-secondary); font-size: 11px; line-height: 1.35; }
-.era-rail-vertical .event-card-quiz-hint { flex: 0 0 auto; margin-top: 0; flex-direction: column; justify-content: center; align-items: center; padding: 6px 8px; font-size: 10px; border-radius: 8px; gap: 2px; min-width: 42px; }
-.era-rail-vertical .event-card-quiz-hint .quiz-hint-icon { font-size: 11px; }
-.era-rail-vertical .event-card-quiz-hint .quiz-hint-text { font-size: 9px; }
-.era-rail-vertical .event-card-quiz-hint .quiz-hint-arrow { font-size: 11px; }
+.era-rail-vertical .event-card-quiz-hint { flex: 0 0 auto; margin-top: 0; align-self: center; display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; padding: 0; font-size: 12px; border-radius: 50%; gap: 0; border: 1px solid rgba(159,63,46,.2); background: rgba(159,63,46,.06); color: var(--red); transition: all .2s; }
+.era-rail-vertical .event-card-quiz-hint .quiz-hint-arrow { font-size: 12px; transition: transform .2s; }
+.era-rail-vertical .river-card.clickable:hover .event-card-quiz-hint { background: var(--red); color: #fff; border-color: var(--red); }
+.era-rail-vertical .river-card.clickable:hover .event-card-quiz-hint .quiz-hint-arrow { transform: translateX(1px); }
+.era-rail-vertical .river-card.world.clickable .event-card-quiz-hint { border-color: rgba(84,120,108,.2); background: rgba(84,120,108,.06); color: var(--jade-deep); }
+.era-rail-vertical .river-card.world.clickable:hover .event-card-quiz-hint { background: var(--jade); color: #fff; border-color: var(--jade); }
 .empty-rail { flex: 1 0 100%; min-height: 60px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--ink-soft); font-size: 12px; padding: 16px; }
 .river-to-today { position: relative; display: grid; grid-template-columns: 145px 1fr; align-items: center; min-height: 80px; }
 .river-to-today > span { z-index: 2; width: 52px; height: 52px; margin-left: 47px; display: grid; place-items: center; border: 7px solid var(--paper); border-radius: 50%; color: #fff; background: var(--jade); box-shadow: 0 0 0 1px rgba(84,120,108,.4); }
@@ -1039,10 +1041,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .main-nav a.active { background: rgba(139,69,19,.1); }
   .main-nav a.active::after { display: none; }
   .menu-button { display: block; }
-  .hero { padding: 55px 28px; }
+  .hero { padding: 55px 24px; }
   .home-portals { padding: 0 24px 60px; }
   .portal-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .timeline-section { padding: 65px 24px 80px; }
+  .timeline-section { padding: 60px 24px 70px; }
+  .quiz-section { padding: 50px 24px 50px; }
+  .detective-section { padding: 40px 24px 50px; }
   .river-controls { top: 8px; }
   .river-control-actions { flex-wrap: wrap; justify-content: flex-end; }
   .history-river::before { left: 48px; }
@@ -1080,25 +1084,33 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .brand-seal { width: 36px; height: 36px; }
   .brand strong { font-size: 17px; }
   .quiet-button span { display: none; }
-  .main-nav { top: 68px; }
-  .hero { min-height: 470px; padding: 48px 20px; }
-  .hero h1 { font-size: 43px; }
+  .main-nav { top: 68px; left: 12px; right: 12px; }
+  /* Unified mobile section padding */
+  .hero { min-height: 420px; padding: 48px 16px; }
+  .hero h1 { font-size: 38px; }
   .hero-copy > div > p { font-size: 14px; }
+  .home-portals { padding: 48px 16px 60px; margin-left: 0; margin-right: 0; }
+  .home-portals-heading { display: block; }
+  .home-portals-heading h2 { margin-top: 8px; font-size: 26px; }
+  .home-portals-heading p { margin-top: 13px; }
+  .quiz-section { padding: 48px 16px 60px; }
+  .quiz-heading { margin-bottom: 24px; }
+  .quiz-heading h2 { font-size: 26px; max-width: 100%; }
+  .timeline-section { padding: 48px 16px 60px; margin-left: 0; margin-right: 0; }
+  .vertical-timeline-section { padding-left: 16px; padding-right: 16px; }
+  .vertical-heading { padding-left: 0; padding-right: 0; padding-bottom: 24px; }
+  .vertical-heading h2 { font-size: 26px; }
+  .detective-section { padding: 48px 16px 60px; }
+  .detective-section .section-heading h2 { font-size: 26px; }
+  .home-daily-section { padding: 0 16px; }
   .today-card { padding: 22px; }
   .quiz-choices { grid-template-columns: 1fr; }
   .quiz-result-header { flex-direction: column; align-items: flex-start; gap: 10px; }
   .quiz-result-time { width: 100%; justify-content: space-between; }
   .quiz-relations-grid { flex-direction: column; }
   .quiz-relations-grid > i { display: none; }
-  .home-portals { padding: 54px 18px 66px; }
-  .home-portals-heading { display: block; }
-  .home-portals-heading h2 { margin-top: 8px; font-size: 29px; }
-  .home-portals-heading p { margin-top: 13px; }
-  .portal-grid { grid-template-columns: 1fr; margin-top: 27px; }
-  .portal-grid a { min-height: 188px; }
-  .timeline-section { padding: 55px 16px 70px; }
-  .vertical-timeline-section { padding-left: 12px; padding-right: 12px; }
-  .vertical-heading { padding-left: 4px; padding-right: 4px; }
+  .portal-grid { grid-template-columns: 1fr; margin-top: 24px; }
+  .portal-grid a { min-height: 180px; }
   .river-controls { position: sticky; top: 6px; align-items: stretch; flex-direction: column; margin: 18px 0 28px; padding: 10px; }
   .scroll-instruction { justify-content: center; }
   .scroll-instruction > span { width: 27px; height: 27px; }
@@ -1731,18 +1743,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .brand strong { font-size: 17px; }
   .main-nav { top: 68px; left: 10px; right: 10px; }
   .main-nav a { min-height: 50px; padding: 15px 18px; font-size: 16px; }
-  .home-portals, .timeline-section { margin-left: 10px; margin-right: 10px; }
-  .home-portals { padding-top: 50px; padding-bottom: 66px; }
   .section-heading { display: block; }
   .section-heading > p, .insertion-heading > p { width: auto; margin-top: 15px; font-size: 14px; }
+  .quiz-heading, .vertical-heading, .detective-section .section-heading { margin-bottom: 24px; }
   .portal-grid a { min-height: 190px; }
   .global-progress-card { padding: 10px 14px; margin: 10px 0 16px; }
   .global-progress-top { flex-wrap: wrap; gap: 8px; }
-  .global-progress-info { flex-wrap: wrap; gap: 6px; }
-  .global-progress-label { font-size: 12px; }
-  .global-progress-count { font-size: 11px; }
+  .global-progress-info { flex-wrap: wrap; gap: 8px; }
+  .global-progress-label { font-size: 15px; }
+  .global-progress-count { font-size: 15px; }
   .global-progress-hint { font-size: 10px; }
-  .expand-toggle-btn { padding: 4px 12px; font-size: 10px; }
+  .expand-toggle-btn { padding: 2px 8px; font-size: 9px; }
   .insertion-section { padding-top: 42px; padding-bottom: 70px; }
   .insertion-heading h2 { font-size: 42px; }
   .insertion-shell { margin-top: 25px; border-radius: 18px; }
@@ -2187,15 +2198,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* Portal card color-tinted backgrounds — placed at end to override V0.6 cascade */
-.portal-grid a.portal-card-red { background: rgba(159,63,46,.06) !important; border-top-color: var(--red) !important; }
-.portal-grid a.portal-card-gold { background: rgba(193,148,69,.08) !important; border-top-color: var(--gold) !important; }
-.portal-grid a.portal-card-jade { background: rgba(93,122,112,.08) !important; border-top-color: var(--jade) !important; }
-.portal-grid a.portal-card-red:hover { background: rgba(159,63,46,.16) !important; border-color: rgba(159,63,46,.4) !important; }
-.portal-grid a.portal-card-gold:hover { background: rgba(193,148,69,.2) !important; border-color: rgba(193,148,69,.4) !important; }
-.portal-grid a.portal-card-jade:hover { background: rgba(93,122,112,.18) !important; border-color: rgba(93,122,112,.4) !important; }
+.portal-grid a.portal-card-red { background: rgba(159,63,46,.14) !important; border-top: 4px solid var(--red) !important; }
+.portal-grid a.portal-card-gold { background: rgba(193,148,69,.16) !important; border-top: 4px solid var(--gold) !important; }
+.portal-grid a.portal-card-jade { background: rgba(93,122,112,.16) !important; border-top: 4px solid var(--jade) !important; }
+.portal-grid a.portal-card-red:hover { background: rgba(159,63,46,.28) !important; border-color: rgba(159,63,46,.5) !important; box-shadow: 0 20px 42px rgba(159,63,46,.18) !important; }
+.portal-grid a.portal-card-gold:hover { background: rgba(193,148,69,.3) !important; border-color: rgba(193,148,69,.5) !important; box-shadow: 0 20px 42px rgba(193,148,69,.18) !important; }
+.portal-grid a.portal-card-jade:hover { background: rgba(93,122,112,.28) !important; border-color: rgba(93,122,112,.5) !important; box-shadow: 0 20px 42px rgba(93,122,112,.18) !important; }
 .portal-grid a.portal-card-red > i { color: var(--red) !important; }
 .portal-grid a.portal-card-gold > i { color: var(--gold) !important; }
 .portal-grid a.portal-card-jade > i { color: var(--jade-deep) !important; }
+.portal-grid a.portal-card-red > strong { color: var(--red) !important; }
+.portal-grid a.portal-card-gold > strong { color: #8a6420 !important; }
+.portal-grid a.portal-card-jade > strong { color: var(--jade-deep) !important; }
 
 /* Detective responsive */
 @media (max-width: 640px) {

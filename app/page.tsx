@@ -463,9 +463,7 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
                                 </>
                               )}
                             </div>
-                            <span className="event-card-quiz-hint">
-                              <span className="quiz-hint-icon">✎</span>
-                              <span className="quiz-hint-text">{isLit ? "再答" : "答题"}</span>
+                            <span className="event-card-quiz-hint" aria-label={isLit ? "再答一次" : "点击答题"}>
                               <span className="quiz-hint-arrow">→</span>
                             </span>
                           </Link>
