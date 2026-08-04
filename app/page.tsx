@@ -93,6 +93,20 @@ export function HistoryApp({ view = "home" }: { view?: AppView }) {
     setExpandedDynastyIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   }
 
+  useEffect(() => {
+    if (view !== "timeline") return;
+    if (typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (!hash) return;
+    const eraId = hash.replace("#era-", "");
+    if (!eraId) return;
+    setExpandedDynastyIds((prev) => prev.includes(eraId) ? prev : [...prev, eraId]);
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`era-${eraId}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [view]);
+
   return (
     <main className={`site-shell view-${view}`}>
       <header className="topbar">
@@ -258,18 +272,22 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
 }) {
   const [currentEventId, setCurrentEventId] = useState<string>(events[0].id);
   const [fromTimeline, setFromTimeline] = useState(false);
+  const [eraId, setEraId] = useState<string>("");
 
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       const eventParam = params.get("event");
+      const eraParam = params.get("era");
       if (eventParam && eventById.has(eventParam)) {
         setCurrentEventId(eventParam);
         setFromTimeline(true);
+        setEraId(eraParam || "");
         return;
       }
     } catch {}
     setFromTimeline(false);
+    setEraId("");
     setCurrentEventId(events[Math.floor(Math.random() * events.length)].id);
   }, []);
 
@@ -291,7 +309,7 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
       </div>
 
       {fromTimeline && (
-        <Link href="/timeline" className="quiz-back-link">← 返回时间轴</Link>
+        <Link href={eraId ? `/timeline#era-${eraId}` : "/timeline"} className="quiz-back-link">← 返回时间轴</Link>
       )}
 
       <div className="today-quiz-card">
@@ -463,7 +481,7 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
                         return (
                           <Link
                             key={event.id}
-                            href={`/quiz?event=${event.id}`}
+                            href={`/quiz?event=${event.id}&era=${dynasty.id}`}
                             className={`river-card event-card ${event.track} status-${status} ${isLit ? "is-lit" : "is-dim"} ${litFlashIds.includes(event.id) ? "just-lit" : ""} clickable`}
                           >
                             <div className="event-card-body">
