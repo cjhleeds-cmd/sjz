@@ -7,9 +7,7 @@ const HIDE_THRESHOLD = 200;
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
-  const [shiftUp, setShiftUp] = useState(false);
   const tickingRef = useRef(false);
-  const btnRef = useRef<HTMLButtonElement>(null);
 
   const checkScroll = useCallback(() => {
     if (tickingRef.current) return;
@@ -21,30 +19,9 @@ export function BackToTop() {
       } else if (scrollY < HIDE_THRESHOLD) {
         setVisible(false);
       }
-
-      // Check overlap with sticky timeline dots
-      if (btnRef.current && visible) {
-        const btnRect = btnRef.current.getBoundingClientRect();
-        const dots = document.querySelectorAll<HTMLElement>(".axis-column > span");
-        let overlap = false;
-        for (const dot of dots) {
-          const dotRect = dot.getBoundingClientRect();
-          if (
-            btnRect.left < dotRect.right &&
-            btnRect.right > dotRect.left &&
-            btnRect.top < dotRect.bottom &&
-            btnRect.bottom > dotRect.top
-          ) {
-            overlap = true;
-            break;
-          }
-        }
-        setShiftUp(overlap);
-      }
-
       tickingRef.current = false;
     });
-  }, [visible]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", checkScroll, { passive: true });
@@ -62,9 +39,8 @@ export function BackToTop() {
 
   return (
     <button
-      ref={btnRef}
       type="button"
-      className={`back-to-top ${visible ? "is-visible" : ""} ${shiftUp ? "is-shifted" : ""}`}
+      className={`back-to-top ${visible ? "is-visible" : ""}`}
       onClick={scrollToTop}
       aria-label="返回顶部"
       tabIndex={visible ? 0 : -1}

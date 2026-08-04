@@ -166,6 +166,7 @@ export type TimeQuizProps = {
   markWrong: (id: string) => void;
   onNext: () => void;
   onSwap?: () => void;
+  nextLabel?: string;
 };
 
 export function TimeQuiz({
@@ -177,6 +178,7 @@ export function TimeQuiz({
   markWrong,
   onNext,
   onSwap,
+  nextLabel = "换一个事件",
 }: TimeQuizProps) {
   const [fillValue, setFillValue] = useState("");
   const [phase, setPhase] = useState<"answering" | "result">("answering");
@@ -375,7 +377,7 @@ export function TimeQuiz({
           <div className="quiz-result-actions">
             <button type="button" className="quiz-reset" onClick={reset}>再答一次</button>
             <button type="button" className="quiz-next" onClick={onNext}>
-              换一个事件 <span>→</span>
+              {nextLabel} <span>→</span>
             </button>
           </div>
         </div>

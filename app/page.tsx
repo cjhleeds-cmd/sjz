@@ -307,6 +307,10 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
       pool = events.filter((e) => e.id !== currentEventId);
     }
     setCurrentEventId(pool[Math.floor(Math.random() * pool.length)].id);
+    // 从时间轴进入时换题后滚动回页面最上方
+    if (fromTimeline) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   return (
@@ -332,6 +336,7 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
           markWrong={markWrong}
           onNext={nextEvent}
           onSwap={nextEvent}
+          nextLabel={fromTimeline ? "其他同期事件" : "换一个事件"}
         />
       </div>
       <div className="wrong-records">
