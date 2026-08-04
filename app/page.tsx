@@ -8,6 +8,7 @@ import {
   events,
   findDynastyForYear,
   formatYear,
+  type HistoryEvent,
 } from "./history-data";
 import { TimeQuiz } from "./time-quiz";
 import { TimeDetective } from "./time-detective";
@@ -294,9 +295,18 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
   const currentEvent = eventById.get(currentEventId) ?? events[0];
 
   function nextEvent() {
-    const pool = events.filter((e) => e.id !== currentEventId);
+    let pool: HistoryEvent[];
+    if (fromTimeline && eraId) {
+      // 从时间轴进入时，优先从同一朝代/时期中换题
+      pool = events.filter((e) => findDynastyForYear(e.year).id === eraId && e.id !== currentEventId);
+      // 本朝代没有其他事件时，回退到全部事件
+      if (pool.length === 0) {
+        pool = events.filter((e) => e.id !== currentEventId);
+      }
+    } else {
+      pool = events.filter((e) => e.id !== currentEventId);
+    }
     setCurrentEventId(pool[Math.floor(Math.random() * pool.length)].id);
-    setFromTimeline(false);
   }
 
   return (
@@ -321,7 +331,7 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
           markMastered={markMastered}
           markWrong={markWrong}
           onNext={nextEvent}
-          onSwap={fromTimeline ? undefined : nextEvent}
+          onSwap={nextEvent}
         />
       </div>
       <div className="wrong-records">
