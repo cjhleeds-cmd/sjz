@@ -47,55 +47,93 @@ function generateHintChoices(event: HistoryEvent): number[] {
   const absYear = Math.abs(correct);
   const acceptableYears = event.acceptableYears ?? [correct];
 
-  // 史前时代（|年份| >= 10000）：选项以万年为单位
-  if (absYear >= 10000) {
-    const wanStep = Math.max(3, Math.round(absYear * 0.15 / 10000));
-    const choices = new Set<number>(acceptableYears);
-    let attempts = 0;
-    while (choices.size < 4 && attempts < 200) {
-      attempts++;
-      const delta = (Math.floor(Math.random() * (wanStep * 2)) - wanStep + 1) * 10000;
-      if (delta === 0 || acceptableYears.includes(correct + delta)) continue;
-      choices.add(correct + delta);
-    }
-    // Fallback: if still not enough choices, add fixed offsets
-    if (choices.size < 4) {
-      const fallbacks = [-30000, -20000, 10000, 20000, 30000, -40000, 40000];
-      for (const fb of fallbacks) {
-        if (choices.size >= 4) break;
-        const val = correct + fb;
-        if (!choices.has(val) && !acceptableYears.includes(val)) choices.add(val);
-      }
-    }
-    return [...choices].sort((a, b) => a - b);
+  // 根据标准答案数值确定最小间距、生成范围和取整粒度
+  // 最小间距与答案量级成正比，确保选项有区分度、有做题价值
+  let minSpacing: number;
+  let range: number;
+  let roundUnit: number;
+
+  if (absYear >= 100000) {
+    // 史前时代（10万年以上，如旧石器时代约300万年前）：选项以万年为粒度
+    roundUnit = 10000;
+    minSpacing = Math.max(50000, Math.round(absYear * 0.05 / roundUnit) * roundUnit);
+    range = Math.max(absYear * 0.3, minSpacing * 4);
+  } else if (absYear >= 10000) {
+    // 新石器时代等（1万~10万年）：选项以千年为粒度
+    roundUnit = 1000;
+    minSpacing = Math.max(2000, Math.round(absYear * 0.1 / roundUnit) * roundUnit);
+    range = Math.max(absYear * 0.5, minSpacing * 4);
+  } else if (correct < 0 && absYear >= 2000) {
+    // 文明起源（前3500~前2071）：选项以50年为粒度
+    roundUnit = 50;
+    minSpacing = Math.max(100, Math.round(absYear * 0.05 / roundUnit) * roundUnit);
+    range = Math.max(absYear * 0.3, minSpacing * 5);
+  } else {
+    // 其他时期
+    roundUnit = correct < 0 ? 10 : 5;
+    minSpacing = correct < 0 ? 50 : 20;
+    range = Math.max(minSpacing * 6, absYear * 0.15);
   }
 
-  // 文明起源（公元前3500 ~ 前2071）：最小间距100年
-  if (correct < 0 && absYear >= 2000) {
-    const offset = Math.max(100, Math.round(absYear * 0.1));
-    const choices = new Set<number>(acceptableYears);
-    let attempts = 0;
-    while (choices.size < 4 && attempts < 200) {
-      attempts++;
-      const delta = Math.floor(Math.random() * (offset * 2)) - offset;
-      if (delta === 0 || Math.abs(delta) < 100 || acceptableYears.includes(correct + delta)) continue;
-      choices.add(correct + delta);
-    }
-    return [...choices].sort((a, b) => a - b);
-  }
-
-  // 其他时期：按比例浮动
-  const ratio = correct < 0 ? 0.15 : 0.08;
-  const minOffset = correct < 0 ? 200 : 50;
-  const offset = Math.round(Math.max(minOffset, absYear * ratio));
   const choices = new Set<number>(acceptableYears);
   let attempts = 0;
-  while (choices.size < 4 && attempts < 200) {
+  const maxAttempts = 300;
+
+  while (choices.size < 4 && attempts < maxAttempts) {
     attempts++;
-    const delta = Math.floor(Math.random() * (offset * 2)) - offset;
+    // 随机偏移，四舍五入到 roundUnit 粒度
+    const rawDelta = (Math.random() * 2 - 1) * range;
+    const delta = Math.round(rawDelta / roundUnit) * roundUnit;
     if (delta === 0 || acceptableYears.includes(correct + delta)) continue;
-    choices.add(correct + delta);
+
+    const newChoice = correct + delta;
+
+    // BC/AD 不混用，保持同一纪元
+    if (correct < 0 && newChoice > 0) continue;
+    if (correct > 0 && newChoice < 0) continue;
+
+    // 检查与所有已有选项的最小间距
+    let tooClose = false;
+    for (const c of choices) {
+      if (Math.abs(c - newChoice) < minSpacing) {
+        tooClose = true;
+        break;
+      }
+    }
+    if (tooClose) continue;
+
+    choices.add(newChoice);
   }
+
+  // Fallback 1: 使用固定倍数偏移，仍保持最小间距
+  if (choices.size < 4) {
+    const multipliers = [-3, -2, 2, 3, -4, 4, -5, 5, -6, 6, -7, 7];
+    for (const m of multipliers) {
+      if (choices.size >= 4) break;
+      const val = correct + m * minSpacing;
+      if (acceptableYears.includes(val) || choices.has(val)) continue;
+      if (correct < 0 && val > 0) continue;
+      if (correct > 0 && val < 0) continue;
+      let tooClose = false;
+      for (const c of choices) {
+        if (Math.abs(c - val) < minSpacing) { tooClose = true; break; }
+      }
+      if (tooClose) continue;
+      choices.add(val);
+    }
+  }
+
+  // Fallback 2: 忽略间距约束，确保至少4个选项，避免卡死
+  if (choices.size < 4) {
+    const multipliers = [-3, -2, 2, 3, -4, 4, -5, 5, -6, 6, -7, 7];
+    for (const m of multipliers) {
+      if (choices.size >= 4) break;
+      const val = correct + m * minSpacing;
+      if (acceptableYears.includes(val) || choices.has(val)) continue;
+      choices.add(val);
+    }
+  }
+
   return [...choices].sort((a, b) => a - b);
 }
 
