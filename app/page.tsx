@@ -357,10 +357,38 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
   function expandAll() { setExpandedDynastyIdsLocal(dynasties.map((d) => d.id)); }
   function collapseAll() { setExpandedDynastyIdsLocal([]); }
   const [expandedDynastyIdsLocal, setExpandedDynastyIdsLocal] = useState(expandedDynastyIds);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [litFlashIds, setLitFlashIds] = useState<string[]>([]);
+  const prevMasteredRef = useRef<string[]>([]);
 
   useEffect(() => {
     setExpandedDynastyIdsLocal(expandedDynastyIds);
   }, [expandedDynastyIds]);
+
+  useEffect(() => {
+    const newlyMastered = masteredIds.filter((id) => !prevMasteredRef.current.includes(id));
+    if (newlyMastered.length > 0) {
+      setLitFlashIds((prev) => [...prev, ...newlyMastered]);
+      const timer = setTimeout(() => {
+        setLitFlashIds((prev) => prev.filter((id) => !newlyMastered.includes(id)));
+      }, 2000);
+      prevMasteredRef.current = masteredIds;
+      return () => clearTimeout(timer);
+    }
+    prevMasteredRef.current = masteredIds;
+  }, [masteredIds]);
+
+  useEffect(() => {
+    function handleScroll() {
+      setShowBackToTop(window.scrollY > window.innerHeight * 3);
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   const totalEvents = events.length;
   const totalMastered = events.filter((e) => masteredIds.includes(e.id)).length;
@@ -414,7 +442,13 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
           return (
             <article className={`era-stop ${isExpanded ? "is-expanded" : "is-collapsed"}`} id={`era-${dynasty.id}`} key={dynasty.id}>
               <div className="axis-column" aria-hidden="true">
-                <span>{String(dynastyIndex + 1).padStart(2, "0")}</span>
+                <span
+                  className="era-dot"
+                  style={{
+                    width: `${Math.min(34, 10 + allDynastyEvents.length * 1.3)}px`,
+                    height: `${Math.min(34, 10 + allDynastyEvents.length * 1.3)}px`,
+                  }}
+                />
                 <i />
               </div>
               <div className="era-content">
@@ -447,7 +481,7 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
                           <Link
                             key={event.id}
                             href={`/quiz?event=${event.id}`}
-                            className={`river-card event-card ${event.track} status-${status} ${isLit ? "is-lit" : "is-dim"} clickable`}
+                            className={`river-card event-card ${event.track} status-${status} ${isLit ? "is-lit" : "is-dim"} ${litFlashIds.includes(event.id) ? "just-lit" : ""} clickable`}
                           >
                             <div className="event-card-body">
                               {isLit ? (
@@ -483,6 +517,12 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
         })}
         <div className="river-to-today"><span>今</span><div><strong>时间继续流动</strong><small>历史不止发生在过去，也正在被我们创造。</small></div></div>
       </div>
+
+      {showBackToTop && (
+        <button type="button" className="back-to-top" onClick={scrollToTop} aria-label="返回顶部">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      )}
     </section>
   );
 }

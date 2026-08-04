@@ -49,12 +49,23 @@ function generateHintChoices(event: HistoryEvent): number[] {
 
   // 史前时代（|年份| >= 10000）：选项以万年为单位
   if (absYear >= 10000) {
-    const wanStep = Math.max(1, Math.round(absYear * 0.15 / 10000));
+    const wanStep = Math.max(3, Math.round(absYear * 0.15 / 10000));
     const choices = new Set<number>(acceptableYears);
-    while (choices.size < 4) {
+    let attempts = 0;
+    while (choices.size < 4 && attempts < 200) {
+      attempts++;
       const delta = (Math.floor(Math.random() * (wanStep * 2)) - wanStep + 1) * 10000;
       if (delta === 0 || acceptableYears.includes(correct + delta)) continue;
       choices.add(correct + delta);
+    }
+    // Fallback: if still not enough choices, add fixed offsets
+    if (choices.size < 4) {
+      const fallbacks = [-30000, -20000, 10000, 20000, 30000, -40000, 40000];
+      for (const fb of fallbacks) {
+        if (choices.size >= 4) break;
+        const val = correct + fb;
+        if (!choices.has(val) && !acceptableYears.includes(val)) choices.add(val);
+      }
     }
     return [...choices].sort((a, b) => a - b);
   }
@@ -63,7 +74,9 @@ function generateHintChoices(event: HistoryEvent): number[] {
   if (correct < 0 && absYear >= 2000) {
     const offset = Math.max(100, Math.round(absYear * 0.1));
     const choices = new Set<number>(acceptableYears);
-    while (choices.size < 4) {
+    let attempts = 0;
+    while (choices.size < 4 && attempts < 200) {
+      attempts++;
       const delta = Math.floor(Math.random() * (offset * 2)) - offset;
       if (delta === 0 || Math.abs(delta) < 100 || acceptableYears.includes(correct + delta)) continue;
       choices.add(correct + delta);
@@ -76,7 +89,9 @@ function generateHintChoices(event: HistoryEvent): number[] {
   const minOffset = correct < 0 ? 200 : 50;
   const offset = Math.round(Math.max(minOffset, absYear * ratio));
   const choices = new Set<number>(acceptableYears);
-  while (choices.size < 4) {
+  let attempts = 0;
+  while (choices.size < 4 && attempts < 200) {
+    attempts++;
     const delta = Math.floor(Math.random() * (offset * 2)) - offset;
     if (delta === 0 || acceptableYears.includes(correct + delta)) continue;
     choices.add(correct + delta);
