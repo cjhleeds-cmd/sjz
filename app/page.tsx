@@ -172,7 +172,6 @@ function HomeView({ masteredIds, wrongIds, markMastered, markWrong }: {
         <div className="hero-copy">
           <div>
             <h1>记住时间，<br /><em>理解历史。</em></h1>
-            <p>通过填空题记住每个事件的年代，答对的事件在时间轴上点亮完整信息。在时空侦探中，找出与中外事件同期的另一端，理解历史的全球脉络。</p>
           </div>
         </div>
         <div className="hero-ornament" aria-hidden="true">
@@ -289,7 +288,6 @@ function QuizView({ masteredIds, wrongIds, markMastered, markWrong, resetAll }: 
           <span className="eyebrow">01 · QUIZ</span>
           <h2>填写年份，记住每个历史时刻</h2>
         </div>
-        <p>随机出现一个历史事件，输入它发生的年份。答对的事件会在时间轴上点亮完整信息。答错的事件自动进入错题记录，方便复习。</p>
       </div>
 
       {fromTimeline && (
@@ -396,7 +394,6 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
           <span className="eyebrow">02 · TIMELINE</span>
           <h2>一条时间轴，细看中国朝代与同期世界</h2>
         </div>
-        <p>点击任意事件卡片即可进入填空题。答对的事件在这里点亮，完整显示时间、标签与简介。每个朝代显示解锁进度。</p>
       </div>
 
       <div className="global-progress-card">
@@ -515,7 +512,6 @@ function DetectiveView() {
           <span className="eyebrow">03 · DETECTIVE</span>
           <h2>同期、因果与前后关系</h2>
         </div>
-        <p>给定一个中外历史事件，从四个选项中找出与它同时期、有因果关系或前后相继的另一事件。理解历史的全球脉络与因果链条。</p>
       </div>
       <TimeDetective events={events} />
     </section>
