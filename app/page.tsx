@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   dynasties,
   eventById,
@@ -357,10 +357,8 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
   function expandAll() { setExpandedDynastyIdsLocal(dynasties.map((d) => d.id)); }
   function collapseAll() { setExpandedDynastyIdsLocal([]); }
   const [expandedDynastyIdsLocal, setExpandedDynastyIdsLocal] = useState(expandedDynastyIds);
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [litFlashIds, setLitFlashIds] = useState<string[]>([]);
   const prevMasteredRef = useRef<string[]>([]);
-
   useEffect(() => {
     setExpandedDynastyIdsLocal(expandedDynastyIds);
   }, [expandedDynastyIds]);
@@ -377,19 +375,6 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
     }
     prevMasteredRef.current = masteredIds;
   }, [masteredIds]);
-
-  useEffect(() => {
-    function handleScroll() {
-      setShowBackToTop(window.scrollY > window.innerHeight * 3);
-    }
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
   const totalEvents = events.length;
   const totalMastered = events.filter((e) => masteredIds.includes(e.id)).length;
@@ -518,12 +503,6 @@ function TimelineView({ masteredIds, wrongIds, expandedDynastyIds, toggleDynasty
         })}
         <div className="river-to-today"><span>今</span><div><strong>时间继续流动</strong><small>历史不止发生在过去，也正在被我们创造。</small></div></div>
       </div>
-
-      {showBackToTop && (
-        <button type="button" className="back-to-top" onClick={scrollToTop} aria-label="返回顶部">
-          <span className="back-to-top-icon">🔝</span>
-        </button>
-      )}
     </section>
   );
 }
