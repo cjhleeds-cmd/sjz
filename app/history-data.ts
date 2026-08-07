@@ -14,7 +14,7 @@ export type HistoryEvent = {
 };
 
 export const events: HistoryEvent[] = [
-{
+  {
     id: "chrono-2a8aa784",
     title: "旧石器时代",
     year: -3000000,
@@ -40,7 +40,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "距今约70万—20万年；保留猿人体征但能直立行走；使用天然火；打制石器",
   },
-{
+  {
     id: "chrono-85ac651a",
     title: "新石器时代",
     year: -10000,
@@ -73,7 +73,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "距今约5000年；黑陶文化；玉器文明；早期国家雏形出现",
   },
-{
+  {
     id: "chrono-e00331df",
     title: "两河流域出现城市国家（苏美尔文明）",
     year: -3500,
@@ -97,7 +97,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "约前2900年；两河流域南部出现一系列城邦；发明楔形文字；制定成文法",
   },
-{
+  {
     id: "chrono-61314a1c",
     title: "禹建立夏朝（中国第一个奴隶制王朝）",
     year: -2070,
@@ -193,7 +193,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "前6世纪；居鲁士建立波斯帝国；地跨亚非欧三大洲；实行行省制度",
   },
-{
+  {
     id: "chrono-410b5d44",
     title: "克利斯提尼改革",
     year: -508,
@@ -258,7 +258,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "前4世纪晚期；亚历山大入侵波斯；建立地跨亚非欧大帝国；东西方文化交融",
   },
-{
+  {
     id: "chrono-14e0cae5",
     title: "万年 人类在非洲出现",
     year: -300,
@@ -394,7 +394,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "23年；绿林军攻入长安；王莽被杀；新朝覆灭；更始帝立",
   },
-{
+  {
     id: "chrono-1266f378",
     title: "东汉建立",
     year: 25,
@@ -418,7 +418,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "184年；张角领导太平道起义；动摇东汉统治基础；军阀割据开端",
   },
-{
+  {
     id: "chrono-dfc19d6e",
     title: "曹丕建魏，东汉灭亡",
     year: 220,
@@ -458,7 +458,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "266年；司马炎逼迫魏帝禅让；建立西晋；三国时代结束",
   },
-{
+  {
     id: "chrono-7b836a46",
     title: "西晋短暂统一",
     year: 280,
@@ -474,7 +474,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "280年；西晋灭东吴；结束三国分裂；实现短暂统一",
   },
-{
+  {
     id: "chrono-32b9874e",
     title: "米兰敕令",
     year: 313,
@@ -498,7 +498,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "316年；匈奴攻破长安；晋愍帝投降；西晋覆灭；北方进入十六国",
   },
-{
+  {
     id: "chrono-63bf9bea",
     title: "东晋建立",
     year: 317,
@@ -546,7 +546,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "420年；刘裕废晋恭帝；建立刘宋；南朝开端",
   },
-{
+  {
     id: "chrono-627bacdf",
     title: "北魏统一北方",
     year: 439,
@@ -570,7 +570,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "494年；孝文帝从平城迁都洛阳；推行汉化改革；促进民族交融",
   },
-{
+  {
     id: "chrono-2bee9180",
     title: "查士丁尼法典编纂",
     year: 529,
@@ -619,14 +619,6 @@ export const events: HistoryEvent[] = [
     summary: "穆罕默德出走麦地那；创立伊斯兰教；建立政教合一社团；伊斯兰历元年",
   },
   {
-    id: "chrono-abffcdc8",
-    title: "穆罕默德出走麦地那（伊斯兰教历元年）",
-    year: 622,
-    track: "world",
-    category: "社会",
-    summary: "穆罕默德出走麦地那；创立伊斯兰教；建立政教合一社团；伊斯兰历元年",
-  },
-  {
     id: "chrono-1a2f1f49",
     title: "贞观之治",
     year: 627,
@@ -643,7 +635,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "7世纪末；新罗统一朝鲜半岛；仿唐建立中央集权国家；引入中国制度文化",
   },
-{
+  {
     id: "chrono-ee50909b",
     title: "日本大化改新",
     year: 646,
@@ -686,14 +678,6 @@ export const events: HistoryEvent[] = [
     summary: "教皇为查理曼加冕；标志东西罗马帝国分野；政教关系复杂化",
   },
   {
-    id: "chrono-77f088b9",
-    title: "查理曼帝国",
-    year: 800,
-    track: "world",
-    category: "政治",
-    summary: "查理曼建立帝国；统一西欧大部；推动基督教传播；加洛林文艺复兴",
-  },
-  {
     id: "chrono-b18111ae",
     title: "黄巢起义",
     year: 875,
@@ -717,7 +701,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "916年；耶律阿保机称帝；建立契丹国（后改辽）；北方游牧民族政权",
   },
-{
+  {
     id: "chrono-7efb2362",
     title: "中央集权加强",
     year: 960,
@@ -742,17 +726,9 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1038年；党项族李元昊称帝；建立西夏；与宋辽形成三足鼎立",
   },
-{
+  {
     id: "chrono-dececcc3",
     title: "基督教东西教会大分裂",
-    year: 1054,
-    track: "world",
-    category: "社会",
-    summary: "基督教正式分裂为天主教与东正教；东西教会分道扬镳；影响欧洲宗教格局",
-  },
-  {
-    id: "chrono-2a3d2d8c",
-    title: "基督教东西教会大分裂（天主教与东正教）",
     year: 1054,
     track: "world",
     category: "社会",
@@ -774,11 +750,10 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1115年；女真族完颜阿骨打称帝；建立金朝；随后灭辽攻宋",
   },
-{
+  {
     id: "chrono-0d7707bb",
     title: "金灭辽，灭北宋（靖康之变）",
     year: 1125,
-    acceptableYears: [1125, 1127],
     track: "china",
     category: "社会",
     summary: "金朝先后灭辽与北宋；靖康之变；宋室南渡；南北对峙形成",
@@ -807,21 +782,13 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1206年；铁木真统一蒙古各部；称成吉思汗；建立蒙古汗国",
   },
-{
+  {
     id: "chrono-2bdb962b",
     title: "英国《大宪章》",
     year: 1215,
     track: "world",
     category: "社会",
     summary: "英王被迫签署《大宪章》；限制王权；保障贵族权利；奠定宪政基础",
-  },
-  {
-    id: "chrono-322ca118",
-    title: "英国颁布《大宪章》",
-    year: 1215,
-    track: "world",
-    category: "社会",
-    summary: "英王被迫颁布《大宪章》；限制王权；保障贵族权利；奠定宪政基础",
   },
   {
     id: "chrono-39215793",
@@ -863,7 +830,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1351年；红巾军起义爆发；朱元璋参加起义；元朝统治动摇",
   },
-{
+  {
     id: "chrono-343076ad",
     title: "废丞相、设内阁",
     year: 1368,
@@ -880,7 +847,7 @@ export const events: HistoryEvent[] = [
     category: "交流",
     summary: "1405—1433年；郑和率船队七次下西洋；最远到达东非；世界航海史壮举",
   },
-{
+  {
     id: "chrono-f5b72f96",
     title: "明成祖迁都北京",
     year: 1421,
@@ -912,7 +879,7 @@ export const events: HistoryEvent[] = [
     category: "交流",
     summary: "1492年；哥伦布率船队横渡大西洋；到达美洲；新航路开辟；全球联系建立",
   },
-{
+  {
     id: "chrono-52859407",
     title: "达·伽马到达印度",
     year: 1497,
@@ -945,7 +912,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "16世纪；西非桑海帝国进入鼎盛；控制跨撒哈拉贸易；伊斯兰文化繁荣",
   },
-{
+  {
     id: "chrono-dfb987e8",
     title: "葡萄牙人占据澳门（租居）",
     year: 1510,
@@ -971,15 +938,6 @@ export const events: HistoryEvent[] = [
     summary: "麦哲伦船队完成首次环球航行；证明地圆说；世界真正连为一体；推动全球贸易",
   },
   {
-    id: "chrono-fdaeb9d4",
-    title: "麦哲伦船队完成环球航行",
-    year: 1519,
-    endYear: 1522,
-    track: "world",
-    category: "社会",
-    summary: "麦哲伦船队完成首次环球航行；证明地圆说；世界真正连为一体；推动全球贸易",
-  },
-  {
     id: "chrono-4a9d7031",
     title: "葡萄牙人取得澳门居住权",
     year: 1553,
@@ -997,7 +955,7 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-d03c5ba4",
-    title: "英国击败西班牙\"无敌舰队\"",
+    title: "英国击败西班牙无敌舰队",
     year: 1588,
     track: "world",
     category: "社会",
@@ -1012,7 +970,7 @@ export const events: HistoryEvent[] = [
     category: "思想",
     summary: "17—18世纪；理性主义兴起；伏尔泰卢梭孟德斯鸠；推动社会变革",
   },
-{
+  {
     id: "chrono-9b08f952",
     title: "后金建立",
     year: 1616,
@@ -1044,7 +1002,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1640年；英国议会与国王决裂；资产阶级革命爆发；开启近代政治变革",
   },
-{
+  {
     id: "chrono-cf130c3f",
     title: "清军入关，明朝灭亡",
     year: 1644,
@@ -1060,7 +1018,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1644年；英国议会军战胜王党军队；内战转折点；克伦威尔崛起",
   },
-{
+  {
     id: "chrono-28f98060",
     title: "郑成功收复台湾",
     year: 1662,
@@ -1086,7 +1044,7 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-6cdd7790",
-    title: "英国\"光荣革命\"",
+    title: "英国光荣革命",
     year: 1688,
     track: "world",
     category: "战争",
@@ -1109,14 +1067,6 @@ export const events: HistoryEvent[] = [
     summary: "英国颁布《权利法案》；限制王权；确立议会至上原则；君主立宪制确立",
   },
   {
-    id: "chrono-7fe8e1ba",
-    title: "君主立宪制确立",
-    year: 1689,
-    track: "world",
-    category: "社会",
-    summary: "《权利法案》颁布后；国王权力受法律限制；议会主权确立；君主立宪制形成",
-  },
-  {
     id: "chrono-1a4aaea2",
     title: "清朝设置驻藏大臣",
     year: 1727,
@@ -1133,7 +1083,7 @@ export const events: HistoryEvent[] = [
     category: "科技",
     summary: "18世纪中期到19世纪中期；蒸汽机发明；机器大生产取代手工；工厂制度确立",
   },
-{
+  {
     id: "chrono-efc78418",
     title: "清朝仅留广州一口通商",
     year: 1757,
@@ -1149,7 +1099,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1762年；清朝设立伊犁将军；管辖新疆地区；巩固西北边疆",
   },
-{
+  {
     id: "chrono-035ee994",
     title: "美国独立战争",
     year: 1775,
@@ -1175,7 +1125,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1787年；美国制宪会议通过联邦宪法；确立三权分立；共和制确立",
   },
-{
+  {
     id: "chrono-79847136",
     title: "《人权宣言》",
     year: 1789,
@@ -1191,7 +1141,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1793年；颁布《钦定藏内善后章程》；确立金瓶掣签制度；加强西藏管辖",
   },
-{
+  {
     id: "chrono-03d5abf3",
     title: "拿破仑称帝",
     year: 1804,
@@ -1215,7 +1165,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1804年；海地宣布独立；拉美第一个独立国家；推翻法国殖民统治",
   },
-{
+  {
     id: "chrono-730ff0bb",
     title: "滑铁卢战役",
     year: 1815,
@@ -1264,7 +1214,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1844年；美国法国趁火打劫；攫取与英国同等特权；中国主权进一步丧失",
   },
-{
+  {
     id: "chrono-7146750b",
     title: "欧洲革命浪潮",
     year: 1848,
@@ -1280,7 +1230,7 @@ export const events: HistoryEvent[] = [
     category: "思想",
     summary: "1848年；马克思恩格斯发表《共产党宣言》；科学社会主义诞生；工人运动有了理论指导",
   },
-{
+  {
     id: "chrono-7bef6f14",
     title: "太平天国运动",
     year: 1851,
@@ -1315,7 +1265,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1858年；沙俄割占中国领土；英法获取更多特权；中国半殖民地化加深",
   },
-{
+  {
     id: "chrono-fe137b7e",
     title: "达尔文发表《物种起源》",
     year: 1859,
@@ -1331,7 +1281,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1860年；英法联军火烧圆明园后签约；沙俄割占更多领土；中国半殖民地化进一步加深",
   },
-{
+  {
     id: "chrono-d7c7db95",
     title: "美国内战爆发",
     year: 1861,
@@ -1371,7 +1321,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1868年；明治天皇推行维新；废藩置县；殖产兴业；日本走上资本主义道路",
   },
-{
+  {
     id: "chrono-6f9fcf23",
     title: "民族资本主义产生（继昌隆缫丝厂等）",
     year: 1870,
@@ -1403,7 +1353,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1870年；意大利完成统一；教皇国缩小；民族国家建立",
   },
-{
+  {
     id: "chrono-f8d53013",
     title: "巴黎公社",
     year: 1871,
@@ -1427,21 +1377,13 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1881年；苏丹马赫迪领导反英起义；击毙戈登；非洲反殖民斗争",
   },
-{
+  {
     id: "chrono-2883b1b3",
     title: "德、奥、意三国同盟形成",
     year: 1882,
     track: "world",
     category: "社会",
     summary: "德、奥、意结成军事同盟；对抗法俄协约；欧洲两大军事集团对峙开始",
-  },
-  {
-    id: "chrono-9d011a96",
-    title: "德、奥、意三国同盟",
-    year: 1882,
-    track: "world",
-    category: "社会",
-    summary: "德、奥、意结成三国同盟；对抗法俄协约；欧洲阵营化加剧",
   },
   {
     id: "chrono-15878837",
@@ -1451,7 +1393,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1882年；埃及阿拉比领导抗英战争；失败后英国占领埃及；非洲殖民化加速",
   },
-{
+  {
     id: "chrono-2d48173f",
     title: "中法战争",
     year: 1883,
@@ -1462,11 +1404,11 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-94c3df39",
-    title: "\"法国不胜而胜，中国不败而败\"",
+    title: "中法战争",
     year: 1883,
     endYear: 1885,
     track: "china",
-    category: "社会",
+    category: "战争",
     summary: "法国不胜而胜；中国不败而败；暴露清政府外交软弱",
   },
   {
@@ -1477,7 +1419,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1889年；巴西废除帝制；建立联邦共和国；拉美共和化推进",
   },
-{
+  {
     id: "chrono-ebf6135d",
     title: "甲午中日战争",
     year: 1894,
@@ -1563,7 +1505,7 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-2186fef1",
-    title: "美国提出\"门户开放\"政策",
+    title: "美国提出门户开放政策",
     year: 1899,
     track: "world",
     category: "社会",
@@ -1649,7 +1591,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1906年；清政府宣布预备立宪；试图缓和革命压力；最终未能挽救清朝",
   },
-{
+  {
     id: "chrono-771833a9",
     title: "英、法、俄三国协约",
     year: 1907,
@@ -1673,7 +1615,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1910年；墨西哥革命爆发；推翻迪亚斯独裁；颁布资产阶级宪法",
   },
-{
+  {
     id: "chrono-723eab0b",
     title: "推翻清朝统治",
     year: 1911,
@@ -1713,7 +1655,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1914年；斐迪南大公遇刺；萨拉热窝事件引发一战；马恩河战役",
   },
-{
+  {
     id: "chrono-28c49fec",
     title: "新文化运动开始（民主与科学）",
     year: 1915,
@@ -1729,7 +1671,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1915年12月；袁世凯称帝；改中华民国为中华帝国；次年取消；不久病死",
   },
-{
+  {
     id: "chrono-002135b5",
     title: "俄国二月革命",
     year: 1917,
@@ -1777,7 +1719,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1918年；德国投降；第一次世界大战结束；巴黎和会召开；国际格局重塑",
   },
-{
+  {
     id: "chrono-b977ebe1",
     title: "巴黎和会召开",
     year: 1919,
@@ -1818,7 +1760,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1920—1940年；拉美各国民族民主运动兴起；推动政治独立和经济自主",
   },
-{
+  {
     id: "chrono-2e19e530",
     title: "中国共产党成立",
     year: 1921,
@@ -1868,7 +1810,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1922年；苏维埃社会主义共和国联盟成立；第一个联邦制社会主义国家",
   },
-{
+  {
     id: "chrono-3082a8e2",
     title: "国民党一大召开",
     year: 1924,
@@ -1973,7 +1915,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1928年12月；张学良通电服从南京国民政府；国民政府形式上统一全国",
   },
-{
+  {
     id: "chrono-b2c7a1f0",
     title: "资本主义世界经济大危机",
     year: 1929,
@@ -1992,27 +1934,19 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-0e1160f8",
-    title: "蒋介石发动\"围剿\"",
+    title: "蒋介石发动围剿",
     year: 1930,
     track: "china",
     category: "战争",
     summary: "1930年10月起；蒋介石调集重兵围剿革命根据地；红军五次反围剿",
   },
-{
+  {
     id: "chrono-443a12b3",
     title: "日本发动九一八事变",
     year: 1931,
     track: "world",
     category: "社会",
     summary: "日本关东军制造九一八事变；侵占中国东北；局部抗战开始",
-  },
-  {
-    id: "chrono-a417a1f8",
-    title: "九一八事变",
-    year: 1931,
-    track: "china",
-    category: "社会",
-    summary: "日本制造九一八事变；侵占东北三省；中国局部抗战开始",
   },
   {
     id: "chrono-4eea64c8",
@@ -2046,7 +1980,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1932年3月；日本扶植溥仪建立傀儡政权；东北沦陷；殖民统治开始",
   },
-{
+  {
     id: "chrono-1abe4f84",
     title: "罗斯福新政开始",
     year: 1933,
@@ -2095,7 +2029,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1935年12月9日；北平学生抗日救亡运动；促进民族觉醒；推动抗日民族统一战线",
   },
-{
+  {
     id: "chrono-7d1411f6",
     title: "西安事变和平解决",
     year: 1936,
@@ -2118,15 +2052,6 @@ export const events: HistoryEvent[] = [
     track: "world",
     category: "社会",
     summary: "西班牙内战爆发；德意干涉支持佛朗哥；成为二战前哨战",
-  },
-  {
-    id: "chrono-a2143a33",
-    title: "西班牙内战",
-    year: 1936,
-    endYear: 1939,
-    track: "world",
-    category: "社会",
-    summary: "西班牙内战持续三年；德意法西斯干涉；共和政府失败；法西斯势力扩张",
   },
   {
     id: "chrono-836dcbda",
@@ -2216,7 +2141,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1938年6—10月；抗战以来规模最大战役；日军伤亡惨重；抗战进入相持阶段",
   },
-{
+  {
     id: "chrono-54a7c6fb",
     title: "德国入侵波兰",
     year: 1939,
@@ -2240,7 +2165,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1940年3月；汪精卫在南京建立伪政权；汉奸卖国；遭全国唾弃",
   },
-{
+  {
     id: "chrono-bfa50a50",
     title: "德国入侵苏联",
     year: 1941,
@@ -2255,14 +2180,6 @@ export const events: HistoryEvent[] = [
     track: "world",
     category: "社会",
     summary: "日本偷袭珍珠港；美国太平洋舰队重创；太平洋战争爆发；二战达到最大规模",
-  },
-  {
-    id: "chrono-d14ca550",
-    title: "太平洋战争爆发",
-    year: 1941,
-    track: "world",
-    category: "战争",
-    summary: "日本偷袭珍珠港；美国对日宣战；太平洋战争爆发；二战达到最大规模",
   },
   {
     id: "chrono-08ea9453",
@@ -2280,7 +2197,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1941年12月；长沙会战重创日军；太平洋战争初期盟军唯一胜利",
   },
-{
+  {
     id: "chrono-91cff41f",
     title: "《联合国家宣言》发表",
     year: 1942,
@@ -2304,7 +2221,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1942年1月；26国签署《联合国家宣言》；反法西斯同盟正式形成",
   },
-{
+  {
     id: "chrono-fd836804",
     title: "斯大林格勒战役胜利（二战转折点）",
     year: 1943,
@@ -2369,14 +2286,6 @@ export const events: HistoryEvent[] = [
     summary: "1945年8月15日；日本宣布无条件投降；9月2日正式签署投降书；抗战胜利结束",
   },
   {
-    id: "chrono-281dfcc5",
-    title: "\"双十协定\"签订",
-    year: 1945,
-    track: "china",
-    category: "政治",
-    summary: "1945年10月10日；国共重庆谈判达成《双十协定》；和平建国暂露希望",
-  },
-{
     id: "chrono-5d9a3064",
     title: "全面内战爆发",
     year: 1946,
@@ -2424,7 +2333,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1948年11月—1949年1月；淮海战役歼敌55万；平津战役和平解放北平",
   },
-{
+  {
     id: "chrono-1df20f1a",
     title: "新民主主义革命胜利",
     year: 1949,
@@ -2472,7 +2381,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1949年10月1日；毛泽东宣告中华人民共和国成立；中国人民站起来了",
   },
-{
+  {
     id: "chrono-644a3327",
     title: "《中苏友好同盟互助条约》",
     year: 1950,
@@ -2506,7 +2415,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "1950—1953年；中国人民志愿军赴朝作战；保家卫国；提高国际地位",
   },
-{
+  {
     id: "chrono-7af507be",
     title: "第一个五年计划开始",
     year: 1953,
@@ -2586,7 +2495,7 @@ export const events: HistoryEvent[] = [
     category: "交流",
     summary: "1955年；周恩来率团参加万隆会议；提出求同存异方针；亚非团结反帝",
   },
-{
+  {
     id: "chrono-5736679a",
     title: "三大改造完成",
     year: 1956,
@@ -2620,7 +2529,7 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-bc71230f",
-    title: "赫鲁晓夫\"秘密报告\"",
+    title: "赫鲁晓夫秘密报告",
     year: 1956,
     track: "world",
     category: "社会",
@@ -2634,7 +2543,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1956年；纳赛尔宣布收回苏伊士运河；引发苏伊士运河危机；亚非拉反殖民斗争",
   },
-{
+  {
     id: "chrono-6f821a77",
     title: "苏联发射第一颗人造地球卫星",
     year: 1957,
@@ -2643,22 +2552,6 @@ export const events: HistoryEvent[] = [
     summary: "苏联发射第一颗人造卫星；开创太空时代；标志太空竞赛开始",
   },
   {
-    id: "chrono-5cdefd6f",
-    title: "\"大跃进\"和人民公社化运动",
-    year: 1958,
-    track: "china",
-    category: "社会",
-    summary: "中国发动大跃进和人民公社化运动；急于求成；违背经济规律；造成严重困难",
-  },
-  {
-    id: "chrono-d521ffd6",
-    title: "\"非洲年\"",
-    year: 1960,
-    track: "world",
-    category: "政治",
-    summary: "1960年；17个非洲国家独立；非洲殖民体系瓦解；民族独立运动高潮",
-  },
-{
     id: "chrono-f7703b8c",
     title: "不结盟运动成立",
     year: 1961,
@@ -2674,7 +2567,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1961年；卡斯特罗宣布古巴走社会主义道路；西半球第一个社会主义国家",
   },
-{
+  {
     id: "chrono-8d785b70",
     title: "古巴导弹危机",
     year: 1962,
@@ -2690,7 +2583,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1962年；阿尔及利亚经过八年战争获得独立；法国殖民统治结束",
   },
-{
+  {
     id: "chrono-437a779c",
     title: "第一颗原子弹爆炸成功",
     year: 1964,
@@ -2708,20 +2601,11 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-5e06a08c",
-    title: "提出\"四个现代化\"",
+    title: "提出四个现代化",
     year: 1964,
     track: "china",
     category: "政治",
     summary: "1964年；三届全国人大一次会议提出四个现代化目标；宏伟建设蓝图",
-  },
-{
-    id: "chrono-547b78f1",
-    title: "\"文化大革命\"",
-    year: 1966,
-    endYear: 1976,
-    track: "china",
-    category: "战争",
-    summary: "文化大革命爆发；社会秩序遭到严重破坏；国民经济濒临崩溃；十年浩劫",
   },
   {
     id: "chrono-1e6e090d",
@@ -2733,29 +2617,12 @@ export const events: HistoryEvent[] = [
     summary: "第三次中东战争爆发；以色列迅速获胜；改变中东格局；阿以矛盾加深",
   },
   {
-    id: "chrono-71e14515",
-    title: "\"文化大革命\"开始",
-    year: 1966,
-    endYear: 1976,
-    track: "china",
-    category: "社会",
-    summary: "1966—1976年；文化大革命；国民经济遭受严重破坏；民主法制受践踏",
-  },
-{
     id: "chrono-c2318767",
     title: "欧共体成立",
     year: 1967,
     track: "world",
     category: "社会",
     summary: "欧洲六国成立欧共体；推动欧洲经济一体化；提升欧洲国际地位",
-  },
-  {
-    id: "chrono-0ac2397c",
-    title: "欧洲共同体（欧共体）成立",
-    year: 1967,
-    track: "world",
-    category: "社会",
-    summary: "欧洲六国成立欧共体；推动经济政治一体化；提升欧洲国际地位",
   },
   {
     id: "chrono-0e03b5fd",
@@ -2765,9 +2632,9 @@ export const events: HistoryEvent[] = [
     category: "科技",
     summary: "1967年；中国成功试爆第一颗氢弹；从原子弹到氢弹仅用两年八个月",
   },
-{
+  {
     id: "chrono-6850d40d",
-    title: "美苏\"缓和\"",
+    title: "美苏缓和",
     year: 1970,
     track: "world",
     category: "社会",
@@ -2789,7 +2656,7 @@ export const events: HistoryEvent[] = [
     category: "科技",
     summary: "1970年；东方红一号卫星发射成功；中国成为第五个能独立发射卫星的国家",
   },
-{
+  {
     id: "chrono-3edebb07",
     title: "中华人民共和国恢复在联合国的合法席位",
     year: 1971,
@@ -2813,7 +2680,7 @@ export const events: HistoryEvent[] = [
     category: "交流",
     summary: "1972年；田中角荣访华；中日正式建立外交关系；邦交正常化",
   },
-{
+  {
     id: "chrono-234fe5b5",
     title: "中共十一届三中全会",
     year: 1978,
@@ -2847,7 +2714,7 @@ export const events: HistoryEvent[] = [
   },
   {
     id: "chrono-704bec30",
-    title: "中共十二大提出\"建设有中国特色的社会主义\"",
+    title: "中共十二大提出建设有中国特色的社会主义",
     year: 1982,
     track: "china",
     category: "社会",
@@ -2869,7 +2736,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1984年；开放大连秦皇岛等14个沿海港口城市；对外开放格局扩大",
   },
-{
+  {
     id: "chrono-7dc27e37",
     title: "戈尔巴乔夫改革开始",
     year: 1985,
@@ -2885,7 +2752,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1987年10月；确立社会主义初级阶段理论；提出一个中心两个基本点",
   },
-{
+  {
     id: "chrono-0fe639fd",
     title: "东欧剧变开始",
     year: 1989,
@@ -2917,21 +2784,13 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1989年6月；江泽民当选总书记；第三代领导集体形成",
   },
-{
+  {
     id: "chrono-c07ae8e0",
     title: "苏联解体",
     year: 1991,
     track: "world",
     category: "社会",
     summary: "苏联正式解体；两极格局终结；冷战结束；世界进入多极化过渡期",
-  },
-  {
-    id: "chrono-0bae7926",
-    title: "两极格局结束",
-    year: 1991,
-    track: "world",
-    category: "社会",
-    summary: "苏联解体后；两极格局终结；冷战结束；世界走向多极化",
   },
   {
     id: "chrono-5344d32c",
@@ -2950,14 +2809,6 @@ export const events: HistoryEvent[] = [
     summary: "中共十四大确立社会主义市场经济体制目标；推动经济体制改革深化",
   },
   {
-    id: "chrono-a58f2ccf",
-    title: "\"九二共识\"",
-    year: 1992,
-    track: "china",
-    category: "交流",
-    summary: "1992年11月；海峡两岸达成一个中国原则的共识；两岸关系发展基础",
-  },
-{
     id: "chrono-0887840c",
     title: "欧洲联盟（欧盟）正式成立",
     year: 1993,
@@ -2973,7 +2824,7 @@ export const events: HistoryEvent[] = [
     category: "交流",
     summary: "1993年；汪道涵与辜振甫在新加坡会谈；两岸关系迈出重要一步",
   },
-{
+  {
     id: "chrono-9290adbe",
     title: "世界贸易组织（WTO）成立",
     year: 1995,
@@ -3013,7 +2864,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "1997年；泰国金融危机波及亚洲；中国经济保持稳定；人民币不贬值",
   },
-{
+  {
     id: "chrono-59d02a24",
     title: "北约轰炸南联盟",
     year: 1999,
@@ -3061,14 +2912,6 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "1999年；巴拿马收回运河全部主权；美国长期控制终结；拉美反殖胜利",
   },
-{
-    id: "chrono-39e962a6",
-    title: "\"9·11\"事件",
-    year: 2001,
-    track: "world",
-    category: "社会",
-    summary: "恐怖分子劫机袭击美国；震惊世界；美国发动反恐战争；国际安全格局剧变",
-  },
   {
     id: "chrono-51339681",
     title: "上海合作组织成立",
@@ -3101,7 +2944,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "2002年11月；三个代表重要思想确立为指导思想；胡锦涛当选总书记",
   },
-{
+  {
     id: "chrono-a8aee1b6",
     title: "伊拉克战争",
     year: 2003,
@@ -3133,7 +2976,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "2007年10月；科学发展观写入党章；中国特色社会主义理论体系确立",
   },
-{
+  {
     id: "chrono-79bfd3d8",
     title: "北京奥运会成功举办",
     year: 2008,
@@ -3158,14 +3001,6 @@ export const events: HistoryEvent[] = [
     summary: "美国次贷危机引发全球金融危机；世界经济衰退；暴露金融体系缺陷",
   },
   {
-    id: "chrono-7996da2d",
-    title: "国际金融危机",
-    year: 2008,
-    track: "world",
-    category: "社会",
-    summary: "全球金融危机爆发；多国经济衰退；推动国际金融体系改革",
-  },
-  {
     id: "chrono-4785da9d",
     title: "叙利亚爆发内战",
     year: 2011,
@@ -3173,7 +3008,7 @@ export const events: HistoryEvent[] = [
     category: "战争",
     summary: "2011年；叙利亚内战爆发；难民危机席卷欧洲；中东格局深刻动荡",
   },
-{
+  {
     id: "chrono-49c6d544",
     title: "中共十八大召开",
     year: 2012,
@@ -3182,22 +3017,14 @@ export const events: HistoryEvent[] = [
     summary: "中共十八大召开；确立全面建成小康社会目标；新一代领导集体接班",
   },
   {
-    id: "chrono-db2d4360",
-    title: "提出\"中国梦\"",
-    year: 2012,
-    track: "china",
-    category: "社会",
-    summary: "提出实现中华民族伟大复兴的中国梦；凝聚民族共识；指引发展方向",
-  },
-  {
     id: "chrono-f6e1e29f",
-    title: "提出共建\"一带一路\"倡议",
+    title: "提出共建一带一路倡议",
     year: 2013,
     track: "china",
     category: "交流",
     summary: "2013年；习近平提出一带一路倡议；推动沿线国家互联互通；构建人类命运共同体",
   },
-{
+  {
     id: "chrono-50837361",
     title: "克里米亚危机",
     year: 2014,
@@ -3229,7 +3056,7 @@ export const events: HistoryEvent[] = [
     category: "社会",
     summary: "2016年；英国公投决定脱离欧盟；欧洲一体化遭受重大挫折；全球化的逆流",
   },
-{
+  {
     id: "chrono-2b0cd849",
     title: "中共十九大召开",
     year: 2017,
@@ -3277,7 +3104,7 @@ export const events: HistoryEvent[] = [
     category: "政治",
     summary: "2021年11月；通过《中共中央关于党的百年奋斗重大成就和历史经验的决议》",
   },
-{
+  {
     id: "chrono-9e0b2367",
     title: "俄乌冲突爆发",
     year: 2022,
@@ -3307,7 +3134,7 @@ export const causalLinks: CausalLink[] = [
   { from: "chrono-0560c84c", to: "chrono-28e6019c", description: "商鞅变法使秦国富国强兵，为统一六国奠定基础" },
   { from: "chrono-a4ca0f48", to: "chrono-6cdd7790", description: "英国资产阶级革命引发政治变革，最终以光荣革命完成" },
   { from: "chrono-6cdd7790", to: "chrono-6fb40409", description: "光荣革命后颁布《权利法案》，限制王权" },
-  { from: "chrono-6fb40409", to: "chrono-7fe8e1ba", description: "《权利法案》的颁布标志着君主立宪制确立" },
+  
   { from: "chrono-ebf6135d", to: "chrono-47c3d93a", description: "甲午战争中国战败，被迫签订《马关条约》" },
   { from: "chrono-47c3d93a", to: "chrono-40944d54", description: "《马关条约》激起知识分子愤怒，引发公车上书" },
   { from: "chrono-40944d54", to: "chrono-d1701dd7", description: "公车上书推动维新思想传播，最终导致戊戌变法" },
@@ -3322,12 +3149,12 @@ export const causalLinks: CausalLink[] = [
   { from: "chrono-b2c7a1f0", to: "chrono-0bc3181f", description: "经济大危机为法西斯上台创造条件" },
   { from: "chrono-54a7c6fb", to: "chrono-6a9877f4", description: "德国入侵波兰，第二次世界大战全面爆发" },
   { from: "chrono-bfa50a50", to: "chrono-18a3dff4", description: "苏德战争爆发推动世界反法西斯同盟形成" },
-  { from: "chrono-a417a1f8", to: "chrono-4eea64c8", description: "九一八事变后中国开始局部抗战" },
+  
   { from: "chrono-836dcbda", to: "chrono-63419375", description: "七七事变标志着全面抗战爆发" },
   { from: "chrono-68ddf621", to: "chrono-17294544", description: "西安事变和平解决推动国共第二次合作" },
   { from: "chrono-62f3a667", to: "chrono-ad5566b6", description: "马丁·路德宗教改革推动麦哲伦环球航行时代到来" },
   { from: "chrono-9795030b", to: "chrono-65a4b945", description: "普朗克量子论为爱因斯坦相对论提供科学背景" },
-  { from: "chrono-547b78f1", to: "chrono-234fe5b5", description: "文化大革命结束后召开十一届三中全会，实现历史转折" },
+  
 ];
 
 export function getCausalPartners(eventId: string): { partner: HistoryEvent; description: string }[] {
