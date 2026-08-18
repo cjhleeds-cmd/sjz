@@ -285,7 +285,7 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-af2f79a2",
     title: "古巴比伦王国汉谟拉比颁布法典",
-    year: -18,
+    year: -1754,
     track: "world",
     category: "社会",
     summary: "编纂成文法典；维护社会等级秩序；现存最早的较为完整的成文法典",
@@ -293,7 +293,7 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-78fd8856",
     title: "希腊城邦兴起",
-    year: -8,
+    year: -800,
     track: "world",
     category: "社会",
     summary: "小国寡民的城邦普遍建立；公民政治发展；海外殖民扩张；希腊文明奠基",
@@ -301,7 +301,7 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-b7fc4d42",
     title: "荷马时代结束",
-    year: -8,
+    year: -800,
     track: "world",
     category: "社会",
     summary: "希腊从黑暗时代走出；城邦文明即将兴起；口头史诗传承文化记忆",
@@ -309,7 +309,8 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-ec0f23eb",
     title: "伯里克利时代",
-    year: -5,
+    year: -461,
+    endYear: -429,
     track: "world",
     category: "社会",
     summary: "雅典民主政治鼎盛；公民大会权力最高；奴隶制经济繁荣；文化成就辉煌",
@@ -317,7 +318,8 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-a708588f",
     title: "罗马征服意大利半岛",
-    year: -3,
+    year: -343,
+    endYear: -272,
     track: "world",
     category: "战争",
     summary: "罗马逐步统一意大利；建立罗马同盟体系；为海外扩张奠定基础",
@@ -325,7 +327,7 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-e603a19b",
     title: "罗马征服地中海地区",
-    year: -2,
+    year: -146,
     track: "world",
     category: "战争",
     summary: "击败迦太基征服东地中海；成为地中海霸主；奴隶制经济繁荣",
@@ -333,7 +335,8 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-790c3148",
     title: "布匿战争",
-    year: -2,
+    year: -264,
+    endYear: -146,
     track: "world",
     category: "战争",
     summary: "罗马与迦太基争夺地中海；三次战争罗马获胜；迦太基被毁；罗马崛起为霸主",
@@ -341,7 +344,7 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-b3bee333",
     title: "基督教在巴勒斯坦产生",
-    year: -1,
+    year: 30,
     track: "world",
     category: "社会",
     summary: "耶稣创立基督教；传播平等救赎理念；后成为罗马国教；影响西方文明深远",
@@ -349,7 +352,8 @@ export const events: HistoryEvent[] = [
   {
     id: "chrono-d5a2cedb",
     title: "阿拉伯帝国地跨亚非欧三大洲",
-    year: 8,
+    year: 661,
+    endYear: 750,
     track: "world",
     category: "政治",
     summary: "帝国疆域鼎盛；控制欧亚贸易要道；传播伊斯兰文明；促进东西方文化交流",
